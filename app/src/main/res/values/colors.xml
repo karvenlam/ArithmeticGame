@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="op1_color">#AA0000FF</color>
+    <color name="op2_color">#AA00FF00</color>
+    <color name="result_color">#AAFF0000</color>
+    <color name="operator_color">#AA660000</color>
+    <color name="score_background">#FFAAAAAA</color>
+    <color name="default_background">#FFFFFFFF</color>
+    <color name="default_text">#FF000000</color>
+</resources>

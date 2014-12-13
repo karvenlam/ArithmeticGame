@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<!--todo need to add background -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAllCaps="false"
+            android:textSize="@dimen/button_text_size"
+            android:width="@dimen/menu_button_width"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/menu_button_margin_top"
+            android:layout_marginBottom="@dimen/menu_button_margin_top"
+            android:onClick="onZenStart"
+            android:text="@string/zen"
+            android:id="@+id/zen_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAllCaps="false"
+            android:textSize="@dimen/button_text_size"
+            android:width="@dimen/menu_button_width"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/menu_button_margin_top"
+            android:layout_marginBottom="@dimen/menu_button_margin_top"
+            android:text="@string/journey"
+            android:id="@+id/journey_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAllCaps="false"
+            android:textSize="@dimen/button_text_size"
+            android:width="@dimen/menu_button_width"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/menu_button_margin_top"
+            android:layout_marginBottom="@dimen/menu_button_margin_top"
+            android:text="@string/adventure"
+            android:id="@+id/adventure_button" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:textAllCaps="false"
+            android:textSize="@dimen/button_text_size"
+            android:width="@dimen/menu_button_width"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/menu_button_margin_top"
+            android:layout_marginBottom="@dimen/menu_button_margin_top"
+            android:text="@string/highscore"
+            android:id="@+id/highscore_button" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,33 +1,20 @@
 package com.ravenlamb.android.arithmeticgame;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-
-public class MainActivity extends ActionBarActivity {
+public class JourneyActivity extends ActionBarActivity
+        implements BaseGridView.OnGridViewInteraction {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_journey);
     }
 
-
-    public void onZenStart(View view)
-    {
-        //Toast.makeText(this, "onZenStart",Toast.LENGTH_LONG).show();
-        Intent intent=new Intent(this, ZenActivity.class);
-        startActivity(intent);
-    }
-
-    public void onJourneyStart(View view){
-        Intent intent=new Intent(this, JourneyActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,7 +34,25 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_help) {
+            //todo show help dialog
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.journey_help).setTitle("Journey Help");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onUpdate(BaseGameDriver baseGameDriver) {
+        //todo
+    }
+
+    @Override
+    public void onDebug(BaseGameDriver baseGameDriver) {
+
     }
 }

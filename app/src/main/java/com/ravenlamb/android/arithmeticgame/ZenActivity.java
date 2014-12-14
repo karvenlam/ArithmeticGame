@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.ScaleAnimation;
@@ -131,10 +130,10 @@ public class ZenActivity extends ActionBarActivity
         chainTextView.setTypeface(null, Typeface.NORMAL);
         largestTextView.setTypeface(null, Typeface.NORMAL);
 
-        op1TextView.setText(getString(R.string.unknown_value));
-        op2TextView.setText(getString(R.string.unknown_value));
-        resultTextView.setText(getString(R.string.unknown_value));
-        operatorTextView.setText(getString(R.string.unknown_operator));
+        op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
+        op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
+        resultTextView.setText(BaseGameDriver.UNKNOWN_VALUE);
+        operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
         countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
@@ -152,7 +151,7 @@ public class ZenActivity extends ActionBarActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_game, menu);
         return true;
     }
 
@@ -184,9 +183,20 @@ public class ZenActivity extends ActionBarActivity
     public void onUpdate(BaseGameDriver baseGameDriver) {
         ZenGameDriver zenGameDriver=(ZenGameDriver)baseGameDriver;
 
+        //todo shift operand animation
+        //if result is not valid before, and not valid now, don't need shift animation
+        boolean doShiftAnimation=true;
+        String resultStrBefore=resultTextView.getText().toString();
+        String resultStrAfter=zenGameDriver.getResultNumber();
+        if(resultStrBefore.equals(BaseGameDriver.UNKNOWN_VALUE) &&
+                resultStrAfter.equals(BaseGameDriver.UNKNOWN_VALUE)){
+            doShiftAnimation=false;
+        }
+
+
         op1TextView.setText(zenGameDriver.getOp1Number());
         op2TextView.setText(zenGameDriver.getOp2Number());
-        resultTextView.setText(zenGameDriver.getResultNumber());
+        resultTextView.setText(zenGameDriver.getResultNumber());//todo need to change to resultStrAfter
 //        int operator=baseGameDriver.getStatus();
         int operator=baseGameDriver.getCurrStatus();
         //todo add animation and sound effect
@@ -258,7 +268,7 @@ public class ZenActivity extends ActionBarActivity
             }
 
             int temp=zenGameDriver.getLargest();
-            if(temp>zenHighLargest){
+            if(temp>largest){
                 largest=temp;
                 largestTextView.setText(String.valueOf(largest));
                 if(largest>zenHighLargest){

@@ -140,22 +140,24 @@
             android:gravity="center_horizontal"
             android:id="@+id/timer_linear">
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="@color/default_text"-->
-            <!--android:text="Time"-->
-            <!--android:id="@+id/timer_label_textview" />-->
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/default_text"
+            android:text="Move"
+            android:id="@+id/timer_label_textview" />
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-            <!--android:textColor="@color/default_text"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/timer_textview" />-->
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="@dimen/top_layout_margin"
+            android:textColor="@color/default_text"
+            android:text="0"
+            android:id="@+id/timer_textview" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,7 +174,7 @@
 
 
     <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
-    <com.ravenlamb.android.arithmeticgame.ZenGridView
+    <com.ravenlamb.android.arithmeticgame.JourneyGridView
         android:id="@+id/zen_grid_view"
         android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingLeft="20dp"
         android:paddingBottom="40dp"  />
@@ -243,18 +245,4 @@
             android:id="@+id/result_textview" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/default_text"
-        android:text=""
-        android:id="@+id/history_textview" />
-
-    <!--todo need to remove debug-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="debug"
-        android:id="@+id/debug_textview" />
 </LinearLayout>

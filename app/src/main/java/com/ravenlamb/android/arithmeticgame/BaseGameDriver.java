@@ -12,6 +12,9 @@ import java.security.SecureRandom;
 public class BaseGameDriver {
 
     public static final String TAG=BaseGameDriver.class.getName();
+    public static final String UNKNOWN_VALUE="???";
+    public static final String UNKNOWN_OPERATOR="?";
+
 
     //cell status
     public static final int CELL_NOTSELECTED=0;
@@ -438,10 +441,10 @@ public class BaseGameDriver {
     }
 
     public int getCurrStatus(){ return  currStatus;}
-    public String getOperator(){ return (currStatus!=OP_UNTESTED)?OPERATORS[currStatus]: "?"; }
-    public String getOp1Number(){ return (op1==null)?"???":String.valueOf(op1.number);}
-    public String getOp2Number(){ return (op2==null)?"???":String.valueOf(op2.number);}
-    public String getResultNumber(){ return (result==null)?"???":String.valueOf(result.number);}
+    public String getOperator(){ return (currStatus!=OP_UNTESTED)?OPERATORS[currStatus]: UNKNOWN_OPERATOR; }
+    public String getOp1Number(){ return (op1==null)?UNKNOWN_VALUE:String.valueOf(op1.number);}
+    public String getOp2Number(){ return (op2==null)?UNKNOWN_VALUE:String.valueOf(op2.number);}
+    public String getResultNumber(){ return (result==null)?UNKNOWN_VALUE:String.valueOf(result.number);}
     public int getLargest(){
         if(result.number >= op1.number && result.number >= op2.number){
             return result.number;

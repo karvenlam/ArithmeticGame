@@ -2,14 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ravenlamb.android.arithmeticgame" >
 
-     <!-- todo need icon-->
+    <!-- todo need icon -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.ravenlamb.android.arithmeticgame.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +18,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ravenlamb.android.arithmeticgame.ZenActivity"
+            android:name=".ZenActivity"
             android:label="@string/title_activity_zen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".JourneyActivity"
+            android:label="@string/title_activity_journey" >
         </activity>
     </application>
 

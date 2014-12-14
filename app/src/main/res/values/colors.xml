@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="op1_color">#AA0000FF</color>
-    <color name="op2_color">#AA00FF00</color>
-    <color name="result_color">#AAFF0000</color>
-    <color name="operator_color">#AA660000</color>
-    <color name="score_background">#FFAAAAAA</color>
-    <color name="default_background">#FFFFFFFF</color>
-    <color name="default_text">#FF000000</color>
+    <color name="op1_color">#AA0000FF</color><!--blue-->
+    <color name="op2_color">#AA00FF00</color><!--lime-->
+    <color name="result_color">#AAFF0000</color><!--red-->
+    <color name="operator_color">#AA800000</color><!--maroon-->
+    <color name="score_background">#FFA9A9A9</color><!--darkGray-->
+    <color name="default_background">#FFFFFFFF</color><!--white-->
+    <color name="default_text">#FF000000</color><!--black-->
+    <color name="num_color0">#FF4B0082</color><!--indigo-->
+    <color name="num_color1">#FF00BFFF</color><!--deepSkyBlue-->
+    <color name="num_color2">#FFFF1493</color><!--deepPink-->
+    <color name="num_color3">#FF00FF7F</color><!--springGreen-->
+    <color name="num_color4">#FFBA55B3</color><!--mediumOrchid-->
+    <color name="num_color5">#FFD2691E</color><!--chocolate-->
+    <color name="num_color6">#FF7B68EE</color><!--mediumSlateBlue-->
+    <color name="num_color7">#FFFF8C00</color><!--darkOrange-->
+    <color name="num_color8">#FFFF00FF</color><!--magenta, fuchsia-->
+    <color name="num_color9">#FF808000</color><!--olive-->
 </resources>

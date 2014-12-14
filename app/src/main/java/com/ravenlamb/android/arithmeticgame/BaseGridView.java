@@ -15,20 +15,23 @@ import android.view.View;
  * Todo need to make this abstract
  */
 public abstract class BaseGridView extends View {
+    public final static float STROKE_WIDTH=3f;
+
     protected int gridSize=6;
 
-    private int gridWidth;
-    private int gridHeight;
+    protected int gridWidth;
+    protected int gridHeight;
 
-    private OnGridViewInteraction onGridViewInteraction;
+    protected OnGridViewInteraction onGridViewInteraction;
 //    private ZenGameDriver zenDriver;//todo need to make this BaseGameDriver
     protected BaseGameDriver baseGameDriver;
 
-    private Paint numberPaint;
-    private Paint op1Paint;
-    private Paint op2Paint;
-    private Paint resultPaint;
-    private Paint currentPaint;
+    Paint numberPaint;
+    int[] colorArray;
+    Paint op1Paint;
+    Paint op2Paint;
+    Paint resultPaint;
+    Paint currentPaint;
 
     public BaseGridView(Context context) {
         super(context);
@@ -47,10 +50,9 @@ public abstract class BaseGridView extends View {
 
     private void init(Context context){
 
-        onGridViewInteraction=(OnGridViewInteraction) context;
+        Resources res=getResources();
 
-        //todo move this to abstract
-//        zenDriver=new ZenGameDriver(gridSize,gridSize);
+        onGridViewInteraction=(OnGridViewInteraction) context;
 
         numberPaint=new Paint();
         numberPaint.setFlags(Paint.FAKE_BOLD_TEXT_FLAG);
@@ -58,20 +60,37 @@ public abstract class BaseGridView extends View {
         numberPaint.setTextAlign(Paint.Align.CENTER);
 //        numberPaint.setTypeface();
 
-
-        Resources res=getResources();
+        colorArray=new int[10];
+        colorArray[0]=res.getColor(R.color.num_color0);
+        colorArray[1]=res.getColor(R.color.num_color1);
+        colorArray[2]=res.getColor(R.color.num_color2);
+        colorArray[3]=res.getColor(R.color.num_color3);
+        colorArray[4]=res.getColor(R.color.num_color4);
+        colorArray[5]=res.getColor(R.color.num_color5);
+        colorArray[6]=res.getColor(R.color.num_color6);
+        colorArray[7]=res.getColor(R.color.num_color7);
+        colorArray[8]=res.getColor(R.color.num_color8);
+        colorArray[9]=res.getColor(R.color.num_color9);
 
         op1Paint=new Paint();
         op1Paint.setColor(res.getColor(R.color.op1_color));
+        op1Paint.setStyle(Paint.Style.STROKE);
+        op1Paint.setStrokeWidth(STROKE_WIDTH);
 
         op2Paint=new Paint();
         op2Paint.setColor(res.getColor(R.color.op2_color));
+        op2Paint.setStyle(Paint.Style.STROKE);
+        op2Paint.setStrokeWidth(STROKE_WIDTH);
 
         resultPaint=new Paint();
         resultPaint.setColor(res.getColor(R.color.result_color));
+        resultPaint.setStyle(Paint.Style.STROKE);
+        resultPaint.setStrokeWidth(STROKE_WIDTH);
 
         currentPaint=new Paint();
         currentPaint.setColor(Color.YELLOW);//todo need to match  resultColor
+        currentPaint.setStyle(Paint.Style.STROKE);
+        currentPaint.setStrokeWidth(STROKE_WIDTH);
         initDriver();
 
     }
@@ -130,7 +149,9 @@ public abstract class BaseGridView extends View {
                 }
 
                 //todo draw number in different colors, change font
-                canvas.drawText(String.valueOf(baseGameDriver.getCellNum(i, j)),x,y,numberPaint);
+                int numToDraw=baseGameDriver.getCellNum(i, j);
+                numberPaint.setColor(colorArray[numToDraw]);
+                canvas.drawText(String.valueOf(numToDraw),x,y,numberPaint);
             }
         }
         //canvas.drawText("CENTER",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
@@ -166,9 +187,9 @@ public abstract class BaseGridView extends View {
         {
 //            Toast.makeText(this.getContext(), "onTouch down: "+x+","+y, Toast.LENGTH_LONG).show();
             baseGameDriver.startingCoord(x, y);
-            if(baseGameDriver.getCellNum(x,y)==0){
-                onGridViewInteraction.onUpdate(baseGameDriver);
-            }
+//            if(baseGameDriver.getCellNum(x,y)==0){
+//                onGridViewInteraction.onUpdate(baseGameDriver);
+//            }
 //            touchStarted(event.getX(actionIndex), event.getY(actionIndex),
 //                    event.getPointerId(actionIndex));
         }
@@ -179,7 +200,8 @@ public abstract class BaseGridView extends View {
             if(baseGameDriver.endingCoord(x,y)){
 //                onGridViewInteraction.onUpdate(baseGameDriver);
             }
-            onGridViewInteraction.onUpdate(baseGameDriver);//need to update operand even if equation invalid
+            //need to update operand even if result is invalid, set resultTextView to ???
+            onGridViewInteraction.onUpdate(baseGameDriver);
 //            touchEnded(event.getPointerId(actionIndex));
         }
         else

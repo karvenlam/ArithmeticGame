@@ -4,23 +4,54 @@
     <string name="app_name">Arithmetic Game</string>
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
-
-
-
     <string name="zen">Zen</string>
     <string name="journey">Journey</string>
     <string name="adventure">Adventure</string>
     <string name="highscore">High Score</string>
-    <string name="title_activity_zen">Arithmetic Zen</string>
-
     <string name="unknown_value">\?\?\?</string>
     <string name="unknown_operator">\?</string>
-
-    <string name="zen_help">Select numbers vertically, horizontally or diagonally. Score when distinct set of three consecutive numbers forms a valid arithmetic equation.
-    Two out of three numbers must be greater than 10.</string>
-
-    <string name="score_system">For addition and subtraction, score=log10(operand1)+log10(operand2)+log10(result).
-        For multiplication and division, score=(log10(operand1)+1) x (log10(operand2)+1) x (log10(result)+1).
+    <string name="title_activity_zen">Arithmetic Zen</string>
+    <string name="zen_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
+        \n
+        When a valid number is first selected, it appears on the right side of the equation at the red position.
+        After the next valid operand is selected, the number at the red position shifts to the green position.
+        And the number at the green position shifts to the blue position.
+        The newly selected number then takes the red position.
+        \n
+        When the three numbers form a correct arithmetic(+-\u00D7\u00F7) equation, you earn score.
+        When you continuously form correct arithmetic equations, you gain chain multiplier.
+        \n
+        Valid numbers cannot have leading zeros and cannot intersect each other.
+        In Zen mode, two out of three numbers must be at least 2 digits long.
+        And each set of numbers must be unique.
+        \n
+        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
+        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        The score is then multiplied by the current chain number.
+    </string>
+    <string name="title_activity_journey">Arithmetic Journey</string>
+    <string name="journey_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
+        \n
+        When a valid number is first selected, it appears on the right side of the equation at the red position.
+        After the next valid operand is selected, the number at the red position shifts to the green position.
+        And the number at the green position shifts to the blue position.
+        The newly selected number then takes the red position.
+        \n
+        When the three numbers form a correct arithmetic(+-\u00D7\u00F7) equation, you earn score.
+        When you continuously form correct arithmetic equations, you gain chain multiplier.
+        \n
+        Valid numbers cannot have leading zeros and cannot intersect each other.
+        In Journey mode, one of the numbers must be at least 2 digits long.
+        For each valid number selected, one move is deducted. When you runs out of moves, you lose.
+        After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
+        \n
+        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
+        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        The score is then multiplied by the current chain number.
+    </string>
+    <string name="score_system">
+        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
+        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The score is then multiplied by the current chain number.
     </string>
 

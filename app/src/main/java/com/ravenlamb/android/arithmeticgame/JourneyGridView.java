@@ -1,9 +1,11 @@
 package com.ravenlamb.android.arithmeticgame;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
@@ -13,13 +15,24 @@ import android.view.MotionEvent;
  */
 public class JourneyGridView extends BaseGridView {
 
-    private int animateStage=0;
+    public static final String TAG=JourneyGridView.class.getName();
+
     Paint numberAnimatePaint;
     boolean[][] shouldAnimate;
+    float animateTextSize;
+    float numberTextSize;
     boolean gameOver=false;//todo
 
     public JourneyGridView(Context context) {
         super(context);
+    }
+
+    public JourneyGridView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    public JourneyGridView(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     @Override
@@ -34,8 +47,13 @@ public class JourneyGridView extends BaseGridView {
         numberAnimatePaint.setFlags(Paint.FAKE_BOLD_TEXT_FLAG);
         numberAnimatePaint.setColor(Color.BLACK);
         numberAnimatePaint.setTextAlign(Paint.Align.CENTER);
+        animateTextSize=numberPaint.getTextSize();
+        numberTextSize=animateTextSize;
 
         baseGameDriver=new JourneyGameDriver(gridSize,gridSize);
+
+        gameOver=false;
+        JourneyGridView.this.setEnabled(true);
     }
 
     @Override
@@ -43,12 +61,12 @@ public class JourneyGridView extends BaseGridView {
         gridWidth=canvas.getWidth()/gridSize;
         gridHeight=canvas.getHeight()/gridSize;
         int circleRadius=(gridHeight>gridWidth)? gridWidth/2:gridHeight/2;
+        numberTextSize=gridHeight/2;
         numberPaint.setTextSize(gridHeight / 2);
 
         for(int i=0;i<gridSize;i++){
             for(int j=0;j<gridSize;j++){
                 float x=i*gridWidth+gridWidth/2;
-                float y=j*gridHeight+gridHeight/2 - ((numberPaint.descent() + numberPaint.ascent()) / 2);
                 float circleY=j*gridHeight+gridHeight/2;
                 switch (baseGameDriver.getCellStatus(i,j)){
                     case BaseGameDriver.CELL_OPERAND1:
@@ -67,15 +85,36 @@ public class JourneyGridView extends BaseGridView {
 
                 //todo draw number in different colors, change font
                 //todo if shouldAnimate, use the numberAnimatePaint
-                canvas.drawText(String.valueOf(baseGameDriver.getCellNum(i, j)),x,y,numberPaint);
+                int numToDraw=baseGameDriver.getCellNum(i, j);
+                if(shouldAnimate[i][j]){
+                    numberAnimatePaint.setTextSize(animateTextSize);
+                    numberAnimatePaint.setColor(colorArray[numToDraw]);
+                    float numY=j*gridHeight+gridHeight/2 - ((numberAnimatePaint.descent() + numberAnimatePaint.ascent()) / 2);
+                    canvas.drawText(String.valueOf(numToDraw),x,numY,numberAnimatePaint);
+                }else{
+                    float numY=j*gridHeight+gridHeight/2 - ((numberPaint.descent() + numberPaint.ascent()) / 2);
+                    numberPaint.setColor(colorArray[numToDraw]);
+                    canvas.drawText(String.valueOf(numToDraw),x,numY,numberPaint);
+                }
+
             }
         }
-        //canvas.drawText("CENTER",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+//        Log.w(TAG,"onDraw");
+        if(animateTextSize<numberTextSize){
+            invalidate();
+        }
+        if(gameOver){
+            numberPaint.setColor(Color.BLACK);
+            canvas.drawText("OUT OF MOVES",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
+        if(gameOver){
+            return true;
+        }
         // get the event type and the ID of the pointer that caused the event
         int action = event.getActionMasked(); // event type
         int actionIndex = event.getActionIndex(); // pointer (i.e., finger)
@@ -101,9 +140,9 @@ public class JourneyGridView extends BaseGridView {
         {
 //            Toast.makeText(this.getContext(), "onTouch down: "+x+","+y, Toast.LENGTH_LONG).show();
             baseGameDriver.startingCoord(x, y);
-            if(baseGameDriver.getCellNum(x,y)==0){
-                onGridViewInteraction.onUpdate(baseGameDriver);
-            }
+//            if(baseGameDriver.getCellNum(x,y)==0){
+//                onGridViewInteraction.onUpdate(baseGameDriver);
+//            }
 //            touchStarted(event.getX(actionIndex), event.getY(actionIndex),
 //                    event.getPointerId(actionIndex));
         }
@@ -123,6 +162,24 @@ public class JourneyGridView extends BaseGridView {
                     //todo animate cell replacement and call JourneyGameDriver to replace number
                     //replace number
                     //value animate the alpha or textSize, Property Animation
+                    JourneyGameDriver journeyGameDriver = (JourneyGameDriver) baseGameDriver;
+                    BaseGameDriver.Coord[] coords= journeyGameDriver.replaceOperandCells();
+                    for(int i=0;i<gridSize;i++){
+                        for(int j=0;j<gridSize;j++){
+                            shouldAnimate[i][j]=false;
+                        }
+                    }
+                    for (BaseGameDriver.Coord coord : coords) {
+                        shouldAnimate[coord.x][coord.y] = true;
+                    }
+//                    ObjectAnimator objectAnimator=new ObjectAnimator();
+//                    objectAnimator.setInterpolator(new OvershootInterpolator());
+//                    objectAnimator.setObjectValues(this);
+//                    objectAnimator.setPropertyName("animateTextSize");
+//                    objectAnimator.setFloatValues(numberTextSize/2,numberTextSize);
+//                    objectAnimator.setDuration(500).start();
+                    ObjectAnimator.ofFloat(JourneyGridView.this, "animateTextSize",numberTextSize/2,numberTextSize).setDuration(50).start();
+
                 }
             }
             onGridViewInteraction.onUpdate(baseGameDriver);//need to update operand even if equation invalid
@@ -138,4 +195,17 @@ public class JourneyGridView extends BaseGridView {
         invalidate(); // redraw
         return  true;
     }
+
+    //for ObjectAnimator
+    public void setAnimateTextSize(float ts){
+//        Log.w(TAG,"setAnimateTextSize: "+ts+","+animateTextSize);
+        animateTextSize=ts;
+    }
+
+    public void setGameOver(){
+        gameOver=true;
+        invalidate();
+    }
+
+
 }

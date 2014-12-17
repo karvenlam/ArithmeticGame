@@ -11,10 +11,14 @@ import android.view.View;
 
 
 /**
- * TODO: document your custom view class.
- * Todo need to make this abstract
+ * Base class to display the number grid. Uses BaseGameDriver.
+ *
+ * @author karven lam
+ * @version 1.0 2014-12-15
+ * @see com.ravenlamb.android.arithmeticgame.BaseGameDriver
  */
 public abstract class BaseGridView extends View {
+
     public final static float STROKE_WIDTH=3f;
 
     protected int gridSize=6;
@@ -23,7 +27,6 @@ public abstract class BaseGridView extends View {
     protected int gridHeight;
 
     protected OnGridViewInteraction onGridViewInteraction;
-//    private ZenGameDriver zenDriver;//todo need to make this BaseGameDriver
     protected BaseGameDriver baseGameDriver;
 
     Paint numberPaint;
@@ -48,6 +51,10 @@ public abstract class BaseGridView extends View {
         init(context);
     }
 
+    /**
+     * Initialize the view
+     * @param context
+     */
     private void init(Context context){
 
         Resources res=getResources();
@@ -95,7 +102,9 @@ public abstract class BaseGridView extends View {
 
     }
 
-    //todo initialize baseDriver
+    /**
+     * abstract class, must assign baseGameDriver to a sub class of BaseGameDriver
+     */
     public abstract void initDriver();
 
 
@@ -148,14 +157,12 @@ public abstract class BaseGridView extends View {
                         break;
                 }
 
-                //todo draw number in different colors, change font
                 int numToDraw=baseGameDriver.getCellNum(i, j);
                 numberPaint.setColor(colorArray[numToDraw]);
                 canvas.drawText(String.valueOf(numToDraw),x,y,numberPaint);
             }
         }
         //canvas.drawText("CENTER",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
-
     }
 
     @Override
@@ -187,37 +194,31 @@ public abstract class BaseGridView extends View {
         {
 //            Toast.makeText(this.getContext(), "onTouch down: "+x+","+y, Toast.LENGTH_LONG).show();
             baseGameDriver.startingCoord(x, y);
-//            if(baseGameDriver.getCellNum(x,y)==0){
-//                onGridViewInteraction.onUpdate(baseGameDriver);
-//            }
-//            touchStarted(event.getX(actionIndex), event.getY(actionIndex),
-//                    event.getPointerId(actionIndex));
         }
         else if (action == MotionEvent.ACTION_UP ||
                 action == MotionEvent.ACTION_POINTER_UP)
         {
 //            Toast.makeText(this.getContext(), "onTouch up: "+x+","+y, Toast.LENGTH_LONG).show();
             if(baseGameDriver.endingCoord(x,y)){
-//                onGridViewInteraction.onUpdate(baseGameDriver);
+//                don't need this at the moment
             }
             //need to update operand even if result is invalid, set resultTextView to ???
             onGridViewInteraction.onUpdate(baseGameDriver);
-//            touchEnded(event.getPointerId(actionIndex));
         }
         else
         {
+            //moved
 //            Toast.makeText(this.getContext(), "onTouch move: "+x+","+y, Toast.LENGTH_LONG).show();
             baseGameDriver.hoveringCoord(x, y);
-//            touchMoved(event);
         }
 
         invalidate(); // redraw
-        return  true;
+        return  true; //touch event handled
     }
 
 
     public interface OnGridViewInteraction{
-        public void onDebug(BaseGameDriver baseGameDriver);
+        public void onDebug(BaseGameDriver baseGameDriver);//don't really need this
         public void onUpdate(BaseGameDriver baseGameDriver);
     }
 }

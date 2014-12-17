@@ -1,13 +1,21 @@
 package com.ravenlamb.android.arithmeticgame;
 
 
-import android.util.Log;
-
 import java.security.SecureRandom;
 
 
 /**
  * Created by kl on 12/2/2014.
+ * BaseGameDriver is the base class of the Arithmetic Game mechanics.
+ *
+ * BaseGameDriver generates a random numeric grid. Allows user to select 3 numbers in a straight line
+ * one grid cell at a time. And verify whether the 3 numbers form a correct arithmetic equation.
+ *
+ * operand1 (+-x/) operand2 = result
+ *
+ * @author Karven Lam
+ * @version 1.0 2014-12-14
+ * @see com.ravenlamb.android.arithmeticgame.BaseGridView
  */
 public class BaseGameDriver {
 
@@ -40,15 +48,13 @@ public class BaseGameDriver {
 
     SecureRandom random;//random.nextInt(10);
 
-//    Coord currStartCoord;
-//    Coord currHoverCoord;//might not need this
-//    Coord currEndCoord;
+    //current status of arithmetic equation
     protected int currStatus;//OP_UNTESTED, OP_INVALID, ...
-//    boolean readyForNewNumber =false;
 
     protected Operand op1;
     protected Operand op2;
     protected Operand result;
+    //currently partially selected
     protected Operand current;
 
     public BaseGameDriver(int r, int c){
@@ -62,15 +68,16 @@ public class BaseGameDriver {
                 cells[i][j]=random.nextInt(10);
             }
         }
-
-        //todo need to remove this later
-//        op1=new Operand(new Coord(0,4), new Coord(4,4));
-//        op2=new Operand(new Coord(4,4), new Coord(4,2));
-//        result=new Operand(new Coord(2,2), new Coord(2,2));
-//        readyForNewNumber =true;
     }
 
-    /* Start a new number */
+    /**
+     * Start selecting a new number at position (x, y) if position is not already selected.
+     * If result already contains a number, shift the operands to the left.
+     * Should be called by onTouchEvent ACTION_DOWN
+     *
+     * @param x row x in the grid
+     * @param y column y in the grid
+     */
     public void startingCoord(int x, int y){
         if(result!=null){
             shiftOperand();//todo need to test for result, currStatus =OP_UNTESTED also set in shiftOperand
@@ -82,15 +89,20 @@ public class BaseGameDriver {
         }
     }
 
+    /**
+     * Continue selecting the number. If position has not been selected, attempt to change the ending
+     * coordinate of the current selecting number.
+     * Should be called by ACTION_MOVE
+     *
+     * @param x
+     * @param y
+     */
     public void hoveringCoord(int x, int y){
-        //toto need to test x,y is selected
-
         if(current==null){
-            //startingCoord(x, y);
-            return;
+            return;//ACTION_DOWN coordinate is not valid
         }
         if(!current.isPartOfOperand(x,y) && getCellStatus(x,y)!=CELL_NOTSELECTED){
-            current=null;
+            current=null;//intersecting another operand
             return;
         }
         if(current.startCoord.x!=x || current.startCoord.y!=y){
@@ -99,25 +111,29 @@ public class BaseGameDriver {
 //        Log.d(TAG,"hoveringCoord: "+x+" "+y );
     }
 
-    /* check whether number is valid,
-    if so, set to appropriate operand
-    else, clear currStartCoord
-    * */
+
+    /**
+     * Ending the selection of the current number. Assign current selected number to result.
+     * Call the computeStatus method to test whether this equation is correct.
+     * Should be called by onTouchEvent ACTION_UP
+     *
+     * @param x
+     * @param y
+     * @return return true if starting point and ending point of current is valid and the value of current is assigned to result.
+     * @see #computeStatus()
+     */
     public boolean endingCoord(int x, int y){
         //return whether endCoord is valid
-
         if(current==null ){
-            return false;
+            return false;//starting coordinate is not valid
         }
-        //end coord is valid if it's in the same row, the same column or in diagonal as the start coord
-        if(getCellStatus(x,y)==CELL_NOTSELECTED){
-            current.changeEndCoord(x,y);
+        if(getCellStatus(x,y)==CELL_NOTSELECTED){//(x,y) should be selected from hoveringCoord, but just in case
+            current.changeEndCoord(x,y);//attempt to change end coordinate for current
         }
-        if(current.isPointsInStraightLine()){
-            //one digit is still valid
+        if(current.isPointsInStraightLine()){//double checking starting point and ending point of current is in straight line
             result=current;
-            getStatus();
-//            readyForNewNumber =false;
+            current=null;
+            computeStatus();
 //            Log.d(TAG,"endingCoord: "+x+" "+y );
             return true;
         }else
@@ -131,7 +147,14 @@ public class BaseGameDriver {
     assign currStatus with the 3 operands and
     return the operator
      */
-    protected int getStatus(){
+
+    /**
+     * compute the current status of this object. Value can be OP_INVALID, OP_ADDITION, OP_SUBTRACTION,
+     * OP_MULTIPLICATION, OP_DIVISION.
+     *
+     * @return the current equation status
+     */
+    protected int computeStatus(){
         currStatus= OP_INVALID;
         if(op1 == null || op2 == null || result==null){
             currStatus= OP_INVALID;
@@ -146,11 +169,15 @@ public class BaseGameDriver {
         }else if(op2.number != 0 && op1.number/op2.number == result.number){
             currStatus= OP_DIVISION;
         }
-//        Log.d(TAG,"getStatus: "+currStatus );
+//        Log.d(TAG,"computeStatus: "+currStatus );
         return currStatus;
     }
 
-
+    /**
+     * return the current equation in a string if it is correct.
+     * most likely used for debugging
+     * @return the current equation in a string
+     */
     public String getCurrEquation(){
         String temp="";
         if(op1 == null || op2 == null || result==null){
@@ -171,7 +198,11 @@ public class BaseGameDriver {
         return temp;
     }
 
-
+    /**
+     * shift the operands and the properties of the operands one position to the left.
+     * set the result and current selected number to null.
+     * used when starting to select a new number
+     */
     public void shiftOperand(){
         //todo: shift result to op2, op2 to op1, clear result and curr Coords
         if(currStatus==OP_UNTESTED){
@@ -184,6 +215,12 @@ public class BaseGameDriver {
         currStatus=OP_UNTESTED;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @return return the number stored in position x, y
+     */
     public int getCellNum(int x, int y){
         if(cells !=null && x<rows && y<cols){
             return cells[x][y];
@@ -193,6 +230,13 @@ public class BaseGameDriver {
         }
     }
 
+    /**
+     * Return the status at position x, y
+     * Either not selected, part of operand1, operand2, result or currently selected number
+     * @param x
+     * @param y
+     * @return
+     */
     public int getCellStatus(int x, int y){
         if(op1 !=null && op1.isPartOfOperand(x,y)){
             return CELL_OPERAND1;
@@ -236,6 +280,11 @@ public class BaseGameDriver {
         return temp.toString();
     }
 
+    /**
+     * Operand class, include starting coordinate, and ending coordinate
+     * the selected number is stored after each change of ending coordinate
+     *
+     */
     public class Operand{
         public Coord startCoord;
         public Coord endCoord;
@@ -244,6 +293,12 @@ public class BaseGameDriver {
         int stepY=0;
         int numberOfDigits=0;
 
+        /**
+         * initialize operand and try to compute number if coordinates are in a straight line
+         * usually initialized with a pair of identical coordinate
+         * @param s
+         * @param e
+         */
         public Operand(Coord s, Coord e){
             startCoord=new Coord(s.x, s.y);
             endCoord=new Coord(e.x, e.y);
@@ -255,9 +310,12 @@ public class BaseGameDriver {
             }
         }
 
+        /**
+         * obtain the number from the line formed by the coordinates on the grid
+         * if the number starts with zero, it is zero
+         */
         protected void computeNumber(){
-            //todo, assign number
-            // drop leading zeroes and move start coord
+            //no leading zero
             number=0;
             stepX=returnStep(startCoord.x,endCoord.x);
             stepY=returnStep(startCoord.y,endCoord.y);
@@ -268,7 +326,7 @@ public class BaseGameDriver {
             for(int i=0;i< numberOfDigits;i++){
                 number=number*10 + BaseGameDriver.this.cells[tempX][tempY];
                 if(number==0 && numberOfDigits >1){
-//                    if number is 0 and startCoord!=endCoord
+//                    if number has a leading zero, it is zero
                     endCoord.x=startCoord.x;
                     endCoord.y=startCoord.y;
                     stepX=0;
@@ -284,6 +342,12 @@ public class BaseGameDriver {
             }
         }
 
+        /**
+         *
+         * @param x
+         * @param y
+         * @return
+         */
         public boolean changeEndCoord(int x, int y){
             //return true if endCoord is changed
             //return false if endCoord is not changed or x,y is not valid
@@ -301,6 +365,12 @@ public class BaseGameDriver {
         }
 
 
+        /**
+         * Return whether position x, y is part of the operand
+         * @param x
+         * @param y
+         * @return true if position x, y is part of the operand
+         */
         public boolean isPartOfOperand(int x, int y){
             //todo need to debug
             //single point
@@ -321,18 +391,27 @@ public class BaseGameDriver {
                 //the endCoord should be at numOfDigits-1
             }
             //diagonal,
-            if(slopexfactor==slopeyfactor && slopexfactor<numberOfDigits && slopexfactor>0){
-                return true;
-            }
-            return false;
+            return slopexfactor == slopeyfactor && slopexfactor < numberOfDigits && slopexfactor > 0;
         }
 
+        /**
+         *
+         * @return Return true if start coordinate and end coordinate are in a vertical, horizontal or diagonal line
+         */
         public boolean isPointsInStraightLine(){
             return isPointsInStraightLine(startCoord.x, startCoord.y, endCoord.x, endCoord.y);
         }
 
-        //end coord is valid if it's in the same row, the same column or in diagonal as the start coord
+        /**
+         *
+         * @param start_x
+         * @param start_y
+         * @param end_x
+         * @param end_y
+         * @return Return true if start coordinate and end coordinate are in a vertical, horizontal or diagonal line
+         */
         public boolean isPointsInStraightLine(int start_x, int start_y, int end_x, int end_y){
+            //end coord is valid if it's in the same row, the same column or in diagonal as the start coord
             if(start_x==end_x || start_y==end_y
                     || Math.abs(start_x-end_x)==Math.abs(start_y-end_y)){
                 return true;
@@ -342,11 +421,22 @@ public class BaseGameDriver {
             }
         }
 
+        /**
+         *
+         * @return return all coordinates between starting coordinate and ending coordinate inclusive
+         */
         public Coord[] getAll(){
             return getAll(startCoord.x, startCoord.y, endCoord.x, endCoord.y);
         }
 
-
+        /**
+         *
+         * @param start_x
+         * @param start_y
+         * @param end_x
+         * @param end_y
+         * @return return all coordinates between starting coordinate and ending coordinate inclusive
+         */
         public Coord[] getAll(int start_x, int start_y, int end_x, int end_y){
 
             if(start_x==end_x || start_y==end_y
@@ -365,6 +455,13 @@ public class BaseGameDriver {
             return null;
         }
 
+        /**
+         * Return 0 if a=b, 1 if b>a, -1 if a>b
+         * used to calculate direction from starting coordinate to ending coordinate
+         * @param a
+         * @param b
+         * @return
+         */
         public int returnStep(int a, int b){
             if(b>a){
                 return 1;
@@ -374,6 +471,10 @@ public class BaseGameDriver {
             return 0;
         }
 
+        /**
+         * Return the length of the operand
+         * @return
+         */
         public int getNumberOfDigits(){
             if(!isPointsInStraightLine()){
 //                Log.d(TAG,"getNumberOfDigits: "+this.toString() );
@@ -386,6 +487,14 @@ public class BaseGameDriver {
             }
         }
 
+        /**
+         * Return the length of operand between starting coordinate and ending coordinate
+         * @param start_x
+         * @param start_y
+         * @param end_x
+         * @param end_y
+         * @return
+         */
         public int getNumberOfDigits(int start_x, int start_y, int end_x, int end_y){
             if(!this.isPointsInStraightLine(start_x, start_y, end_x, end_y)){
 //                Log.d(TAG,"getNumberOfDigits:_ "+start_x+", "+start_y+", "+ end_x+", "+ end_y );
@@ -434,6 +543,7 @@ public class BaseGameDriver {
             return (x==c2.x && y==c2.y);
         }
 
+
         @Override
         public String toString() {
             return "("+x+","+y+")";
@@ -445,6 +555,11 @@ public class BaseGameDriver {
     public String getOp1Number(){ return (op1==null)?UNKNOWN_VALUE:String.valueOf(op1.number);}
     public String getOp2Number(){ return (op2==null)?UNKNOWN_VALUE:String.valueOf(op2.number);}
     public String getResultNumber(){ return (result==null)?UNKNOWN_VALUE:String.valueOf(result.number);}
+
+    /**
+     * return the largest of the operand
+     * @return
+     */
     public int getLargest(){
         if(result.number >= op1.number && result.number >= op2.number){
             return result.number;
@@ -457,11 +572,15 @@ public class BaseGameDriver {
     }
 
 
+    /**
+     * score calculation
+     * @return
+     */
     public double getScore(){
         double temp=0;
         //todo log +1 * for */, log +
         if(currStatus==OP_UNTESTED){
-            getStatus();
+            computeStatus();
         }
         if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION){
             temp+=Math.log10(op1.number)+Math.log10(op2.number)+Math.log10(result.number);

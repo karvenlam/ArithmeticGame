@@ -30,8 +30,8 @@ public class ZenGameDriver extends BaseGameDriver {
 //    }
 
     @Override
-    protected int getStatus() {
-        int superStatus= super.getStatus();
+    protected int computeStatus() {
+        int superStatus= super.computeStatus();
         if(superStatus!=OP_INVALID){
             int[] nums=new int[3];
             nums[0]=op1.number;
@@ -58,7 +58,7 @@ public class ZenGameDriver extends BaseGameDriver {
     @Override
     public String getCurrEquation() {
         if(currStatus==OP_UNTESTED){
-            getStatus();
+            computeStatus();
         }
         if( currStatus!=OP_INVALID){
             return super.getCurrEquation();

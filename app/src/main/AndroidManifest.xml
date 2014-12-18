@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name=".JourneyActivity"
-            android:label="@string/title_activity_journey" >
+            android:label="@string/title_activity_journey"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

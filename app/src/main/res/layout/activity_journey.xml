@@ -127,12 +127,12 @@
                 android:id="@+id/largest_textview" />
         </LinearLayout>
 
-        <!--todo change visibility for zen-->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
             android:paddingLeft="@dimen/score_side_padding"
             android:paddingRight="@dimen/score_side_padding"
             android:paddingTop="@dimen/score_top_padding"
@@ -146,8 +146,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold"
             android:textColor="@color/default_text"
-            android:text="Move"
-            android:id="@+id/timer_label_textview" />
+            android:text="Moves"
+            android:id="@+id/moves_label_textview" />
 
             <TextView
             android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
             android:layout_marginBottom="@dimen/top_layout_margin"
             android:textColor="@color/default_text"
             android:text="0"
-            android:id="@+id/timer_textview" />
+            android:id="@+id/moves_textview" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -175,7 +175,9 @@
 
     <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
     <com.ravenlamb.android.arithmeticgame.JourneyGridView
-        android:id="@+id/zen_grid_view"
+        android:id="@+id/journey_grid_view"
+        android:background="@color/default_background"
+        android:layout_gravity="center"
         android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingLeft="20dp"
         android:paddingBottom="40dp"  />
 

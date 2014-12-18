@@ -34,7 +34,7 @@ public class ZenActivity extends ActionBarActivity
     TextView operatorTextView;
     TextView resultTextView;
     TextView historyTextView;
-    TextView debugTextView;
+//    TextView debugTextView;
 
     TextView scoreTextView;
     TextView countTextView;
@@ -91,7 +91,7 @@ public class ZenActivity extends ActionBarActivity
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
         historyTextView = (TextView) findViewById(R.id.history_textview);
-        debugTextView = (TextView) findViewById(R.id.debug_textview);
+//        debugTextView = (TextView) findViewById(R.id.debug_textview);
 
         zenPreferences=getSharedPreferences(ZEN_PREFERENCES,0);
         zenHighScore=zenPreferences.getFloat(HIGH_SCORE, 0);
@@ -139,7 +139,7 @@ public class ZenActivity extends ActionBarActivity
         chainTextView.setText(String.valueOf(chain));
         largestTextView.setText(String.valueOf(largest));
 
-        zenGridView.initDriver();//todo
+        zenGridView.initDriver();
         zenGridView.invalidate();
 
     }
@@ -196,8 +196,8 @@ public class ZenActivity extends ActionBarActivity
 
         op1TextView.setText(zenGameDriver.getOp1Number());
         op2TextView.setText(zenGameDriver.getOp2Number());
-        resultTextView.setText(zenGameDriver.getResultNumber());//todo need to change to resultStrAfter
-//        int operator=baseGameDriver.getStatus();
+        resultTextView.setText(resultStrAfter);
+//        int operator=baseGameDriver.computeStatus();
         int operator=baseGameDriver.getCurrStatus();
         //todo add animation and sound effect
         //todo add high score, chains, largest number
@@ -218,7 +218,7 @@ public class ZenActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighChain=chain;
                 edit.putInt(HIGH_CHAIN,chain);
-                //todo new high chain animation
+                //todo new high chain animation, need to change to translate bounce
                 chainTextView.setTypeface(null, Typeface.BOLD);
                 ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                 scaleAnimation.setDuration(500);

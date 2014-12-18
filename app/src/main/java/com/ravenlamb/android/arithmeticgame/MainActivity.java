@@ -16,10 +16,25 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    protected void onResume() {
+        //todo start number animation
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        //todo stop number animation
+        super.onPause();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
 
     public void onZenStart(View view)
     {
-        //Toast.makeText(this, "onZenStart",Toast.LENGTH_LONG).show();
         Intent intent=new Intent(this, ZenActivity.class);
         startActivity(intent);
     }

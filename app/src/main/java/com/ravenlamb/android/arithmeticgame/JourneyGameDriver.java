@@ -1,5 +1,6 @@
 package com.ravenlamb.android.arithmeticgame;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,22 +11,59 @@ import java.util.Arrays;
 public class JourneyGameDriver extends BaseGameDriver {
     int operandMin=10;
 
-    boolean op1OnGrid=false;
-    boolean op2OnGrid=false;
-    boolean resultOnGrid=false;
+    boolean op1OnGrid=true;
+    boolean op2OnGrid=true;
+    boolean resultOnGrid=true;
 
     public JourneyGameDriver(int r, int c) {
         super(r, c);
     }
 
-    public void replaceOperandCells(){
+    public Coord[] replaceOperandCells(){
         //todo
+        ArrayList<Coord> tempList=new ArrayList<Coord>();
+        if(op1OnGrid){
+            Coord[] temp=op1.getAll();
+            for(int i=0;i<temp.length;i++){
+                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+            }
+            op1OnGrid=false;
+            tempList.addAll(Arrays.asList(temp));
+        }
+        if(op2OnGrid){
+            Coord[] temp=op2.getAll();
+            for(int i=0;i<temp.length;i++){
+                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+            }
+            op2OnGrid=false;
+            tempList.addAll(Arrays.asList(temp));
+        }
+        if(resultOnGrid){
+            Coord[] temp=result.getAll();
+            for(int i=0;i<temp.length;i++){
+                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+            }
+            resultOnGrid=false;
+            tempList.addAll(Arrays.asList(temp));
+        }
+        Coord[] coords=new Coord[tempList.size()];
+        for(int i=0;i<coords.length;i++){
+            coords[i]=tempList.get(i);
+        }
+        return coords;
     }
 
+    @Override
+    public void shiftOperand() {
+        super.shiftOperand();
+        op1OnGrid=op2OnGrid;
+        op2OnGrid=resultOnGrid;
+        resultOnGrid=true;
+    }
 
     @Override
-    protected int getStatus() {
-        int superStatus= super.getStatus();
+    protected int computeStatus() {
+        int superStatus= super.computeStatus();
         if(superStatus!=OP_INVALID){
             int[] nums=new int[3];
             nums[0]=op1.number;

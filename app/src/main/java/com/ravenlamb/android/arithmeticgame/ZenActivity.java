@@ -11,9 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 
@@ -26,6 +29,7 @@ public class ZenActivity extends ActionBarActivity
     public static final String HIGH_COUNT="highCount";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
+    public static final int animationRepeat=4;
 
     ZenGridView zenGridView;
 
@@ -220,9 +224,17 @@ public class ZenActivity extends ActionBarActivity
                 edit.putInt(HIGH_CHAIN,chain);
                 //todo new high chain animation, need to change to translate bounce
                 chainTextView.setTypeface(null, Typeface.BOLD);
+
+//                TranslateAnimation translateAnimation= new TranslateAnimation(Animation.RELATIVE_TO_SELF,-.5f,Animation.RELATIVE_TO_SELF,.5f,
+//                        Animation.RELATIVE_TO_SELF,0f,Animation.RELATIVE_TO_SELF,-.5f);
+//                translateAnimation.setDuration(500);
+//                translateAnimation.setRepeatCount(animationRepeat);
+//                translateAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                chainTextView.startAnimation(translateAnimation);
                 ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                 scaleAnimation.setDuration(500);
-                scaleAnimation.setInterpolator(new BounceInterpolator());
+                scaleAnimation.setRepeatCount(animationRepeat);
+                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                 chainTextView.startAnimation(scaleAnimation);
             }else{
                 chainTextView.setTypeface(null, Typeface.NORMAL);
@@ -244,7 +256,8 @@ public class ZenActivity extends ActionBarActivity
                     scoreTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     scoreTextView.startAnimation(scaleAnimation);
                 }
             }
@@ -262,7 +275,8 @@ public class ZenActivity extends ActionBarActivity
                     countTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     countTextView.startAnimation(scaleAnimation);
                 }
             }
@@ -279,7 +293,8 @@ public class ZenActivity extends ActionBarActivity
                     largestTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     largestTextView.startAnimation(scaleAnimation);
                 }else{
                     largestTextView.setTypeface(null, Typeface.NORMAL);

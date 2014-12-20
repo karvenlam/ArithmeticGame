@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class JourneyActivity extends ActionBarActivity
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
     public static final float INITIAL_MOVES=10;
+    public static final int animationRepeat=4;
 
     JourneyGridView journeyGridView;
 
@@ -205,7 +207,8 @@ public class JourneyActivity extends ActionBarActivity
                 chainTextView.setTypeface(null, Typeface.BOLD);
                 ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                 scaleAnimation.setDuration(500);
-                scaleAnimation.setInterpolator(new BounceInterpolator());
+                scaleAnimation.setRepeatCount(animationRepeat);
+                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                 chainTextView.startAnimation(scaleAnimation);
             }else{
                 chainTextView.setTypeface(null, Typeface.NORMAL);
@@ -230,7 +233,8 @@ public class JourneyActivity extends ActionBarActivity
                     scoreTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     scoreTextView.startAnimation(scaleAnimation);
                 }
             }
@@ -248,7 +252,8 @@ public class JourneyActivity extends ActionBarActivity
                     countTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     countTextView.startAnimation(scaleAnimation);
                 }
             }
@@ -265,7 +270,8 @@ public class JourneyActivity extends ActionBarActivity
                     largestTextView.setTypeface(null, Typeface.BOLD);
                     ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
                     scaleAnimation.setDuration(500);
-                    scaleAnimation.setInterpolator(new BounceInterpolator());
+                    scaleAnimation.setRepeatCount(animationRepeat);
+                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
                     largestTextView.startAnimation(scaleAnimation);
                 }else{
                     largestTextView.setTypeface(null, Typeface.NORMAL);

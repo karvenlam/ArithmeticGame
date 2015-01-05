@@ -38,6 +38,7 @@ public class BaseGameDriver {
     public static final int OP_SUBTRACTION=2;
     public static final int OP_MULTIPLICATION=3;
     public static final int OP_DIVISION=4;
+    public static final int OP_NEGATIVE_SUBTRACTION=5;
 
     public static final String[] OPERATORS= new String[]{"?", "+", "-", "\u00D7", "\u00F7"};
 
@@ -168,6 +169,8 @@ public class BaseGameDriver {
             currStatus= OP_MULTIPLICATION;
         }else if(op2.number != 0 && op1.number/op2.number == result.number){
             currStatus= OP_DIVISION;
+        }else if(op1.number-op2.number == -result.number){
+            currStatus= OP_NEGATIVE_SUBTRACTION;
         }
 //        Log.d(TAG,"computeStatus: "+currStatus );
         return currStatus;

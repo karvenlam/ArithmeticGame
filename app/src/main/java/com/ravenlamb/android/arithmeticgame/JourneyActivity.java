@@ -182,17 +182,22 @@ public class JourneyActivity extends ActionBarActivity
             doShiftAnimation=false;
         }
 
-        op1TextView.setText(journeyGameDriver.getOp1Number());
-        op2TextView.setText(journeyGameDriver.getOp2Number());
-        resultTextView.setText(resultStrAfter);//todo need to change to resultStrAfter
 //        int operator=baseGameDriver.computeStatus();
         int operator=baseGameDriver.getCurrStatus();
+        op1TextView.setText(journeyGameDriver.getOp1Number());
+        op2TextView.setText(journeyGameDriver.getOp2Number());
+        if(operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
+            resultTextView.setText("-"+ resultStrAfter);
+        }else {
+            resultTextView.setText(resultStrAfter);
+        }
         //todo add animation and sound effect
         //todo add high score, chains, largest number
         if(operator==BaseGameDriver.OP_ADDITION ||
                 operator==BaseGameDriver.OP_SUBTRACTION ||
                 operator==BaseGameDriver.OP_MULTIPLICATION ||
-                operator==BaseGameDriver.OP_DIVISION ){
+                operator==BaseGameDriver.OP_DIVISION ||
+                operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
             Log.d(TAG, "ZenActivity onUpdate");
             operatorTextView.setText(journeyGameDriver.getOperator());
 

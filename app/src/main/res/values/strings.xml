@@ -54,5 +54,6 @@
         For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The score is then multiplied by the current chain number.
     </string>
+    <string name="chain">Chain</string>
 
 </resources>

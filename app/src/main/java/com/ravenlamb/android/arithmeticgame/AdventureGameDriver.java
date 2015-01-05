@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by kl on 12/12/2014.
- * at least one number is greater than 10
- * for valid equation, animate operand cells and replace
+ * Created by kl on 12/29/2014.
  */
-public class JourneyGameDriver extends BaseGameDriver {
+public class AdventureGameDriver extends BaseGameDriver {
     public static final String REASON_INCORRECT="Equation is not correct";
-    public static final String REASON_TOO_SMALL="Operands are too small";
+    //public static final String REASON_TOO_SMALL="Operands are too small";
 
     int operandMin=10;
     String reasonStr;
@@ -19,17 +17,44 @@ public class JourneyGameDriver extends BaseGameDriver {
     boolean op2OnGrid=true;
     boolean resultOnGrid=true;
 
-    public JourneyGameDriver(int r, int c) {
+    protected int[][] dropDistance;
+
+    public AdventureGameDriver(int r, int c) {
         super(r, c);
+        dropDistance=new int[r][c];
+        for (int i = 0; i < rows ; i++) {
+            for (int j = 0; j < cols; j++) {
+                dropDistance[i][j]=0;
+            }
+        }
     }
 
+
+
     public Coord[] replaceOperandCells(){
-        //todo
+        //todo change from replacement to dropping
+
+        for (int i = 0; i < rows ; i++) {
+            for (int j = 0; j < cols; j++) {
+                dropDistance[i][j]=0;
+            }
+        }
+
+        //TODO, start from matrix bottom
         ArrayList<Coord> tempList=new ArrayList<Coord>();
         if(op1OnGrid){
             Coord[] temp=op1.getAll();
+            if(temp[0].x==temp[temp.length-1].x){ //todo vertical
+                if(temp[0].y)
+            }else{//todo horizontal, diagonal
+
+            }
+
+
             for(int i=0;i<temp.length;i++){
-                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+                if(temp[i].y==0){
+                    cells[temp[i].x][temp[i].y]=random.nextInt(10);
+                }
             }
             op1OnGrid=false;
             tempList.addAll(Arrays.asList(temp));
@@ -78,11 +103,11 @@ public class JourneyGameDriver extends BaseGameDriver {
 
 //            String newSet=getSetString(op1.number, op2.number,result.number);
             //one number must be >=10, at most have one 0
-            if(nums[2]<operandMin || nums[1]==0){
-                currStatus=OP_INVALID;
-                reasonStr=REASON_TOO_SMALL;
-                return currStatus;
-            }
+//            if(nums[2]<operandMin || nums[1]==0){
+//                currStatus=OP_INVALID;
+//                reasonStr=REASON_TOO_SMALL;
+//                return currStatus;
+//            }
         }else{
 
             reasonStr=REASON_INCORRECT;

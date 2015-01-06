@@ -575,6 +575,7 @@ public class BaseGameDriver {
     }
 
 
+
     /**
      * score calculation
      * @return
@@ -582,6 +583,27 @@ public class BaseGameDriver {
     public double getScore(){
         double temp=0;
         //todo log +1 * for */, log +
+        //todo change to simpler score, change log base to logScore
+        if(currStatus==OP_UNTESTED){
+            computeStatus();
+        }
+        if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION || currStatus==OP_NEGATIVE_SUBTRACTION){
+            temp+=op1.number+op2.number+result.number;
+        }else if(currStatus==OP_MULTIPLICATION || currStatus==OP_DIVISION){
+            temp+=op1.number*op2.number*result.number;
+        }
+        return temp;
+    }
+
+
+    /**
+     * log score calculation
+     * @return
+     */
+    public double getLogScore(){
+        double temp=0;
+        //todo log +1 * for */, log +
+        //todo change to simpler score, change log base to logScore
         if(currStatus==OP_UNTESTED){
             computeStatus();
         }

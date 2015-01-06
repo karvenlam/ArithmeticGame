@@ -223,7 +223,7 @@ public class JourneyActivity extends ActionBarActivity
             //todo need to compare to preference high score and change scoreTextView
             double thisScore=journeyGameDriver.getScore()*chain;
             score+=thisScore;
-            moves= (float) (moves+thisScore*movesFactor);
+            moves= (float) (moves+journeyGameDriver.getLogScore()*chain*movesFactor);
             moves= (moves>INITIAL_MOVES)?INITIAL_MOVES:moves;
             scoreTextView.setText(String.valueOf((int)Math.floor(score)));
 //        scoreTextView.setText(String.valueOf(score));

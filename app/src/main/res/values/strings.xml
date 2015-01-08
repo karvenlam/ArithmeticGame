@@ -25,8 +25,8 @@
         In Zen mode, two out of three numbers must be at least 2 digits long.
         And each set of numbers must be unique.
         \n
-        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
-        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        For addition and subtraction, score=(blue)+(green)+(red).
+        For multiplication and division, score=(blue) x (green) x (red).
         The score is then multiplied by the current chain number.
     </string>
     <string name="title_activity_journey">Arithmetic Journey</string>
@@ -45,9 +45,9 @@
         For each valid number selected, one move is deducted. When you runs out of moves, you lose.
         After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
         \n
-        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
-        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
-        The score is then multiplied by the current chain number.
+        For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
+        For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        The number of moves is then multiplied by the current chain number.
     </string>
     <string name="score_system">
         For addition and subtraction, score=log10(blue)+log10(green)+log10(red).

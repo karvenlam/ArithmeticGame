@@ -40,21 +40,11 @@ public class AdventureGameDriver extends BaseGameDriver {
             }
         }
 
-        //TODO, start from matrix bottom
         ArrayList<Coord> tempList=new ArrayList<Coord>();
         if(op1OnGrid){
             Coord[] temp=op1.getAll();
-            if(temp[0].x==temp[temp.length-1].x){ //todo vertical
-                if(temp[0].y)
-            }else{//todo horizontal, diagonal
-
-            }
-
-
             for(int i=0;i<temp.length;i++){
-                if(temp[i].y==0){
-                    cells[temp[i].x][temp[i].y]=random.nextInt(10);
-                }
+                cells[temp[i].x][temp[i].y]=-1;
             }
             op1OnGrid=false;
             tempList.addAll(Arrays.asList(temp));
@@ -62,7 +52,7 @@ public class AdventureGameDriver extends BaseGameDriver {
         if(op2OnGrid){
             Coord[] temp=op2.getAll();
             for(int i=0;i<temp.length;i++){
-                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+                cells[temp[i].x][temp[i].y]=-1;
             }
             op2OnGrid=false;
             tempList.addAll(Arrays.asList(temp));
@@ -70,11 +60,25 @@ public class AdventureGameDriver extends BaseGameDriver {
         if(resultOnGrid){
             Coord[] temp=result.getAll();
             for(int i=0;i<temp.length;i++){
-                cells[temp[i].x][temp[i].y]=random.nextInt(10);
+                cells[temp[i].x][temp[i].y]=-1;
             }
             resultOnGrid=false;
             tempList.addAll(Arrays.asList(temp));
         }
+
+        for (int i = 0; i < rows ; i++) {
+//            for (int j = cols-1; j >=0; j--) {
+            for (int j = 0; j < cols; j++) {
+                if(cells[i][j]==-1){
+                //need to replace
+                    for(int k=j;k>=1;k--){
+                        cells[i][j]
+                    }
+
+                }
+            }
+        }
+
         Coord[] coords=new Coord[tempList.size()];
         for(int i=0;i<coords.length;i++){
             coords[i]=tempList.get(i);

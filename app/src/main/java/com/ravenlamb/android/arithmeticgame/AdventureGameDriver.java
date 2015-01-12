@@ -67,15 +67,20 @@ public class AdventureGameDriver extends BaseGameDriver {
         }
 
         for (int i = 0; i < rows ; i++) {
-//            for (int j = cols-1; j >=0; j--) {
-            for (int j = 0; j < cols; j++) {
-                if(cells[i][j]==-1){
+            int nextNum=cols-1;
+            for (int j = cols-1; j >=0; j--) {
+//            for (int j = 0; j < cols; j++) {
                 //need to replace
-                    for(int k=j;k>=1;k--){
-                        cells[i][j]
+                //dropDistance = j-numFrom,
+                for(int k=nextNum;k>=0;k--){
+                    if(cells[i][k]!=-1){
+                        nextNum=k;
+                        break;
                     }
+                }//TODO HERE
 
-                }
+
+
             }
         }
 

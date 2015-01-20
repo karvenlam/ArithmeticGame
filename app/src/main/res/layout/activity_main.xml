@@ -46,6 +46,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/menu_button_margin_top"
             android:layout_marginBottom="@dimen/menu_button_margin_top"
+            android:onClick="onAdventureStart"
             android:text="@string/adventure"
             android:id="@+id/adventure_button" />
 

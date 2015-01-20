@@ -2,17 +2,11 @@ package com.ravenlamb.android.arithmeticgame;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
-
-import com.ravenlamb.android.arithmeticgame.R;
 
 /**
  * TODO: document your custom view class.
@@ -22,6 +16,7 @@ public class AdventureGridView extends BaseGridView {
 
     Paint numberAnimatePaint;
     boolean[][] shouldAnimate;
+    float animateYFactor;
     float animateTextSize;
     float numberTextSize;
     boolean gameOver=false;//todo
@@ -50,10 +45,11 @@ public class AdventureGridView extends BaseGridView {
         numberAnimatePaint.setFlags(Paint.FAKE_BOLD_TEXT_FLAG);
         numberAnimatePaint.setColor(Color.BLACK);
         numberAnimatePaint.setTextAlign(Paint.Align.CENTER);
+        animateYFactor =0;
         animateTextSize=numberPaint.getTextSize();
         numberTextSize=animateTextSize;
 
-        baseGameDriver=new JourneyGameDriver(gridSize,gridSize);
+        baseGameDriver=new AdventureGameDriver(gridSize,gridSize);
 
         gameOver=false;
         AdventureGridView.this.setEnabled(true);
@@ -108,7 +104,7 @@ public class AdventureGridView extends BaseGridView {
         }
         if(gameOver){
             numberPaint.setColor(Color.BLACK);
-            canvas.drawText("OUT OF MOVES",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+            canvas.drawText("OUT OF TIME",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
         }
     }
 
@@ -165,8 +161,8 @@ public class AdventureGridView extends BaseGridView {
                     //todo animate cell replacement and call JourneyGameDriver to replace number
                     //replace number
                     //value animate the alpha or textSize, Property Animation
-                    JourneyGameDriver journeyGameDriver = (JourneyGameDriver) baseGameDriver;
-                    BaseGameDriver.Coord[] coords= journeyGameDriver.replaceOperandCells();
+                    AdventureGameDriver adventureGameDriver = (AdventureGameDriver) baseGameDriver;
+                    BaseGameDriver.Coord[] coords= adventureGameDriver.replaceOperandCells();
                     for(int i=0;i<gridSize;i++){
                         for(int j=0;j<gridSize;j++){
                             shouldAnimate[i][j]=false;
@@ -205,6 +201,12 @@ public class AdventureGridView extends BaseGridView {
 //        Log.w(TAG,"setAnimateTextSize: "+ts+","+animateTextSize);
         animateTextSize=ts;
     }
+
+    //animateYFactor
+    public void setAnimateYFactor(float yf){
+        animateYFactor=yf;
+    }
+
 
     public void setGameOver(){
         gameOver=true;

@@ -40,7 +40,7 @@ public class BaseGameDriver {
     public static final int OP_DIVISION=4;
     public static final int OP_NEGATIVE_SUBTRACTION=5;
 
-    public static final String[] OPERATORS= new String[]{"?", "+", "-", "\u00D7", "\u00F7"};
+    public static final String[] OPERATORS= new String[]{"?", "+", "-", "\u00D7", "\u00F7","-"};
 
 
     protected int rows=6;

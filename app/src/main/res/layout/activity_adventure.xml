@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/default_background"
-    tools:context="com.ravenlamb.android.arithmeticgame.JourneyActivity">
+    tools:context="com.ravenlamb.android.arithmeticgame.AdventureActivity">
 
     <!-- todo make score label on top of score, add chain, largest number
     todo change text size, center equation, have minwidth
@@ -141,22 +141,22 @@
             android:id="@+id/timer_linear">
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold"
-            android:textColor="@color/default_text"
-            android:text="Moves"
-            android:id="@+id/moves_label_textview" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:textColor="@color/default_text"
+                android:text="Time"
+                android:id="@+id/time_label_text" />
 
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginBottom="@dimen/top_layout_margin"
-            android:textColor="@color/default_text"
-            android:text="0"
-            android:id="@+id/moves_textview" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="@dimen/top_layout_margin"
+                android:textColor="@color/default_text"
+                android:text="0"
+                android:id="@+id/time_textview" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -174,8 +174,8 @@
 
 
     <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
-    <com.ravenlamb.android.arithmeticgame.JourneyGridView
-        android:id="@+id/journey_grid_view"
+    <com.ravenlamb.android.arithmeticgame.AdventureGridView
+        android:id="@+id/adventure_grid_view"
         android:background="@color/default_background"
         android:layout_gravity="center"
         android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingLeft="20dp"

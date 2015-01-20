@@ -1,5 +1,8 @@
 package com.ravenlamb.android.arithmeticgame;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,6 +10,7 @@ import java.util.Arrays;
  * Created by kl on 12/29/2014.
  */
 public class AdventureGameDriver extends BaseGameDriver {
+    public static final String TAG=AdventureGameDriver.class.getName();
     public static final String REASON_INCORRECT="Equation is not correct";
     //public static final String REASON_TOO_SMALL="Operands are too small";
 
@@ -69,27 +73,46 @@ public class AdventureGameDriver extends BaseGameDriver {
         for (int i = 0; i < rows ; i++) {
             int nextNum=cols-1;
             for (int j = cols-1; j >=0; j--) {
-//            for (int j = 0; j < cols; j++) {
+//              for (int j = 0; j < cols; j++) {
                 //need to replace
                 //dropDistance = j-numFrom,
-                for(int k=nextNum;k>=0;k--){
-                    if(cells[i][k]!=-1){
-                        nextNum=k;
+                for (int k = nextNum; k >= 0; k--) {
+                    if (cells[i][k] != -1) {
+                        nextNum = k;
                         break;
                     }
                 }//TODO HERE
+                if(nextNum<0){
+                    cells[i][j] = random.nextInt(10);
+
+                }else {
+                    cells[i][j] = cells[i][nextNum];
+
+                }
+                dropDistance[i][j]=j-nextNum;
+                nextNum--;
 
 
 
             }
         }
 
+        for (int i = 0; i < rows ; i++) {
+            for (int j = 0; j < cols; j++) {
+                Log.d(TAG,"replaceOperandCells ("+i+","+j+"):"+cells[i][j] );
+            }
+        }
         Coord[] coords=new Coord[tempList.size()];
         for(int i=0;i<coords.length;i++){
             coords[i]=tempList.get(i);
         }
         return coords;
     }
+
+    public int getDropDistance(int x, int y){
+        return dropDistance[x][y];
+    }
+
 
     @Override
     public void shiftOperand() {

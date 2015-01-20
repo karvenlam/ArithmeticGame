@@ -12,32 +12,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 /**
- * This is the activity class for Journey mode of Arithmetic game
+ * This is the activity class for adventure mode of Arithmetic game
  * Each time an equation is correct, the selected cells are replaced,
- * Base on time, see strings.xml journey_help
+ * Base on time, see strings.xml adventure_help
  *
  * @author Karven Lam
  * @version 1.0 2014-12-14
  */
-public class JourneyActivity extends ActionBarActivity
+public class AdventureActivity extends ActionBarActivity
         implements BaseGridView.OnGridViewInteraction {
 
     public static final String TAG=BaseGameDriver.class.getName();
-    public static final String JOURNEY_PREFERENCES="JourneyPreferences";
+    public static final String adventure_PREFERENCES="adventurePreferences";
     public static final String HIGH_SCORE ="highScore";
     public static final String HIGH_COUNT="highCount";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
-    public static final float INITIAL_MOVES=10;
+    public static final float INITIAL_TIME=30;
     public static final int animationRepeat=4;
 
-    JourneyGridView journeyGridView;
+    AdventureGridView adventureGridView;
 
     TextView op1TextView;
     TextView op2TextView;
@@ -54,15 +53,15 @@ public class JourneyActivity extends ActionBarActivity
     int count=0;
     int chain=0;
     int largest=0;
-    float moves=INITIAL_MOVES;
-    float movesFactor=.2f;
+    float time =INITIAL_TIME;
+    float timeFactor =.2f;
 
-    SharedPreferences journeyPreferences;
+    SharedPreferences adventurePreferences;
 
-    double journeyHighScore=0;
-    int journeyHighCount=0;
-    int journeyHighChain=0;
-    int journeyHighLargest=0;
+    double adventureHighScore=0;
+    int adventureHighCount=0;
+    int adventureHighChain=0;
+    int adventureHighLargest=0;
 
     boolean alreadyHighScore=false;
     boolean alreadyHighCount=false;
@@ -71,24 +70,24 @@ public class JourneyActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_journey);
+        setContentView(R.layout.activity_adventure);
         scoreTextView = (TextView) findViewById(R.id.score_textview);
         countTextView = (TextView) findViewById(R.id.count_textview);
         chainTextView = (TextView) findViewById(R.id.chain_textview);
         largestTextView =(TextView) findViewById(R.id.largest_textview);
-        moveTextView = (TextView) findViewById(R.id.moves_textview);
-        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
+        moveTextView = (TextView) findViewById(R.id.time_textview);
+        moveTextView.setText(String.valueOf((int) Math.floor(time)));
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
         op2TextView= (TextView) findViewById(R.id.op2_textview);
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
 
-        journeyPreferences=getSharedPreferences(JOURNEY_PREFERENCES,0);
-        journeyHighScore=journeyPreferences.getFloat(HIGH_SCORE, 0);
-        journeyHighCount=journeyPreferences.getInt(HIGH_COUNT,0);
-        journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN,0);
-        journeyHighLargest=journeyPreferences.getInt(HIGH_LARGEST,0);
+        adventurePreferences=getSharedPreferences(adventure_PREFERENCES,0);
+        adventureHighScore=adventurePreferences.getFloat(HIGH_SCORE, 0);
+        adventureHighCount=adventurePreferences.getInt(HIGH_COUNT,0);
+        adventureHighChain=adventurePreferences.getInt(HIGH_CHAIN,0);
+        adventureHighLargest=adventurePreferences.getInt(HIGH_LARGEST,0);
 
 
         DisplayMetrics dm=getResources().getDisplayMetrics();
@@ -98,11 +97,11 @@ public class JourneyActivity extends ActionBarActivity
         if(gridViewWidth*2>screenH){
             gridViewWidth=screenH/2;
         }
-        journeyGridView =(JourneyGridView)findViewById(R.id.journey_grid_view);
-        ViewGroup.LayoutParams layoutParams= journeyGridView.getLayoutParams();
+        adventureGridView =(AdventureGridView)findViewById(R.id.adventure_grid_view);
+        ViewGroup.LayoutParams layoutParams= adventureGridView.getLayoutParams();
         layoutParams.width=gridViewWidth;
         layoutParams.height=gridViewWidth;
-        journeyGridView.setLayoutParams(layoutParams);
+        adventureGridView.setLayoutParams(layoutParams);
     }
 
 
@@ -111,7 +110,7 @@ public class JourneyActivity extends ActionBarActivity
         count=0;
         chain=0;
         largest=0;
-        moves=INITIAL_MOVES;
+        time =INITIAL_TIME;
 
         alreadyHighCount=false;
         alreadyHighScore=false;
@@ -129,8 +128,8 @@ public class JourneyActivity extends ActionBarActivity
         chainTextView.setText(String.valueOf(chain));
         largestTextView.setText(String.valueOf(largest));
 
-        journeyGridView.initDriver();//todo
-        journeyGridView.invalidate();
+        adventureGridView.initDriver();//todo
+        adventureGridView.invalidate();
 
     }
 
@@ -159,7 +158,7 @@ public class JourneyActivity extends ActionBarActivity
         if (id == R.id.action_help) {
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            builder.setMessage(R.string.journey_help).setTitle("Journey Help");
+            builder.setMessage(R.string.adventure_help).setTitle("Adventure Help");
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -170,13 +169,13 @@ public class JourneyActivity extends ActionBarActivity
 
     @Override
     public void onUpdate(BaseGameDriver baseGameDriver) {
-        JourneyGameDriver journeyGameDriver=(JourneyGameDriver)baseGameDriver;
-        moves=moves-1;
+        AdventureGameDriver adventureGameDriver=(AdventureGameDriver)baseGameDriver;
+        time = time -1;
         //todo shift operand animation
         //if result is not valid before, and not valid now, don't need shift animation
         boolean doShiftAnimation=true;
         String resultStrBefore=resultTextView.getText().toString();
-        String resultStrAfter=journeyGameDriver.getResultNumber();
+        String resultStrAfter=adventureGameDriver.getResultNumber();
         if(resultStrBefore.equals(BaseGameDriver.UNKNOWN_VALUE) &&
                 resultStrAfter.equals(BaseGameDriver.UNKNOWN_VALUE)){
             doShiftAnimation=false;
@@ -184,8 +183,8 @@ public class JourneyActivity extends ActionBarActivity
 
 //        int operator=baseGameDriver.computeStatus();
         int operator=baseGameDriver.getCurrStatus();
-        op1TextView.setText(journeyGameDriver.getOp1Number());
-        op2TextView.setText(journeyGameDriver.getOp2Number());
+        op1TextView.setText(adventureGameDriver.getOp1Number());
+        op2TextView.setText(adventureGameDriver.getOp2Number());
         if(operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
             resultTextView.setText("-"+ resultStrAfter);
         }else {
@@ -199,14 +198,14 @@ public class JourneyActivity extends ActionBarActivity
                 operator==BaseGameDriver.OP_DIVISION ||
                 operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
             Log.d(TAG, "ZenActivity onUpdate");
-            operatorTextView.setText(journeyGameDriver.getOperator());
+            operatorTextView.setText(adventureGameDriver.getOperator());
 
 
             chain++;
             chainTextView.setText(String.valueOf(chain));
-            if(chain>journeyHighChain){
-                SharedPreferences.Editor edit=journeyPreferences.edit();
-                journeyHighChain=chain;
+            if(chain>adventureHighChain){
+                SharedPreferences.Editor edit=adventurePreferences.edit();
+                adventureHighChain=chain;
                 edit.putInt(HIGH_CHAIN,chain);
                 //todo new high chain animation
                 chainTextView.setTypeface(null, Typeface.BOLD);
@@ -221,15 +220,15 @@ public class JourneyActivity extends ActionBarActivity
 
 
             //todo need to compare to preference high score and change scoreTextView
-            double thisScore=journeyGameDriver.getScore()*chain;
+            double thisScore=adventureGameDriver.getScore()*chain;
             score+=thisScore;
-            moves= (float) (moves+journeyGameDriver.getLogScore()*chain*movesFactor);
-            moves= (moves>INITIAL_MOVES)?INITIAL_MOVES:moves;
+            time = (float) (time +adventureGameDriver.getLogScore()*chain* timeFactor);
+            time = (time >INITIAL_TIME)?INITIAL_TIME: time;
             scoreTextView.setText(String.valueOf((int)Math.floor(score)));
 //        scoreTextView.setText(String.valueOf(score));
-            if(score>journeyHighScore){
-                SharedPreferences.Editor edit=journeyPreferences.edit();
-                journeyHighScore=score;
+            if(score>adventureHighScore){
+                SharedPreferences.Editor edit=adventurePreferences.edit();
+                adventureHighScore=score;
                 edit.putFloat(HIGH_SCORE,(float)score);
 
                 //todo new high score animation, scale score textview
@@ -246,9 +245,9 @@ public class JourneyActivity extends ActionBarActivity
 
             count++;
             countTextView.setText(String.valueOf(count));
-            if(count>journeyHighCount){
-                SharedPreferences.Editor edit=journeyPreferences.edit();
-                journeyHighCount=count;
+            if(count>adventureHighCount){
+                SharedPreferences.Editor edit=adventurePreferences.edit();
+                adventureHighCount=count;
                 edit.putInt(HIGH_COUNT, count);
 
                 //todo new high count animation
@@ -263,13 +262,13 @@ public class JourneyActivity extends ActionBarActivity
                 }
             }
 
-            int temp=journeyGameDriver.getLargest();
+            int temp=adventureGameDriver.getLargest();
             if(temp>largest){
                 largest=temp;
                 largestTextView.setText(String.valueOf(largest));
-                if(largest>journeyHighLargest){
-                    SharedPreferences.Editor edit=journeyPreferences.edit();
-                    journeyHighLargest=largest;
+                if(largest>adventureHighLargest){
+                    SharedPreferences.Editor edit=adventurePreferences.edit();
+                    adventureHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
                     //todo new high largest animation
                     largestTextView.setTypeface(null, Typeface.BOLD);
@@ -287,11 +286,11 @@ public class JourneyActivity extends ActionBarActivity
             operatorTextView.setText(BaseGameDriver.OPERATORS[BaseGameDriver.OP_INVALID ]);
             chain=0;
         }
-        if(moves<1){
-            journeyGridView.setGameOver();
+        if(time <1){
+            adventureGridView.setGameOver();
         }
 //        moveTextView.setText(String.valueOf((int) Math.floor(time)));
-        moveTextView.setText(String.valueOf(moves));
+        moveTextView.setText(String.valueOf(time));
     }
 
     @Override

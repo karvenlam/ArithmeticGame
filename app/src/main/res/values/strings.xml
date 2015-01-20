@@ -27,8 +27,7 @@
         \n
         For addition and subtraction, score=(blue)+(green)+(red).
         For multiplication and division, score=(blue) x (green) x (red).
-        The score is then multiplied by the current chain number.
-    </string>
+        The score is then multiplied by the current chain number.</string>
     <string name="title_activity_journey">Arithmetic Journey</string>
     <string name="journey_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
         \n
@@ -47,13 +46,29 @@
         \n
         For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
         For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
-        The number of moves is then multiplied by the current chain number.
-    </string>
-    <string name="score_system">
-        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
+        The number of moves is then multiplied by the current chain number.</string>
+    <string name="score_system">        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
         For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
-        The score is then multiplied by the current chain number.
-    </string>
+        The score is then multiplied by the current chain number.</string>
     <string name="chain">Chain</string>
+    <string name="title_activity_adventure">Arithmetic Adventure</string>
+    <string name="adventure_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
+        \n
+        When a valid number is first selected, it appears on the right side of the equation at the red position.
+        After the next valid operand is selected, the number at the red position shifts to the green position.
+        And the number at the green position shifts to the blue position.
+        The newly selected number then takes the red position.
+        \n
+        When the three numbers form a correct arithmetic(+-\u00D7\u00F7) equation, you earn score.
+        When you continuously form correct arithmetic equations, you gain chain multiplier.
+        \n
+        Valid numbers cannot have leading zeros and cannot intersect each other.
+        In Journey mode, one of the numbers must be at least 2 digits long.
+        For each valid number selected, one move is deducted. When you runs out of moves, you lose.
+        After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
+        \n
+        For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
+        For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        The number of moves is then multiplied by the current chain number.</string>
 
 </resources>

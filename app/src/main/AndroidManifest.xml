@@ -29,7 +29,8 @@
         </activity>
         <activity
             android:name=".AdventureActivity"
-            android:label="@string/title_activity_adventure" >
+            android:label="@string/title_activity_adventure"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

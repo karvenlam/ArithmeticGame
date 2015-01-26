@@ -22,12 +22,10 @@
         When you continuously form correct arithmetic equations, you gain chain multiplier.
         \n
         Valid numbers cannot have leading zeros and cannot intersect each other.
-        In Zen mode, two out of three numbers must be at least 2 digits long.
-        And each set of numbers must be unique.
-        \n
-        For addition and subtraction, score=(blue)+(green)+(red).
-        For multiplication and division, score=(blue) x (green) x (red).
-        The score is then multiplied by the current chain number.</string>
+        In Zen mode, at least two out of three numbers must be greater or equal to 10.
+        And each set of numbers must be unique.</string>
+    <string name="zen_rule">In Zen mode, at least two out of three numbers must be greater or equal to 10.
+        And each set of numbers must be unique.</string>
     <string name="title_activity_journey">Arithmetic Journey</string>
     <string name="journey_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
         \n
@@ -40,15 +38,17 @@
         When you continuously form correct arithmetic equations, you gain chain multiplier.
         \n
         Valid numbers cannot have leading zeros and cannot intersect each other.
-        In Journey mode, one of the numbers must be at least 2 digits long.
+        In Journey mode, at least two of the three numbers must be greater than zero.
         For each valid number selected, one move is deducted. When you runs out of moves, you lose.
         After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
         \n
         For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
         For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The number of moves is then multiplied by the current chain number.</string>
-    <string name="score_system">        For addition and subtraction, score=log10(blue)+log10(green)+log10(red).
-        For multiplication and division, score=(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+    <string name="journey_rule">In Journey mode, at least two of the three numbers must be greater than zero.
+        </string>
+    <string name="score_system">        For addition and subtraction, score=(blue)+(green)+(red).
+        For multiplication and division, score=((blue)+(green)+(red))x(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The score is then multiplied by the current chain number.</string>
     <string name="chain">Chain</string>
     <string name="title_activity_adventure">Arithmetic Adventure</string>
@@ -63,12 +63,17 @@
         When you continuously form correct arithmetic equations, you gain chain multiplier.
         \n
         Valid numbers cannot have leading zeros and cannot intersect each other.
-        In Journey mode, one of the numbers must be at least 2 digits long.
-        For each valid number selected, one move is deducted. When you runs out of moves, you lose.
+        In Adventure mode, at least two of the three numbers must be greater than zero.
         After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
+        When you runs out of time, you lose.
         \n
-        For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
-        For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        For addition and subtraction, time = log10(blue)+log10(green)+log10(red).
+        For multiplication and division, time =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The number of moves is then multiplied by the current chain number.</string>
+    <string name="adventure_rule">In Adventure mode, at least two of the three numbers must be greater than zero.
+        After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
+        When you runs out of time, you lose.
+        </string>
+    <string name="action_new_game">New Game</string>
 
 </resources>

@@ -71,6 +71,14 @@ public class BaseGameDriver {
         }
     }
 
+    public static boolean isValidOperator(int operator){
+        return (operator==BaseGameDriver.OP_ADDITION ||
+                operator==BaseGameDriver.OP_SUBTRACTION ||
+                operator==BaseGameDriver.OP_MULTIPLICATION ||
+                operator==BaseGameDriver.OP_DIVISION ||
+                operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION);
+    }
+
     /**
      * Start selecting a new number at position (x, y) if position is not already selected.
      * If result already contains a number, shift the operands to the left.
@@ -590,7 +598,7 @@ public class BaseGameDriver {
         if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION || currStatus==OP_NEGATIVE_SUBTRACTION){
             temp+=op1.number+op2.number+result.number;
         }else if(currStatus==OP_MULTIPLICATION || currStatus==OP_DIVISION){
-            temp+=op1.number*op2.number*result.number;
+            temp+=(op1.number+op2.number+result.number)*((Math.log10(op1.number)+1)*(Math.log10(op2.number)+1)*(Math.log10(result.number)+1));
         }
         return temp;
     }

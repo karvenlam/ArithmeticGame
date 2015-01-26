@@ -4,9 +4,10 @@
     <color name="op2_color">#AA00FF00</color><!--lime-->
     <color name="result_color">#AAFF0000</color><!--red-->
     <color name="operator_color">#AA800000</color><!--maroon-->
-    <color name="score_background">#FFA9A9A9</color><!--darkGray-->
+    <color name="score_background">#FFD3D3D3</color><!--lightGray-->
     <color name="default_background">#FFFFFFFF</color><!--white-->
     <color name="default_text">#FF000000</color><!--black-->
+    <color name="default_new_record">#FFFF0000</color>
     <color name="num_color0">#FF4B0082</color><!--indigo-->
     <color name="num_color1">#FF00BFFF</color><!--deepSkyBlue-->
     <color name="num_color2">#FFFF1493</color><!--deepPink-->

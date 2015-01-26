@@ -1,6 +1,7 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
@@ -46,16 +47,16 @@ public class JourneyActivity extends ActionBarActivity
 
     TextView moveTextView;
     TextView scoreTextView;
-    TextView countTextView;
+//    TextView countTextView;
     TextView chainTextView;
-    TextView largestTextView;
+//    TextView largestTextView;
 
     double score=0;
     int count=0;
     int chain=0;
     int largest=0;
     float moves=INITIAL_MOVES;
-    float movesFactor=.2f;
+    float movesFactor=.1f;
 
     SharedPreferences journeyPreferences;
 
@@ -73,9 +74,9 @@ public class JourneyActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journey);
         scoreTextView = (TextView) findViewById(R.id.score_textview);
-        countTextView = (TextView) findViewById(R.id.count_textview);
+//        countTextView = (TextView) findViewById(R.id.count_textview);
         chainTextView = (TextView) findViewById(R.id.chain_textview);
-        largestTextView =(TextView) findViewById(R.id.largest_textview);
+//        largestTextView =(TextView) findViewById(R.id.largest_textview);
         moveTextView = (TextView) findViewById(R.id.moves_textview);
         moveTextView.setText(String.valueOf((int) Math.floor(moves)));
 
@@ -103,6 +104,18 @@ public class JourneyActivity extends ActionBarActivity
         layoutParams.width=gridViewWidth;
         layoutParams.height=gridViewWidth;
         journeyGridView.setLayoutParams(layoutParams);
+
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage(R.string.journey_rule).setTitle("Journey");
+        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
 
@@ -116,18 +129,20 @@ public class JourneyActivity extends ActionBarActivity
         alreadyHighCount=false;
         alreadyHighScore=false;
         scoreTextView.setTypeface(null, Typeface.NORMAL);
-        countTextView.setTypeface(null, Typeface.NORMAL);
+        scoreTextView.setTextColor(getResources().getColor(R.color.default_text));
+//        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
-        largestTextView.setTypeface(null, Typeface.NORMAL);
+//        largestTextView.setTypeface(null, Typeface.NORMAL);
+        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         resultTextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
-        countTextView.setText(String.valueOf(count));
+//        countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
-        largestTextView.setText(String.valueOf(largest));
+//        largestTextView.setText(String.valueOf(largest));
 
         journeyGridView.initDriver();//todo
         journeyGridView.invalidate();
@@ -154,6 +169,10 @@ public class JourneyActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_new_game) {
+            newGame();
             return true;
         }
         if (id == R.id.action_help) {
@@ -193,11 +212,7 @@ public class JourneyActivity extends ActionBarActivity
         }
         //todo add animation and sound effect
         //todo add high score, chains, largest number
-        if(operator==BaseGameDriver.OP_ADDITION ||
-                operator==BaseGameDriver.OP_SUBTRACTION ||
-                operator==BaseGameDriver.OP_MULTIPLICATION ||
-                operator==BaseGameDriver.OP_DIVISION ||
-                operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
+        if(BaseGameDriver.isValidOperator(operator)){
             Log.d(TAG, "ZenActivity onUpdate");
             operatorTextView.setText(journeyGameDriver.getOperator());
 
@@ -210,11 +225,11 @@ public class JourneyActivity extends ActionBarActivity
                 edit.putInt(HIGH_CHAIN,chain);
                 //todo new high chain animation
                 chainTextView.setTypeface(null, Typeface.BOLD);
-                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                scaleAnimation.setDuration(500);
-                scaleAnimation.setRepeatCount(animationRepeat);
-                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                chainTextView.startAnimation(scaleAnimation);
+//                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                scaleAnimation.setDuration(500);
+//                scaleAnimation.setRepeatCount(animationRepeat);
+//                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                chainTextView.startAnimation(scaleAnimation);
             }else{
                 chainTextView.setTypeface(null, Typeface.NORMAL);
             }
@@ -236,16 +251,17 @@ public class JourneyActivity extends ActionBarActivity
                 if(!alreadyHighScore) {
                     alreadyHighScore = true;
                     scoreTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    scoreTextView.startAnimation(scaleAnimation);
+                    scoreTextView.setTextColor(getResources().getColor(R.color.default_new_record));
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    scoreTextView.startAnimation(scaleAnimation);
                 }
             }
 
             count++;
-            countTextView.setText(String.valueOf(count));
+//            countTextView.setText(String.valueOf(count));
             if(count>journeyHighCount){
                 SharedPreferences.Editor edit=journeyPreferences.edit();
                 journeyHighCount=count;
@@ -254,32 +270,32 @@ public class JourneyActivity extends ActionBarActivity
                 //todo new high count animation
                 if(!alreadyHighCount){
                     alreadyHighCount=true;
-                    countTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    countTextView.startAnimation(scaleAnimation);
+//                    countTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    countTextView.startAnimation(scaleAnimation);
                 }
             }
 
             int temp=journeyGameDriver.getLargest();
             if(temp>largest){
                 largest=temp;
-                largestTextView.setText(String.valueOf(largest));
+//                largestTextView.setText(String.valueOf(largest));
                 if(largest>journeyHighLargest){
                     SharedPreferences.Editor edit=journeyPreferences.edit();
                     journeyHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
                     //todo new high largest animation
-                    largestTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    largestTextView.startAnimation(scaleAnimation);
+//                    largestTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    largestTextView.startAnimation(scaleAnimation);
                 }else{
-                    largestTextView.setTypeface(null, Typeface.NORMAL);
+//                    largestTextView.setTypeface(null, Typeface.NORMAL);
                 }
             }
 
@@ -290,7 +306,7 @@ public class JourneyActivity extends ActionBarActivity
         if(moves<1){
             journeyGridView.setGameOver();
         }
-//        moveTextView.setText(String.valueOf((int) Math.floor(time)));
+//        timeTextView.setText(String.valueOf((int) Math.floor(time)));
         moveTextView.setText(String.valueOf(moves));
     }
 

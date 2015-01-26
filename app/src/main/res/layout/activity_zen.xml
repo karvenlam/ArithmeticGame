@@ -57,22 +57,22 @@
                 android:id="@+id/score_textview" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"
-                android:textColor="@color/default_text"
-                android:text="Count"
-                android:id="@+id/count_label_textview" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="Count"-->
+                <!--android:id="@+id/count_label_textview" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/default_text"
-                android:text="0"
-                android:id="@+id/count_textview" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="0"-->
+                <!--android:id="@+id/count_textview" />-->
         </LinearLayout>
 
 
@@ -109,22 +109,22 @@
                 android:text="0"
                 android:id="@+id/chain_textview" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"
-                android:textColor="@color/default_text"
-                android:text="Largest"
-                android:id="@+id/largest_label_textview" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="Largest"-->
+                <!--android:id="@+id/largest_label_textview" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/default_text"
-                android:text="0"
-                android:id="@+id/largest_textview" />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="0"-->
+                <!--android:id="@+id/largest_textview" />-->
         </LinearLayout>
 
         <LinearLayout
@@ -140,20 +140,42 @@
             android:gravity="center_horizontal"
             android:id="@+id/timer_linear">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:text="New\nGame"
-                android:onClick="onRestart"
-                android:textAllCaps="false"
-                android:id="@+id/button"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp" />
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:text="New\nGame"-->
+                <!--android:onClick="onRestart"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:id="@+id/button"-->
+                <!--android:layout_marginLeft="0dp"-->
+                <!--android:layout_marginRight="0dp" />-->
         </LinearLayout>
     </LinearLayout>
 
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/score_side_padding"
+        android:paddingRight="@dimen/score_side_padding"
+        android:paddingTop="@dimen/score_top_padding"
+        android:paddingBottom="@dimen/score_top_padding"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="@dimen/top_layout_margin"
+            android:textColor="@color/default_text"
+            android:visibility="invisible"
+            android:text="0"
+            android:id="@+id/message_textview" />
+    </LinearLayout>
 
     <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
     <com.ravenlamb.android.arithmeticgame.ZenGridView

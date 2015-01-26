@@ -28,7 +28,7 @@ public class AdventureActivity extends ActionBarActivity
         implements BaseGridView.OnGridViewInteraction {
 
     public static final String TAG=BaseGameDriver.class.getName();
-    public static final String adventure_PREFERENCES="adventurePreferences";
+    public static final String ADVENTURE_PREFERENCES ="AdventurePreferences";
     public static final String HIGH_SCORE ="highScore";
     public static final String HIGH_COUNT="highCount";
     public static final String HIGH_CHAIN ="highChain";
@@ -43,11 +43,11 @@ public class AdventureActivity extends ActionBarActivity
     TextView operatorTextView;
     TextView resultTextView;
 
-    TextView moveTextView;
+    TextView timeTextView;
     TextView scoreTextView;
-    TextView countTextView;
+//    TextView countTextView;
     TextView chainTextView;
-    TextView largestTextView;
+//    TextView largestTextView;
 
     double score=0;
     int count=0;
@@ -72,18 +72,18 @@ public class AdventureActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adventure);
         scoreTextView = (TextView) findViewById(R.id.score_textview);
-        countTextView = (TextView) findViewById(R.id.count_textview);
+//        countTextView = (TextView) findViewById(R.id.count_textview);
         chainTextView = (TextView) findViewById(R.id.chain_textview);
-        largestTextView =(TextView) findViewById(R.id.largest_textview);
-        moveTextView = (TextView) findViewById(R.id.time_textview);
-        moveTextView.setText(String.valueOf((int) Math.floor(time)));
+//        largestTextView =(TextView) findViewById(R.id.largest_textview);
+        timeTextView = (TextView) findViewById(R.id.time_textview);
+        timeTextView.setText(String.valueOf((int) Math.floor(time)));
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
         op2TextView= (TextView) findViewById(R.id.op2_textview);
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
 
-        adventurePreferences=getSharedPreferences(adventure_PREFERENCES,0);
+        adventurePreferences=getSharedPreferences(ADVENTURE_PREFERENCES,0);
         adventureHighScore=adventurePreferences.getFloat(HIGH_SCORE, 0);
         adventureHighCount=adventurePreferences.getInt(HIGH_COUNT,0);
         adventureHighChain=adventurePreferences.getInt(HIGH_CHAIN,0);
@@ -102,6 +102,7 @@ public class AdventureActivity extends ActionBarActivity
         layoutParams.width=gridViewWidth;
         layoutParams.height=gridViewWidth;
         adventureGridView.setLayoutParams(layoutParams);
+        newGame();
     }
 
 
@@ -115,22 +116,39 @@ public class AdventureActivity extends ActionBarActivity
         alreadyHighCount=false;
         alreadyHighScore=false;
         scoreTextView.setTypeface(null, Typeface.NORMAL);
-        countTextView.setTypeface(null, Typeface.NORMAL);
+        scoreTextView.setTextColor(getResources().getColor(R.color.default_text));
+//        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
-        largestTextView.setTypeface(null, Typeface.NORMAL);
+//        largestTextView.setTypeface(null, Typeface.NORMAL);
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         resultTextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
-        countTextView.setText(String.valueOf(count));
+//        countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
-        largestTextView.setText(String.valueOf(largest));
+//        largestTextView.setText(String.valueOf(largest));
 
         adventureGridView.initDriver();//todo
         adventureGridView.invalidate();
 
+        timeTextView.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(time>0){
+
+                        Thread.sleep(1000);
+                        time--;
+                        timeTextView.setText(String.valueOf((int) Math.floor(time)));
+                    }
+
+                } catch (InterruptedException e) {
+                    Log.d(TAG,"Inside post Runnable catch");
+                }
+            }
+        });
     }
 
     public void onRestart(View view){
@@ -155,6 +173,10 @@ public class AdventureActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_new_game) {
+            newGame();
+            return true;
+        }
         if (id == R.id.action_help) {
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -170,7 +192,6 @@ public class AdventureActivity extends ActionBarActivity
     @Override
     public void onUpdate(BaseGameDriver baseGameDriver) {
         AdventureGameDriver adventureGameDriver=(AdventureGameDriver)baseGameDriver;
-        time = time -1;
         //todo shift operand animation
         //if result is not valid before, and not valid now, don't need shift animation
         boolean doShiftAnimation=true;
@@ -192,11 +213,7 @@ public class AdventureActivity extends ActionBarActivity
         }
         //todo add animation and sound effect
         //todo add high score, chains, largest number
-        if(operator==BaseGameDriver.OP_ADDITION ||
-                operator==BaseGameDriver.OP_SUBTRACTION ||
-                operator==BaseGameDriver.OP_MULTIPLICATION ||
-                operator==BaseGameDriver.OP_DIVISION ||
-                operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
+        if(BaseGameDriver.isValidOperator(operator)){
             Log.d(TAG, "ZenActivity onUpdate");
             operatorTextView.setText(adventureGameDriver.getOperator());
 
@@ -209,11 +226,11 @@ public class AdventureActivity extends ActionBarActivity
                 edit.putInt(HIGH_CHAIN,chain);
                 //todo new high chain animation
                 chainTextView.setTypeface(null, Typeface.BOLD);
-                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                scaleAnimation.setDuration(500);
-                scaleAnimation.setRepeatCount(animationRepeat);
-                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                chainTextView.startAnimation(scaleAnimation);
+//                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                scaleAnimation.setDuration(500);
+//                scaleAnimation.setRepeatCount(animationRepeat);
+//                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                chainTextView.startAnimation(scaleAnimation);
             }else{
                 chainTextView.setTypeface(null, Typeface.NORMAL);
             }
@@ -235,16 +252,17 @@ public class AdventureActivity extends ActionBarActivity
                 if(!alreadyHighScore) {
                     alreadyHighScore = true;
                     scoreTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    scoreTextView.startAnimation(scaleAnimation);
+                    scoreTextView.setTextColor(getResources().getColor(R.color.default_new_record));
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    scoreTextView.startAnimation(scaleAnimation);
                 }
             }
 
             count++;
-            countTextView.setText(String.valueOf(count));
+//            countTextView.setText(String.valueOf(count));
             if(count>adventureHighCount){
                 SharedPreferences.Editor edit=adventurePreferences.edit();
                 adventureHighCount=count;
@@ -253,32 +271,32 @@ public class AdventureActivity extends ActionBarActivity
                 //todo new high count animation
                 if(!alreadyHighCount){
                     alreadyHighCount=true;
-                    countTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    countTextView.startAnimation(scaleAnimation);
+//                    countTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    countTextView.startAnimation(scaleAnimation);
                 }
             }
 
             int temp=adventureGameDriver.getLargest();
             if(temp>largest){
                 largest=temp;
-                largestTextView.setText(String.valueOf(largest));
+//                largestTextView.setText(String.valueOf(largest));
                 if(largest>adventureHighLargest){
                     SharedPreferences.Editor edit=adventurePreferences.edit();
                     adventureHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
                     //todo new high largest animation
-                    largestTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    largestTextView.startAnimation(scaleAnimation);
+//                    largestTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    largestTextView.startAnimation(scaleAnimation);
                 }else{
-                    largestTextView.setTypeface(null, Typeface.NORMAL);
+//                    largestTextView.setTypeface(null, Typeface.NORMAL);
                 }
             }
 
@@ -289,8 +307,8 @@ public class AdventureActivity extends ActionBarActivity
         if(time <1){
             adventureGridView.setGameOver();
         }
-//        moveTextView.setText(String.valueOf((int) Math.floor(time)));
-        moveTextView.setText(String.valueOf(time));
+//        timeTextView.setText(String.valueOf((int) Math.floor(time)));
+        timeTextView.setText(String.valueOf(time));
     }
 
     @Override

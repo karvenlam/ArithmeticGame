@@ -7,6 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 
 /**
  * TODO: document your custom view class.
@@ -17,7 +21,7 @@ public class AdventureGridView extends BaseGridView {
     Paint numberAnimatePaint;
     boolean[][] shouldAnimate;
     float animateYFactor;
-    float animateTextSize;
+//    float animateTextSize;
     float numberTextSize;
     boolean gameOver=false;//todo
 
@@ -46,8 +50,8 @@ public class AdventureGridView extends BaseGridView {
         numberAnimatePaint.setColor(Color.BLACK);
         numberAnimatePaint.setTextAlign(Paint.Align.CENTER);
         animateYFactor =0;
-        animateTextSize=numberPaint.getTextSize();
-        numberTextSize=animateTextSize;
+//        animateTextSize=numberPaint.getTextSize();
+//        numberTextSize=animateTextSize;
 
         baseGameDriver=new AdventureGameDriver(gridSize,gridSize);
 
@@ -61,7 +65,9 @@ public class AdventureGridView extends BaseGridView {
         gridHeight=canvas.getHeight()/gridSize;
         int circleRadius=(gridHeight>gridWidth)? gridWidth/2:gridHeight/2;
         numberTextSize=gridHeight/2;
-        numberPaint.setTextSize(gridHeight / 2);
+        numberPaint.setTextSize(numberTextSize);
+        numberAnimatePaint.setTextSize(numberTextSize);
+        AdventureGameDriver adventureGameDriver=(AdventureGameDriver)baseGameDriver;
 
         for(int i=0;i<gridSize;i++){
             for(int j=0;j<gridSize;j++){
@@ -86,9 +92,10 @@ public class AdventureGridView extends BaseGridView {
                 //todo if shouldAnimate, use the numberAnimatePaint
                 int numToDraw=baseGameDriver.getCellNum(i, j);
                 if(shouldAnimate[i][j]){
-                    numberAnimatePaint.setTextSize(animateTextSize);
+//                    numberAnimatePaint.setTextSize(animateTextSize);
                     numberAnimatePaint.setColor(colorArray[numToDraw]);
                     float numY=j*gridHeight+gridHeight/2 - ((numberAnimatePaint.descent() + numberAnimatePaint.ascent()) / 2);
+                    numY = numY - animateYFactor*gridHeight*adventureGameDriver.getDropDistance(i,j);
                     canvas.drawText(String.valueOf(numToDraw),x,numY,numberAnimatePaint);
                 }else{
                     float numY=j*gridHeight+gridHeight/2 - ((numberPaint.descent() + numberPaint.ascent()) / 2);
@@ -99,7 +106,7 @@ public class AdventureGridView extends BaseGridView {
             }
         }
 //        Log.w(TAG,"onDraw");
-        if(animateTextSize<numberTextSize){
+        if(animateYFactor>0){
             invalidate();
         }
         if(gameOver){
@@ -153,10 +160,7 @@ public class AdventureGridView extends BaseGridView {
             if(baseGameDriver.endingCoord(x,y)){
 
                 int operator=baseGameDriver.getCurrStatus();
-                if(operator==BaseGameDriver.OP_ADDITION ||
-                        operator==BaseGameDriver.OP_SUBTRACTION ||
-                        operator==BaseGameDriver.OP_MULTIPLICATION ||
-                        operator==BaseGameDriver.OP_DIVISION ){
+                if(BaseGameDriver.isValidOperator(operator)){
 
                     //todo animate cell replacement and call JourneyGameDriver to replace number
                     //replace number
@@ -178,7 +182,11 @@ public class AdventureGridView extends BaseGridView {
 //                    objectAnimator.setFloatValues(numberTextSize/2,numberTextSize);
 //                    objectAnimator.setDuration(500).start();
                     //todo change animation
-                    ObjectAnimator.ofFloat(AdventureGridView.this, "animateTextSize", numberTextSize / 2, numberTextSize).setDuration(50).start();
+
+//                    ObjectAnimator.ofFloat(AdventureGridView.this, "animateTextSize", numberTextSize / 2, numberTextSize).setDuration(50).start();
+                    ObjectAnimator objectAnimator= ObjectAnimator.ofFloat(AdventureGridView.this, "animateYFactor", 1f, 0f).setDuration(300);
+                    objectAnimator.setInterpolator(new DecelerateInterpolator());
+                    objectAnimator.start();
 
                 }
             }
@@ -197,10 +205,10 @@ public class AdventureGridView extends BaseGridView {
     }
 
     //for ObjectAnimator
-    public void setAnimateTextSize(float ts){
-//        Log.w(TAG,"setAnimateTextSize: "+ts+","+animateTextSize);
-        animateTextSize=ts;
-    }
+//    public void setAnimateTextSize(float ts){
+////        Log.w(TAG,"setAnimateTextSize: "+ts+","+animateTextSize);
+//        animateTextSize=ts;
+//    }
 
     //animateYFactor
     public void setAnimateYFactor(float yf){

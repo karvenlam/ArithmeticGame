@@ -154,10 +154,7 @@ public class JourneyGridView extends BaseGridView {
             if(baseGameDriver.endingCoord(x,y)){
 
                 int operator=baseGameDriver.getCurrStatus();
-                if(operator==BaseGameDriver.OP_ADDITION ||
-                        operator==BaseGameDriver.OP_SUBTRACTION ||
-                        operator==BaseGameDriver.OP_MULTIPLICATION ||
-                        operator==BaseGameDriver.OP_DIVISION ){
+                if(BaseGameDriver.isValidOperator(operator)){
 
                     //todo animate cell replacement and call JourneyGameDriver to replace number
                     //replace number
@@ -178,7 +175,7 @@ public class JourneyGridView extends BaseGridView {
 //                    objectAnimator.setPropertyName("animateTextSize");
 //                    objectAnimator.setFloatValues(numberTextSize/2,numberTextSize);
 //                    objectAnimator.setDuration(500).start();
-                    ObjectAnimator.ofFloat(JourneyGridView.this, "animateTextSize",numberTextSize/2,numberTextSize).setDuration(50).start();
+                    ObjectAnimator.ofFloat(JourneyGridView.this, "animateTextSize",numberTextSize/2,numberTextSize).setDuration(500).start();
 
                 }
             }

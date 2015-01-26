@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class AdventureGameDriver extends BaseGameDriver {
     public static final String TAG=AdventureGameDriver.class.getName();
     public static final String REASON_INCORRECT="Equation is not correct";
-    //public static final String REASON_TOO_SMALL="Operands are too small";
+    public static final String REASON_TOO_SMALL="Operands are too small";
 
     int operandMin=10;
     String reasonStr;
@@ -51,7 +51,6 @@ public class AdventureGameDriver extends BaseGameDriver {
                 cells[temp[i].x][temp[i].y]=-1;
             }
             op1OnGrid=false;
-            tempList.addAll(Arrays.asList(temp));
         }
         if(op2OnGrid){
             Coord[] temp=op2.getAll();
@@ -59,7 +58,6 @@ public class AdventureGameDriver extends BaseGameDriver {
                 cells[temp[i].x][temp[i].y]=-1;
             }
             op2OnGrid=false;
-            tempList.addAll(Arrays.asList(temp));
         }
         if(resultOnGrid){
             Coord[] temp=result.getAll();
@@ -67,7 +65,6 @@ public class AdventureGameDriver extends BaseGameDriver {
                 cells[temp[i].x][temp[i].y]=-1;
             }
             resultOnGrid=false;
-            tempList.addAll(Arrays.asList(temp));
         }
 
         for (int i = 0; i < rows ; i++) {
@@ -80,8 +77,11 @@ public class AdventureGameDriver extends BaseGameDriver {
                     if (cells[i][k] != -1) {
                         nextNum = k;
                         break;
+                    }//TODO HERE
+                    if(k==0 && cells[i][0]==-1){
+                        nextNum=-1;
                     }
-                }//TODO HERE
+                }
                 if(nextNum<0){
                     cells[i][j] = random.nextInt(10);
 
@@ -90,6 +90,9 @@ public class AdventureGameDriver extends BaseGameDriver {
 
                 }
                 dropDistance[i][j]=j-nextNum;
+                if(dropDistance[i][j]>0){
+                    tempList.addAll(Arrays.asList(new Coord(i,j)));
+                }
                 nextNum--;
 
 
@@ -97,11 +100,11 @@ public class AdventureGameDriver extends BaseGameDriver {
             }
         }
 
-        for (int i = 0; i < rows ; i++) {
-            for (int j = 0; j < cols; j++) {
-                Log.d(TAG,"replaceOperandCells ("+i+","+j+"):"+cells[i][j] );
-            }
-        }
+//        for (int i = 0; i < rows ; i++) {
+//            for (int j = 0; j < cols; j++) {
+//                Log.d(TAG,"replaceOperandCells ("+i+","+j+"):"+cells[i][j] );
+//            }
+//        }
         Coord[] coords=new Coord[tempList.size()];
         for(int i=0;i<coords.length;i++){
             coords[i]=tempList.get(i);
@@ -136,10 +139,11 @@ public class AdventureGameDriver extends BaseGameDriver {
 //            String newSet=getSetString(op1.number, op2.number,result.number);
             //one number must be >=10, at most have one 0
 //            if(nums[2]<operandMin || nums[1]==0){
-//                currStatus=OP_INVALID;
-//                reasonStr=REASON_TOO_SMALL;
-//                return currStatus;
-//            }
+            if( nums[1]==0){
+                currStatus=OP_INVALID;
+                reasonStr=REASON_TOO_SMALL;
+                return currStatus;
+            }
         }else{
 
             reasonStr=REASON_INCORRECT;

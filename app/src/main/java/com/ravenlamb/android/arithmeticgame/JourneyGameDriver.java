@@ -77,8 +77,9 @@ public class JourneyGameDriver extends BaseGameDriver {
             Arrays.sort(nums);
 
 //            String newSet=getSetString(op1.number, op2.number,result.number);
-            //one number must be >=10, at most have one 0
-            if(nums[2]<operandMin || nums[1]==0){
+//            one number must be >=10, at most have one 0
+//            if(nums[2]<operandMin || nums[1]==0){
+            if(nums[1]==0){
                 currStatus=OP_INVALID;
                 reasonStr=REASON_TOO_SMALL;
                 return currStatus;

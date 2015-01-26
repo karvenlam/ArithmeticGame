@@ -1,6 +1,7 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
@@ -41,9 +42,9 @@ public class ZenActivity extends ActionBarActivity
 //    TextView debugTextView;
 
     TextView scoreTextView;
-    TextView countTextView;
+//    TextView countTextView;
     TextView chainTextView;
-    TextView largestTextView;
+//    TextView largestTextView;
 
     double score=0;
     int count=0;
@@ -85,9 +86,9 @@ public class ZenActivity extends ActionBarActivity
 
         //todo need to initialize textview values
         scoreTextView = (TextView) findViewById(R.id.score_textview);
-        countTextView = (TextView) findViewById(R.id.count_textview);
+//        countTextView = (TextView) findViewById(R.id.count_textview);
         chainTextView = (TextView) findViewById(R.id.chain_textview);
-        largestTextView =(TextView) findViewById(R.id.largest_textview);
+//        largestTextView =(TextView) findViewById(R.id.largest_textview);
 
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
@@ -118,6 +119,16 @@ public class ZenActivity extends ActionBarActivity
         zenGridView.setLayoutParams(layoutParams);
 
 
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage(R.string.zen_rule).setTitle("Zen");
+        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
 
@@ -130,18 +141,19 @@ public class ZenActivity extends ActionBarActivity
         alreadyHighCount=false;
         alreadyHighScore=false;
         scoreTextView.setTypeface(null, Typeface.NORMAL);
-        countTextView.setTypeface(null, Typeface.NORMAL);
+        scoreTextView.setTextColor(getResources().getColor(R.color.default_text));
+//        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
-        largestTextView.setTypeface(null, Typeface.NORMAL);
+//        largestTextView.setTypeface(null, Typeface.NORMAL);
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         resultTextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
-        countTextView.setText(String.valueOf(count));
+//        countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
-        largestTextView.setText(String.valueOf(largest));
+//        largestTextView.setText(String.valueOf(largest));
 
         zenGridView.initDriver();
         zenGridView.invalidate();
@@ -171,10 +183,20 @@ public class ZenActivity extends ActionBarActivity
             //todo mute, unmute
             return true;
         }
+        if (id == R.id.action_new_game) {
+            newGame();
+            return true;
+        }
         if (id == R.id.action_help) {
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.zen_help).setTitle("Zen Help");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -210,11 +232,7 @@ public class ZenActivity extends ActionBarActivity
         }
         //todo add animation and sound effect
         //todo add high score, chains, largest number
-        if(operator==BaseGameDriver.OP_ADDITION ||
-                operator==BaseGameDriver.OP_SUBTRACTION ||
-                operator==BaseGameDriver.OP_MULTIPLICATION ||
-                operator==BaseGameDriver.OP_DIVISION ||
-                operator==BaseGameDriver.OP_NEGATIVE_SUBTRACTION){
+        if(BaseGameDriver.isValidOperator(operator)){
             Log.d(TAG,"ZenActivity onUpdate" );
             operatorTextView.setText(zenGameDriver.getOperator());
 //            String currHistory=historyTextView.getText().toString();
@@ -237,11 +255,11 @@ public class ZenActivity extends ActionBarActivity
 //                translateAnimation.setRepeatCount(animationRepeat);
 //                translateAnimation.setInterpolator(new CycleInterpolator(.5f));
 //                chainTextView.startAnimation(translateAnimation);
-                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                scaleAnimation.setDuration(500);
-                scaleAnimation.setRepeatCount(animationRepeat);
-                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                chainTextView.startAnimation(scaleAnimation);
+//                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                scaleAnimation.setDuration(500);
+//                scaleAnimation.setRepeatCount(animationRepeat);
+//                scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                chainTextView.startAnimation(scaleAnimation);
             }else{
                 chainTextView.setTypeface(null, Typeface.NORMAL);
             }
@@ -260,50 +278,51 @@ public class ZenActivity extends ActionBarActivity
                 if(!alreadyHighScore) {
                     alreadyHighScore = true;
                     scoreTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    scoreTextView.startAnimation(scaleAnimation);
+                    scoreTextView.setTextColor(getResources().getColor(R.color.default_new_record));
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    scoreTextView.startAnimation(scaleAnimation);
                 }
             }
 
             count++;
-            countTextView.setText(String.valueOf(count));
+//            countTextView.setText(String.valueOf(count));
             if(count>zenHighCount){
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighCount=count;
                 edit.putInt(HIGH_COUNT,count);
 
-                //todo new high count animation
                 if(!alreadyHighCount){
+                    //todo new high count animation
                     alreadyHighCount=true;
-                    countTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    countTextView.startAnimation(scaleAnimation);
+//                    countTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    countTextView.startAnimation(scaleAnimation);
                 }
             }
 
             int temp=zenGameDriver.getLargest();
             if(temp>largest){
                 largest=temp;
-                largestTextView.setText(String.valueOf(largest));
+//                largestTextView.setText(String.valueOf(largest));
                 if(largest>zenHighLargest){
                     SharedPreferences.Editor edit=zenPreferences.edit();
                     zenHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
                     //todo new high largest animation
-                    largestTextView.setTypeface(null, Typeface.BOLD);
-                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
-                    scaleAnimation.setDuration(500);
-                    scaleAnimation.setRepeatCount(animationRepeat);
-                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
-                    largestTextView.startAnimation(scaleAnimation);
+//                    largestTextView.setTypeface(null, Typeface.BOLD);
+//                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
+//                    scaleAnimation.setDuration(500);
+//                    scaleAnimation.setRepeatCount(animationRepeat);
+//                    scaleAnimation.setInterpolator(new CycleInterpolator(.5f));
+//                    largestTextView.startAnimation(scaleAnimation);
                 }else{
-                    largestTextView.setTypeface(null, Typeface.NORMAL);
+//                    largestTextView.setTypeface(null, Typeface.NORMAL);
                 }
             }
 

@@ -3,6 +3,7 @@ package com.ravenlamb.android.arithmeticgame;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,9 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.CycleInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 /**
@@ -65,6 +63,26 @@ public class AdventureActivity extends ActionBarActivity
 
     boolean alreadyHighScore=false;
     boolean alreadyHighCount=false;
+
+    boolean gameStarted=false;
+
+
+    final Handler mHandler=new Handler();
+
+    final Runnable mUpdateTimeTextView = new Runnable() {
+        public void run() {
+            updateTimeTextView();
+        }
+    };
+
+    public void updateTimeTextView(){
+
+//        timeTextView.setText(String.valueOf((int) Math.floor(time)));
+        timeTextView.setText(String.valueOf(time));
+        if(time <0){
+            adventureGridView.setGameOver();
+        }
+    }
 
 
     @Override
@@ -133,22 +151,25 @@ public class AdventureActivity extends ActionBarActivity
         adventureGridView.initDriver();//todo
         adventureGridView.invalidate();
 
-        timeTextView.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while(time>0){
+        gameStarted=false;
 
-                        Thread.sleep(1000);
-                        time--;
-                        timeTextView.setText(String.valueOf((int) Math.floor(time)));
-                    }
-
-                } catch (InterruptedException e) {
-                    Log.d(TAG,"Inside post Runnable catch");
-                }
-            }
-        });
+//
+//        timeTextView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while(time>0){
+//
+//                        Thread.sleep(1000);
+//                        time=time-1f;
+//                        timeTextView.setText(String.valueOf((int) Math.floor(time)));
+//                    }
+//
+//                } catch (InterruptedException e) {
+//                    Log.d(TAG,"Inside post Runnable catch");
+//                }
+//            }
+//        });
     }
 
     public void onRestart(View view){
@@ -191,6 +212,29 @@ public class AdventureActivity extends ActionBarActivity
 
     @Override
     public void onUpdate(BaseGameDriver baseGameDriver) {
+
+        if(!gameStarted){
+            gameStarted=true;
+            new Thread(){
+                public void run(){
+
+                    try {
+                        while(time>0){
+
+                            Thread.sleep(1000);
+                            time=time-1f;
+                            mHandler.post(mUpdateTimeTextView);
+        //                            timeTextView.setText(String.valueOf((int) Math.floor(time)));
+                        }
+
+                    } catch (InterruptedException e) {
+                        Log.d(TAG,"Inside post Runnable catch");
+                    }
+                }
+
+            }.start();
+        }
+
         AdventureGameDriver adventureGameDriver=(AdventureGameDriver)baseGameDriver;
         //todo shift operand animation
         //if result is not valid before, and not valid now, don't need shift animation
@@ -303,9 +347,6 @@ public class AdventureActivity extends ActionBarActivity
         }else if(operator==BaseGameDriver.OP_INVALID){
             operatorTextView.setText(BaseGameDriver.OPERATORS[BaseGameDriver.OP_INVALID ]);
             chain=0;
-        }
-        if(time <1){
-            adventureGridView.setGameOver();
         }
 //        timeTextView.setText(String.valueOf((int) Math.floor(time)));
         timeTextView.setText(String.valueOf(time));

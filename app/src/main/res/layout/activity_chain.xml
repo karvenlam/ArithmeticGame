@@ -1,0 +1,272 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/default_background"
+    tools:context="com.ravenlamb.android.arithmeticgame.ChainActivity">
+
+    <!-- todo make score label on top of score, add chain, largest number
+    todo change text size, center equation, have minwidth
+    todo count, time/move
+
+    -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/top_layout_margin"
+        android:id="@+id/top_layout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/score_side_padding"
+            android:paddingRight="@dimen/score_side_padding"
+            android:paddingTop="@dimen/score_top_padding"
+            android:paddingBottom="@dimen/score_top_padding"
+            android:layout_marginRight="@dimen/score_side_margin"
+            android:gravity="center_horizontal"
+            android:id="@+id/score_linear">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:textColor="@color/default_text"
+                android:text="Score"
+                android:id="@+id/score_label_textview" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="@dimen/top_layout_margin"
+                android:textColor="@color/default_text"
+                android:text="0"
+                android:id="@+id/score_textview" />
+
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/default_text"-->
+            <!--android:text="Count"-->
+            <!--android:id="@+id/count_label_textview" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:textColor="@color/default_text"-->
+            <!--android:text="0"-->
+            <!--android:id="@+id/count_textview" />-->
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/score_side_padding"
+            android:paddingRight="@dimen/score_side_padding"
+            android:paddingTop="@dimen/score_top_padding"
+            android:paddingBottom="@dimen/score_top_padding"
+            android:layout_marginRight="@dimen/score_side_margin"
+            android:gravity="center_horizontal"
+            android:id="@+id/largest_linear">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"
+                android:textColor="@color/default_text"
+                android:text="Chain"
+                android:id="@+id/chain_label_textview" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="@dimen/top_layout_margin"
+                android:textColor="@color/default_text"
+                android:text="0"
+                android:id="@+id/chain_textview" />
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/default_text"-->
+            <!--android:text="Largest"-->
+            <!--android:id="@+id/largest_label_textview" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:textColor="@color/default_text"-->
+            <!--android:text="0"-->
+            <!--android:id="@+id/largest_textview" />-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/score_side_padding"
+            android:paddingRight="@dimen/score_side_padding"
+            android:paddingTop="@dimen/score_top_padding"
+            android:paddingBottom="@dimen/score_top_padding"
+            android:gravity="center_horizontal"
+            android:id="@+id/timer_linear">
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="Moves"-->
+                <!--android:id="@+id/moves_label_textview" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                <!--android:layout_marginBottom="@dimen/top_layout_margin"-->
+                <!--android:textColor="@color/default_text"-->
+                <!--android:text="0"-->
+                <!--android:id="@+id/moves_textview" />-->
+
+            <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingLeft="0dp"-->
+            <!--android:paddingRight="0dp"-->
+            <!--android:text="New\nGame"-->
+            <!--android:onClick="onRestart"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:id="@+id/button"-->
+            <!--android:layout_marginLeft="0dp"-->
+            <!--android:layout_marginRight="0dp" />-->
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/score_side_padding"
+        android:paddingRight="@dimen/score_side_padding"
+        android:paddingTop="@dimen/score_top_padding"
+        android:paddingBottom="@dimen/score_top_padding"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="@dimen/top_layout_margin"
+            android:textColor="@color/default_text"
+            android:visibility="invisible"
+            android:text="0"
+            android:id="@+id/message_textview" />
+    </LinearLayout>
+
+    <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
+    <com.ravenlamb.android.arithmeticgame.JourneyGridView
+        android:id="@+id/chain_grid_view"
+        android:background="@color/default_background"
+        android:layout_gravity="center"
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingLeft="20dp"
+        android:paddingBottom="40dp"  />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_layout_margin"
+        android:paddingTop="@dimen/score_top_padding"
+        android:paddingBottom="@dimen/score_top_padding"
+        android:background="@color/score_background"
+        android:gravity="center_horizontal"
+        android:id="@+id/equation_linear">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/op1_color"
+            android:minEms="4"
+            android:maxEms="6"
+            android:gravity="center_horizontal"
+            android:text="@string/unknown_value"
+            android:id="@+id/op1_textview" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/operator_color"
+            android:text="@string/unknown_operator"
+            android:id="@+id/operator_textview" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/op2_color"
+            android:minEms="4"
+            android:maxEms="6"
+            android:gravity="center_horizontal"
+            android:text="@string/unknown_value"
+            android:id="@+id/op2_textview" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/default_text"
+            android:text="="
+            android:id="@+id/equal_textview" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:textColor="@color/result_color"
+            android:minEms="4"
+            android:maxEms="6"
+            android:gravity="center_horizontal"
+            android:text="@string/unknown_value"
+            android:id="@+id/result_textview" />
+    </LinearLayout>
+
+</LinearLayout>

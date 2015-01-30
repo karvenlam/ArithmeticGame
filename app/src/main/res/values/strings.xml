@@ -45,8 +45,7 @@
         For addition and subtraction, moves = log10(blue)+log10(green)+log10(red).
         For multiplication and division, moves =(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The number of moves is then multiplied by the current chain number.</string>
-    <string name="journey_rule">In Journey mode, at least two of the three numbers must be greater than zero.
-        </string>
+    <string name="journey_rule">In Journey mode, at least two of the three numbers must be greater than zero.</string>
     <string name="score_system">        For addition and subtraction, score=(blue)+(green)+(red).
         For multiplication and division, score=((blue)+(green)+(red))x(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
         The score is then multiplied by the current chain number.</string>
@@ -72,8 +71,22 @@
         The number of moves is then multiplied by the current chain number.</string>
     <string name="adventure_rule">In Adventure mode, at least two of the three numbers must be greater than zero.
         After each correct equation, the selected digits are randomly replaced. Duplicate equations are allowed in this mode.
-        When you runs out of time, you lose.
-        </string>
+        When you runs out of time, you lose.</string>
     <string name="action_new_game">New Game</string>
+    <string name="title_activity_chain">Arithmetic Chain</string>
+    <string name="chain_help">Drag across digits in a straight line vertically, horizontally or diagonally to select number.
+        \n
+        When a valid number is first selected, it appears on the right side of the equation at the red position.
+        After the next valid operand is selected, the number at the red position shifts to the green position.
+        And the number at the green position shifts to the blue position.
+        The newly selected number then takes the red position.
+        \n
+        When the three numbers form a correct arithmetic(+-\u00D7\u00F7) equation, you earn score.
+        When you continuously form correct arithmetic equations, you gain chain multiplier.
+        \n
+        Valid numbers cannot have leading zeros and cannot intersect each other.
+        In Chain mode, at least two of the three numbers must be greater than zero.
+        You lose when the arithmetic chain is broken.</string>
+    <string name="chain_rule">In Chain mode, at least two of the three numbers must be greater than zero.</string>
 
 </resources>

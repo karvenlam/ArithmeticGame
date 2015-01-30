@@ -1,6 +1,7 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 public class AdventureActivity extends ActionBarActivity
         implements BaseGridView.OnGridViewInteraction {
 
-    public static final String TAG=BaseGameDriver.class.getName();
+    public static final String TAG=AdventureActivity.class.getName();
     public static final String ADVENTURE_PREFERENCES ="AdventurePreferences";
     public static final String HIGH_SCORE ="highScore";
     public static final String HIGH_COUNT="highCount";
@@ -121,6 +122,16 @@ public class AdventureActivity extends ActionBarActivity
         layoutParams.height=gridViewWidth;
         adventureGridView.setLayoutParams(layoutParams);
         newGame();
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage(R.string.adventure_rule).setTitle("Adventure");
+        builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog=builder.create();
+        dialog.show();
     }
 
 

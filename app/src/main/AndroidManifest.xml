@@ -32,6 +32,11 @@
             android:label="@string/title_activity_adventure"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".ChainActivity"
+            android:label="@string/title_activity_chain"
+            android:screenOrientation="portrait"  >
+        </activity>
     </application>
 
 </manifest>

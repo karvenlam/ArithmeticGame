@@ -30,13 +30,13 @@ public class ChainActivity extends ActionBarActivity
         implements BaseGridView.OnGridViewInteraction {
 
     public static final String TAG=ChainActivity.class.getName();
-    public static final String CHAIN_PREFERENCES="JourneyPreferences";
+    public static final String CHAIN_PREFERENCES="ChainPreferences";
     public static final String HIGH_SCORE ="highScore";
-    public static final String HIGH_COUNT="highCount";
+//    public static final String HIGH_COUNT="highCount";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
-    public static final float INITIAL_MOVES=10;
-    public static final int animationRepeat=4;
+//    public static final float INITIAL_MOVES=10;
+//    public static final int animationRepeat=4;
 
     JourneyGridView chainGridView;
 
@@ -144,7 +144,7 @@ public class ChainActivity extends ActionBarActivity
         chainTextView.setText(String.valueOf(chain));
 //        largestTextView.setText(String.valueOf(largest));
 
-        chainGridView.initDriver();//todo
+        chainGridView.initDriver();
         chainGridView.invalidate();
 
     }
@@ -213,7 +213,7 @@ public class ChainActivity extends ActionBarActivity
         //todo add animation and sound effect
         //todo add high score, chains, largest number
         if(BaseGameDriver.isValidOperator(operator)){
-            Log.d(TAG, "ZenActivity onUpdate");
+//            Log.d(TAG, "ChainActivity onUpdate");
             operatorTextView.setText(chainGameDriver.getOperator());
 
 
@@ -303,7 +303,7 @@ public class ChainActivity extends ActionBarActivity
             operatorTextView.setText(BaseGameDriver.OPERATORS[BaseGameDriver.OP_INVALID ]);
             if(chain>0){
 
-                chainGridView.setGameOver();
+                chainGridView.setChainGameOver();
             }
 //            chain=0;
 //            score=0;

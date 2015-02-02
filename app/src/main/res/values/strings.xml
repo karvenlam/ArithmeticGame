@@ -88,5 +88,7 @@
         In Chain mode, at least two of the three numbers must be greater than zero.
         You lose when the arithmetic chain is broken.</string>
     <string name="chain_rule">In Chain mode, at least two of the three numbers must be greater than zero.</string>
+    <string name="title_activity_high_score">Arithmetic High Score</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

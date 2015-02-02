@@ -22,6 +22,7 @@ public class JourneyGridView extends BaseGridView {
     float animateTextSize;
     float numberTextSize;
     boolean gameOver=false;//todo
+    String gameOverMessage="OUT OF MOVES";
 
     public JourneyGridView(Context context) {
         super(context);
@@ -105,7 +106,7 @@ public class JourneyGridView extends BaseGridView {
         }
         if(gameOver){
             numberPaint.setColor(Color.BLACK);
-            canvas.drawText("OUT OF MOVES",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+            canvas.drawText(gameOverMessage,canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
         }
     }
 
@@ -201,6 +202,12 @@ public class JourneyGridView extends BaseGridView {
 
     public void setGameOver(){
         gameOver=true;
+        invalidate();
+    }
+
+    public void setChainGameOver(){
+        gameOver=true;
+        gameOverMessage="CHAIN BROKEN";
         invalidate();
     }
 

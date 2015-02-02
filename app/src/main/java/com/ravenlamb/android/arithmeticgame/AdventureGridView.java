@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
@@ -185,7 +186,7 @@ public class AdventureGridView extends BaseGridView {
 
 //                    ObjectAnimator.ofFloat(AdventureGridView.this, "animateTextSize", numberTextSize / 2, numberTextSize).setDuration(50).start();
                     ObjectAnimator objectAnimator= ObjectAnimator.ofFloat(AdventureGridView.this, "animateYFactor", 1f, 0f).setDuration(300);
-                    objectAnimator.setInterpolator(new DecelerateInterpolator());
+                    objectAnimator.setInterpolator(new AnticipateInterpolator());
                     objectAnimator.start();
 
                 }

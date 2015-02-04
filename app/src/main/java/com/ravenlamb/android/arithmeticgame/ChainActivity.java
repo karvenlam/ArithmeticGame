@@ -223,6 +223,7 @@ public class ChainActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=chainPreferences.edit();
                 chainHighChain=chain;
                 edit.putInt(HIGH_CHAIN,chain);
+                edit.commit();
                 //todo new high chain animation
                 chainTextView.setTypeface(null, Typeface.BOLD);
 //                ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);
@@ -246,6 +247,7 @@ public class ChainActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=chainPreferences.edit();
                 chainHighScore=score;
                 edit.putFloat(HIGH_SCORE,(float)score);
+                edit.commit();
 
                 //todo new high score animation, scale score textview
                 if(!alreadyHighScore) {
@@ -266,6 +268,7 @@ public class ChainActivity extends ActionBarActivity
 //                SharedPreferences.Editor edit=chainPreferences.edit();
 //                chainHighCount=count;
 //                edit.putInt(HIGH_COUNT, count);
+//                edit.commit();
 
                 //todo new high count animation
 //                if(!alreadyHighCount){
@@ -287,6 +290,7 @@ public class ChainActivity extends ActionBarActivity
                     SharedPreferences.Editor edit=chainPreferences.edit();
                     chainHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
+                    edit.commit();
                     //todo new high largest animation
 //                    largestTextView.setTypeface(null, Typeface.BOLD);
 //                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);

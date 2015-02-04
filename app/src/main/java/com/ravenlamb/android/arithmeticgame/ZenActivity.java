@@ -246,6 +246,7 @@ public class ZenActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighChain=chain;
                 edit.putInt(HIGH_CHAIN,chain);
+                edit.commit();
                 //todo new high chain animation, need to change to translate bounce
                 chainTextView.setTypeface(null, Typeface.BOLD);
 
@@ -273,6 +274,7 @@ public class ZenActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighScore=score;
                 edit.putFloat(HIGH_SCORE,(float)score);
+                edit.commit();
 
                 //todo new high score animation, scale score textview
                 if(!alreadyHighScore) {
@@ -293,6 +295,7 @@ public class ZenActivity extends ActionBarActivity
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighCount=count;
                 edit.putInt(HIGH_COUNT,count);
+                edit.commit();
 
                 if(!alreadyHighCount){
                     //todo new high count animation
@@ -314,6 +317,7 @@ public class ZenActivity extends ActionBarActivity
                     SharedPreferences.Editor edit=zenPreferences.edit();
                     zenHighLargest=largest;
                     edit.putInt(HIGH_LARGEST,largest);
+                    edit.commit();
                     //todo new high largest animation
 //                    largestTextView.setTypeface(null, Typeface.BOLD);
 //                    ScaleAnimation scaleAnimation=new ScaleAnimation(1f,2f,1f,2f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,1f);

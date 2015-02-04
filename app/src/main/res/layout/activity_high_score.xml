@@ -106,8 +106,297 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/adventure_vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="Adventure Mode"
+            android:padding="@dimen/highscore_title_padding"
+            android:textStyle="bold"
+            android:background="@color/num_color1"
+            android:textColor="@android:color/white"
+
+            android:id="@+id/adventureTitle" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="High Score:  "
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_score_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_score" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Longest Chain:  "
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_chain_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_chain" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Largest number used:  "
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_largest_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color1"
+                android:id="@+id/adventure_largest" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/journey_vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="Journey Mode"
+            android:padding="@dimen/highscore_title_padding"
+            android:textStyle="bold"
+            android:background="@color/num_color2"
+            android:textColor="@android:color/white"
+
+            android:id="@+id/journeyTitle" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="High Score:  "
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_score_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_score" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Longest Chain:  "
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_chain_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_chain" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Largest number used:  "
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_largest_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color2"
+                android:id="@+id/journey_largest" />
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/zen_vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:text="Zen Mode"
+            android:padding="@dimen/highscore_title_padding"
+            android:textStyle="bold"
+            android:background="@color/num_color3"
+            android:textColor="@android:color/white"
+
+            android:id="@+id/zenTitle" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="High Score:  "
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_score_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_score" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Longest Chain:  "
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_chain_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_chain" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/highscore_top_padding"
+            android:paddingBottom="@dimen/highscore_top_padding"
+            android:paddingLeft="@dimen/highscore_side_padding"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Largest number used:  "
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_largest_label" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="0"
+                android:textColor="@color/num_color3"
+                android:id="@+id/zen_largest" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,11 +3,20 @@ package com.ravenlamb.android.arithmeticgame;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ravenlamb.android.arithmeticgame.R;
+
+import java.util.ArrayList;
 
 public class HighScoreActivity extends ActionBarActivity {
 
@@ -18,6 +27,8 @@ public class HighScoreActivity extends ActionBarActivity {
     public static final String HIGH_SCORE ="highScore";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
+
+    View[] animateViews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +84,33 @@ public class HighScoreActivity extends ActionBarActivity {
         TextView zenLargest=(TextView)findViewById(R.id.zen_largest);
         zenLargest.setText(String.valueOf(zenHighLargest));
 
+        ArrayList<View> viewArrayList=new ArrayList<View>();
+        viewArrayList.add(findViewById(R.id.chainTitleTextView));
+        viewArrayList.add(findViewById(R.id.chainScoreLinear));
+        viewArrayList.add(findViewById(R.id.chainChainLinear));
+        viewArrayList.add(findViewById(R.id.chainLargestLinear));
+
+        viewArrayList.add(findViewById(R.id.adventureTitleTextView));
+        viewArrayList.add(findViewById(R.id.adventureScoreLinear));
+        viewArrayList.add(findViewById(R.id.adventureChainLinear));
+        viewArrayList.add(findViewById(R.id.adventureLargestLinear));
+
+        viewArrayList.add(findViewById(R.id.journeyTitleTextView));
+        viewArrayList.add(findViewById(R.id.journeyScoreLinear));
+        viewArrayList.add(findViewById(R.id.journeyChainLinear));
+        viewArrayList.add(findViewById(R.id.journeyLargestLinear));
+
+        viewArrayList.add(findViewById(R.id.zenTitleTextView));
+        viewArrayList.add(findViewById(R.id.zenScoreLinear));
+        viewArrayList.add(findViewById(R.id.zenChainLinear));
+        viewArrayList.add(findViewById(R.id.zenLargestLinear));
+
+
+        animateViews=new View[viewArrayList.size()];
+        for(int i=0;i<animateViews.length;i++){
+            animateViews[i]=viewArrayList.get(i);
+        }
+
     }
 
 
@@ -101,6 +139,16 @@ public class HighScoreActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        DisplayMetrics dm=getResources().getDisplayMetrics();
+        int screenW=dm.widthPixels;
+        int offset=180;
+        for(int i=0;i<animateViews.length;i++){
+            TranslateAnimation translateAnimation=new TranslateAnimation(screenW,0,0,0);
+            translateAnimation.setDuration(500);
+            translateAnimation.setInterpolator(new OvershootInterpolator(.5f));
+            translateAnimation.setStartOffset(i * offset);
+            animateViews[i].startAnimation(translateAnimation);
+        }
 
     }
 }

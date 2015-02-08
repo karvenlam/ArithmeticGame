@@ -12,7 +12,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans serif"
             android:textAllCaps="false"
             android:textSize="@dimen/button_text_size"
             android:width="@dimen/menu_button_width"
@@ -21,12 +21,13 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onChainStart"
             android:text="@string/chain"
+            android:textColor="@color/num_color0"
             android:id="@+id/chain_button" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans serif"
             android:textAllCaps="false"
             android:textSize="@dimen/button_text_size"
             android:width="@dimen/menu_button_width"
@@ -35,13 +36,14 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onAdventureStart"
             android:text="@string/adventure"
+            android:textColor="@color/num_color1"
             android:id="@+id/adventure_button" />
 
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans serif"
             android:textAllCaps="false"
             android:textSize="@dimen/button_text_size"
             android:width="@dimen/menu_button_width"
@@ -50,12 +52,13 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onJourneyStart"
             android:text="@string/journey"
+            android:textColor="@color/num_color2"
             android:id="@+id/journey_button" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans serif"
             android:textAllCaps="false"
             android:textSize="@dimen/button_text_size"
             android:width="@dimen/menu_button_width"
@@ -64,6 +67,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onZenStart"
             android:text="@string/zen"
+            android:textColor="@color/num_color3"
             android:id="@+id/zen_button" />
 
 
@@ -72,7 +76,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans serif"
             android:textAllCaps="false"
             android:textSize="@dimen/button_text_size"
             android:width="@dimen/menu_button_width"
@@ -81,6 +85,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onHighScoreStart"
             android:text="@string/highscore"
+            android:textColor="@color/num_color5"
             android:id="@+id/highscore_button" />
     </LinearLayout>
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.ravenlamb.android.arithmeticgame;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ public class HighScoreActivity extends ActionBarActivity {
 
 
         SharedPreferences chainPreferences=getSharedPreferences(CHAIN_PREFERENCES,0);
-        float chainHighScore=chainPreferences.getFloat(HIGH_SCORE, 0);
+        double chainHighScore=Double.parseDouble(chainPreferences.getString(HIGH_SCORE, "0"));
         TextView chainScore=(TextView)findViewById(R.id.chain_score);
         chainScore.setText(String.valueOf((int)Math.floor(chainHighScore)));
         int chainHighChain=chainPreferences.getInt(HIGH_CHAIN,0);
@@ -49,7 +50,7 @@ public class HighScoreActivity extends ActionBarActivity {
 
 
         SharedPreferences adventurePreferences=getSharedPreferences(ADVENTURE_PREFERENCES,0);
-        float adventureHighScore=adventurePreferences.getFloat(HIGH_SCORE, 0);
+        double adventureHighScore=Double.parseDouble(adventurePreferences.getString(HIGH_SCORE, "0"));
         TextView adventureScore=(TextView)findViewById(R.id.adventure_score);
         adventureScore.setText(String.valueOf((int)Math.floor(adventureHighScore)));
         int adventureHighChain=adventurePreferences.getInt(HIGH_CHAIN,0);
@@ -62,7 +63,7 @@ public class HighScoreActivity extends ActionBarActivity {
 
         //count
         SharedPreferences journeyPreferences=getSharedPreferences(JOURNEY_PREFERENCES,0);
-        float journeyHighScore=journeyPreferences.getFloat(HIGH_SCORE, 0);
+        double journeyHighScore=Double.parseDouble(journeyPreferences.getString(HIGH_SCORE, "0"));
         TextView journeyScore=(TextView)findViewById(R.id.journey_score);
         journeyScore.setText(String.valueOf((int)Math.floor(journeyHighScore)));
         int journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN,0);
@@ -74,7 +75,7 @@ public class HighScoreActivity extends ActionBarActivity {
 
 
         SharedPreferences zenPreferences=getSharedPreferences(ZEN_PREFERENCES,0);
-        float zenHighScore=zenPreferences.getFloat(HIGH_SCORE, 0);
+        double zenHighScore=Double.parseDouble(zenPreferences.getString(HIGH_SCORE, "0"));
         TextView zenScore=(TextView)findViewById(R.id.zen_score);
         zenScore.setText(String.valueOf((int)Math.floor(zenHighScore)));
         int zenHighChain=zenPreferences.getInt(HIGH_CHAIN,0);
@@ -117,7 +118,7 @@ public class HighScoreActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -132,7 +133,16 @@ public class HighScoreActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (id == R.id.action_rules) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.main_rule).setTitle("Game Rules");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 

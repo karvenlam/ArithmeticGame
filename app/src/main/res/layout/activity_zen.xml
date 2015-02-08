@@ -155,27 +155,27 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingLeft="@dimen/score_side_padding"
-        android:paddingRight="@dimen/score_side_padding"
-        android:paddingTop="@dimen/score_top_padding"
-        android:paddingBottom="@dimen/score_top_padding"
-        android:gravity="center_horizontal">
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:paddingLeft="@dimen/score_side_padding"-->
+        <!--android:paddingRight="@dimen/score_side_padding"-->
+        <!--android:paddingTop="@dimen/score_top_padding"-->
+        <!--android:paddingBottom="@dimen/score_top_padding"-->
+        <!--android:gravity="center_horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginBottom="@dimen/top_layout_margin"
-            android:textColor="@color/default_text"
-            android:visibility="invisible"
-            android:text="0"
-            android:id="@+id/message_textview" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+            <!--android:layout_marginBottom="@dimen/top_layout_margin"-->
+            <!--android:textColor="@color/default_text"-->
+            <!--android:visibility="invisible"-->
+            <!--android:text="0"-->
+            <!--android:id="@+id/message_textview" />-->
+    <!--</LinearLayout>-->
 
     <!--<com.ravenlamb.android.arithmeticgame.BaseGridView-->
     <com.ravenlamb.android.arithmeticgame.ZenGridView
@@ -251,18 +251,22 @@
             android:id="@+id/result_textview" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/default_text"
-        android:text=""
-        android:id="@+id/history_textview" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/default_text"
+            android:text=""
+            android:id="@+id/history_textview" />
+    </ScrollView>
 
     <!--todo need to remove debug-->
     <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:text="debug"-->
-        <!--android:id="@+id/debug_textview" />-->77+88
+        <!--android:id="@+id/debug_textview" />-->
 </LinearLayout>

@@ -98,12 +98,6 @@ public class ZenActivity extends ActionBarActivity
         historyTextView = (TextView) findViewById(R.id.history_textview);
 //        debugTextView = (TextView) findViewById(R.id.debug_textview);
 
-        zenPreferences=getSharedPreferences(ZEN_PREFERENCES,0);
-        zenHighScore=zenPreferences.getFloat(HIGH_SCORE, 0);
-        zenHighCount=zenPreferences.getInt(HIGH_COUNT,0);
-        zenHighChain=zenPreferences.getInt(HIGH_CHAIN,0);
-        zenHighLargest=zenPreferences.getInt(HIGH_LARGEST,0);
-
 
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
@@ -118,6 +112,7 @@ public class ZenActivity extends ActionBarActivity
         layoutParams.height=gridViewWidth;
         zenGridView.setLayoutParams(layoutParams);
 
+        newGame();
 
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setMessage(R.string.zen_rule).setTitle("Zen");
@@ -137,6 +132,13 @@ public class ZenActivity extends ActionBarActivity
         count=0;
         chain=0;
         largest=0;
+
+        zenPreferences=getSharedPreferences(ZEN_PREFERENCES,0);
+        zenHighScore=Double.parseDouble(zenPreferences.getString(HIGH_SCORE, "0"));
+        zenHighCount=zenPreferences.getInt(HIGH_COUNT,0);
+        zenHighChain=zenPreferences.getInt(HIGH_CHAIN,0);
+        zenHighLargest=zenPreferences.getInt(HIGH_LARGEST,0);
+
 
         alreadyHighCount=false;
         alreadyHighScore=false;
@@ -187,6 +189,23 @@ public class ZenActivity extends ActionBarActivity
             newGame();
             return true;
         }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
+        if (id == R.id.action_rules) {
+            //todo show help dialog
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.zen_rule).setTitle("Zen Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
         if (id == R.id.action_help) {
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -233,7 +252,7 @@ public class ZenActivity extends ActionBarActivity
         //todo add animation and sound effect
         //todo add high score, chains, largest number
         if(BaseGameDriver.isValidOperator(operator)){
-            Log.d(TAG,"ZenActivity onUpdate" );
+//            Log.d(TAG,"ZenActivity onUpdate" );
             operatorTextView.setText(zenGameDriver.getOperator());
 //            String currHistory=historyTextView.getText().toString();
 //            historyTextView.setText(baseGameDriver.getCurrEquation() +"\n" + currHistory);
@@ -273,7 +292,7 @@ public class ZenActivity extends ActionBarActivity
             if(score>zenHighScore){
                 SharedPreferences.Editor edit=zenPreferences.edit();
                 zenHighScore=score;
-                edit.putFloat(HIGH_SCORE,(float)score);
+                edit.putString(HIGH_SCORE,String.valueOf(score));
                 edit.commit();
 
                 //todo new high score animation, scale score textview

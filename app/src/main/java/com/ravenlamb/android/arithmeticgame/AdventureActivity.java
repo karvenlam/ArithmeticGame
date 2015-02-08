@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 /**
  * This is the activity class for adventure mode of Arithmetic game
  * Each time an equation is correct, the selected cells are replaced,
@@ -34,6 +36,7 @@ public class AdventureActivity extends ActionBarActivity
     public static final String HIGH_LARGEST ="highLargest";
     public static final float INITIAL_TIME=30;
     public static final int animationRepeat=4;
+    public static final DecimalFormat df=new DecimalFormat("0.0");
 
     AdventureGridView adventureGridView;
 
@@ -79,7 +82,8 @@ public class AdventureActivity extends ActionBarActivity
     public void updateTimeTextView(){
 
 //        timeTextView.setText(String.valueOf((int) Math.floor(time)));
-        timeTextView.setText(String.valueOf(time));
+//        timeTextView.setText(String.valueOf(time));
+        timeTextView.setText(df.format(time));
         if(time <0){
             adventureGridView.setGameOver();
         }
@@ -95,19 +99,12 @@ public class AdventureActivity extends ActionBarActivity
         chainTextView = (TextView) findViewById(R.id.chain_textview);
 //        largestTextView =(TextView) findViewById(R.id.largest_textview);
         timeTextView = (TextView) findViewById(R.id.time_textview);
-        timeTextView.setText(String.valueOf((int) Math.floor(time)));
+        timeTextView.setText(df.format(time));
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
         op2TextView= (TextView) findViewById(R.id.op2_textview);
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
-
-        adventurePreferences=getSharedPreferences(ADVENTURE_PREFERENCES,0);
-        adventureHighScore=adventurePreferences.getFloat(HIGH_SCORE, 0);
-        adventureHighCount=adventurePreferences.getInt(HIGH_COUNT,0);
-        adventureHighChain=adventurePreferences.getInt(HIGH_CHAIN,0);
-        adventureHighLargest=adventurePreferences.getInt(HIGH_LARGEST,0);
-
 
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
@@ -121,7 +118,9 @@ public class AdventureActivity extends ActionBarActivity
         layoutParams.width=gridViewWidth;
         layoutParams.height=gridViewWidth;
         adventureGridView.setLayoutParams(layoutParams);
+
         newGame();
+
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setMessage(R.string.adventure_rule).setTitle("Adventure");
         builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
@@ -142,6 +141,13 @@ public class AdventureActivity extends ActionBarActivity
         largest=0;
         time =INITIAL_TIME;
 
+        adventurePreferences=getSharedPreferences(ADVENTURE_PREFERENCES,0);
+        adventureHighScore=Double.parseDouble(adventurePreferences.getString(HIGH_SCORE, "0"));
+        adventureHighCount=adventurePreferences.getInt(HIGH_COUNT,0);
+        adventureHighChain=adventurePreferences.getInt(HIGH_CHAIN,0);
+        adventureHighLargest=adventurePreferences.getInt(HIGH_LARGEST,0);
+
+
         alreadyHighCount=false;
         alreadyHighScore=false;
         scoreTextView.setTypeface(null, Typeface.NORMAL);
@@ -159,28 +165,11 @@ public class AdventureActivity extends ActionBarActivity
         chainTextView.setText(String.valueOf(chain));
 //        largestTextView.setText(String.valueOf(largest));
 
-        adventureGridView.initDriver();//todo
+        adventureGridView.initDriver();
         adventureGridView.invalidate();
 
         gameStarted=false;
 
-//
-//        timeTextView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    while(time>0){
-//
-//                        Thread.sleep(1000);
-//                        time=time-1f;
-//                        timeTextView.setText(String.valueOf((int) Math.floor(time)));
-//                    }
-//
-//                } catch (InterruptedException e) {
-//                    Log.d(TAG,"Inside post Runnable catch");
-//                }
-//            }
-//        });
     }
 
     public void onRestart(View view){
@@ -209,8 +198,17 @@ public class AdventureActivity extends ActionBarActivity
             newGame();
             return true;
         }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
+        if (id == R.id.action_rules) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.adventure_rule).setTitle("Adventure Rules");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
         if (id == R.id.action_help) {
-            //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.adventure_help).setTitle("Adventure Help");
             AlertDialog dialog=builder.create();
@@ -220,6 +218,7 @@ public class AdventureActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onUpdate(BaseGameDriver baseGameDriver) {
@@ -239,7 +238,7 @@ public class AdventureActivity extends ActionBarActivity
                         }
 
                     } catch (InterruptedException e) {
-                        Log.d(TAG,"Inside post Runnable catch");
+                        //Log.d(TAG,"Inside post Runnable catch");
                     }
                 }
 
@@ -269,7 +268,7 @@ public class AdventureActivity extends ActionBarActivity
         //todo add animation and sound effect
         //todo add high score, chains, largest number
         if(BaseGameDriver.isValidOperator(operator)){
-            Log.d(TAG, "ZenActivity onUpdate");
+            //Log.d(TAG, "AdventureActivity onUpdate");
             operatorTextView.setText(adventureGameDriver.getOperator());
 
 
@@ -302,7 +301,7 @@ public class AdventureActivity extends ActionBarActivity
             if(score>adventureHighScore){
                 SharedPreferences.Editor edit=adventurePreferences.edit();
                 adventureHighScore=score;
-                edit.putFloat(HIGH_SCORE,(float)score);
+                edit.putString(HIGH_SCORE, String.valueOf(score));
                 edit.commit();
 
                 //todo new high score animation, scale score textview
@@ -364,7 +363,7 @@ public class AdventureActivity extends ActionBarActivity
             chain=0;
         }
 //        timeTextView.setText(String.valueOf((int) Math.floor(time)));
-        timeTextView.setText(String.valueOf(time));
+        timeTextView.setText(df.format(time));
     }
 
     @Override

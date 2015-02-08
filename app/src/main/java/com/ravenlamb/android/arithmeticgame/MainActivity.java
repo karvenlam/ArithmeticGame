@@ -1,5 +1,6 @@
 package com.ravenlamb.android.arithmeticgame;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -62,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -77,7 +78,16 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (id == R.id.action_rules) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.main_rule).setTitle("Game Rules");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 }

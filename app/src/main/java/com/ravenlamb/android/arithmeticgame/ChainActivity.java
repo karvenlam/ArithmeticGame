@@ -85,13 +85,6 @@ public class ChainActivity extends ActionBarActivity
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
 
-        chainPreferences=getSharedPreferences(CHAIN_PREFERENCES,0);
-        chainHighScore=chainPreferences.getFloat(HIGH_SCORE, 0);
-//        chainHighCount=chainPreferences.getInt(HIGH_COUNT,0);
-        chainHighChain=chainPreferences.getInt(HIGH_CHAIN,0);
-        chainHighLargest=chainPreferences.getInt(HIGH_LARGEST,0);
-
-
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
         int screenH=dm.heightPixels;
@@ -105,6 +98,7 @@ public class ChainActivity extends ActionBarActivity
         layoutParams.height=gridViewWidth;
         chainGridView.setLayoutParams(layoutParams);
 
+        newGame();
 
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setMessage(R.string.chain_rule).setTitle("Chain");
@@ -121,28 +115,26 @@ public class ChainActivity extends ActionBarActivity
 
     public void newGame(){
         score=0;
-//        count=0;
         chain=0;
         largest=0;
-//        moves=INITIAL_MOVES;
+
+        chainPreferences=getSharedPreferences(CHAIN_PREFERENCES,0);
+        chainHighScore=Double.parseDouble(chainPreferences.getString(HIGH_SCORE, "0"));
+        chainHighChain=chainPreferences.getInt(HIGH_CHAIN,0);
+        chainHighLargest=chainPreferences.getInt(HIGH_LARGEST,0);
 
 //        alreadyHighCount=false;
         alreadyHighScore=false;
         scoreTextView.setTypeface(null, Typeface.NORMAL);
         scoreTextView.setTextColor(getResources().getColor(R.color.default_text));
-//        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
-//        largestTextView.setTypeface(null, Typeface.NORMAL);
-//        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         resultTextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
-//        countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
-//        largestTextView.setText(String.valueOf(largest));
 
         chainGridView.initDriver();
         chainGridView.invalidate();
@@ -173,6 +165,17 @@ public class ChainActivity extends ActionBarActivity
         }
         if (id == R.id.action_new_game) {
             newGame();
+            return true;
+        }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
+        if (id == R.id.action_rules) {
+            //todo show help dialog
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.chain_rule).setTitle("Chain Rules");
+            AlertDialog dialog=builder.create();
+            dialog.show();
             return true;
         }
         if (id == R.id.action_help) {
@@ -246,7 +249,7 @@ public class ChainActivity extends ActionBarActivity
             if(score>chainHighScore){
                 SharedPreferences.Editor edit=chainPreferences.edit();
                 chainHighScore=score;
-                edit.putFloat(HIGH_SCORE,(float)score);
+                edit.putString(HIGH_SCORE, String.valueOf(score));
                 edit.commit();
 
                 //todo new high score animation, scale score textview

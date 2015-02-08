@@ -85,13 +85,6 @@ public class JourneyActivity extends ActionBarActivity
         operatorTextView= (TextView) findViewById(R.id.operator_textview);
         resultTextView= (TextView) findViewById(R.id.result_textview);
 
-        journeyPreferences=getSharedPreferences(JOURNEY_PREFERENCES,0);
-        journeyHighScore=journeyPreferences.getFloat(HIGH_SCORE, 0);
-        journeyHighCount=journeyPreferences.getInt(HIGH_COUNT,0);
-        journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN,0);
-        journeyHighLargest=journeyPreferences.getInt(HIGH_LARGEST,0);
-
-
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
         int screenH=dm.heightPixels;
@@ -105,6 +98,7 @@ public class JourneyActivity extends ActionBarActivity
         layoutParams.height=gridViewWidth;
         journeyGridView.setLayoutParams(layoutParams);
 
+        newGame();
 
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setMessage(R.string.journey_rule).setTitle("Journey");
@@ -125,6 +119,12 @@ public class JourneyActivity extends ActionBarActivity
         chain=0;
         largest=0;
         moves=INITIAL_MOVES;
+
+        journeyPreferences=getSharedPreferences(JOURNEY_PREFERENCES,0);
+        journeyHighScore=Double.parseDouble(journeyPreferences.getString(HIGH_SCORE, "0"));
+        journeyHighCount=journeyPreferences.getInt(HIGH_COUNT,0);
+        journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN,0);
+        journeyHighLargest=journeyPreferences.getInt(HIGH_LARGEST,0);
 
         alreadyHighCount=false;
         alreadyHighScore=false;
@@ -175,6 +175,17 @@ public class JourneyActivity extends ActionBarActivity
             newGame();
             return true;
         }
+        if(id == R.id.action_quit){
+            this.finish();
+        }
+        if (id == R.id.action_rules) {
+            //todo show help dialog
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setMessage(R.string.journey_rule).setTitle("Journey Rules");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+            return true;
+        }
         if (id == R.id.action_help) {
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -213,7 +224,7 @@ public class JourneyActivity extends ActionBarActivity
         //todo add animation and sound effect
         //todo add high score, chains, largest number
         if(BaseGameDriver.isValidOperator(operator)){
-            Log.d(TAG, "ZenActivity onUpdate");
+//            Log.d(TAG, "JourneyActivity onUpdate");
             operatorTextView.setText(journeyGameDriver.getOperator());
 
 
@@ -246,7 +257,7 @@ public class JourneyActivity extends ActionBarActivity
             if(score>journeyHighScore){
                 SharedPreferences.Editor edit=journeyPreferences.edit();
                 journeyHighScore=score;
-                edit.putFloat(HIGH_SCORE,(float)score);
+                edit.putString(HIGH_SCORE,String.valueOf(score));
                 edit.commit();
 
                 //todo new high score animation, scale score textview

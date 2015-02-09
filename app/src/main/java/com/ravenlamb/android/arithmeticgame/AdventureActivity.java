@@ -83,10 +83,11 @@ public class AdventureActivity extends ActionBarActivity
 
 //        timeTextView.setText(String.valueOf((int) Math.floor(time)));
 //        timeTextView.setText(String.valueOf(time));
-        timeTextView.setText(df.format(time));
         if(time <0){
             adventureGridView.setGameOver();
+            time=0;
         }
+        timeTextView.setText(df.format(time));
     }
 
 
@@ -155,6 +156,7 @@ public class AdventureActivity extends ActionBarActivity
 //        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
 //        largestTextView.setTypeface(null, Typeface.NORMAL);
+        timeTextView.setText(df.format(time));
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
@@ -204,6 +206,12 @@ public class AdventureActivity extends ActionBarActivity
         if (id == R.id.action_rules) {
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.adventure_rule).setTitle("Adventure Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -211,6 +219,12 @@ public class AdventureActivity extends ActionBarActivity
         if (id == R.id.action_help) {
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.adventure_help).setTitle("Adventure Help");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -231,8 +245,8 @@ public class AdventureActivity extends ActionBarActivity
                     try {
                         while(time>0){
 
-                            Thread.sleep(1000);
-                            time=time-1f;
+                            Thread.sleep(100);
+                            time=time-0.1f;
                             mHandler.post(mUpdateTimeTextView);
         //                            timeTextView.setText(String.valueOf((int) Math.floor(time)));
                         }

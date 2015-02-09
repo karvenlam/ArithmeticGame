@@ -174,6 +174,12 @@ public class ChainActivity extends ActionBarActivity
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.chain_rule).setTitle("Chain Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -182,6 +188,12 @@ public class ChainActivity extends ActionBarActivity
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.chain_help).setTitle("Chain Help");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;

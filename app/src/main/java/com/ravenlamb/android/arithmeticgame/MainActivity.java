@@ -1,12 +1,16 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -81,6 +85,12 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_rules) {
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.main_rule).setTitle("Game Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -89,5 +99,22 @@ public class MainActivity extends ActionBarActivity {
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DisplayMetrics dm=getResources().getDisplayMetrics();
+        int screenW=dm.widthPixels;
+        int screenH=dm.heightPixels;
+
+        //todo combine visibility, alphaanimation and translateanimation
+        TextView textView0=(TextView)findViewById(R.id.textView0);
+        int x=(int)(Math.random()*(double)screenW);
+        int y=(int)(Math.random()*(double)screenH);
+        TranslateAnimation translateAnimation=new TranslateAnimation(0,500,0,500);
+        translateAnimation.setDuration(5000);
+        textView0.startAnimation(translateAnimation);
+
     }
 }

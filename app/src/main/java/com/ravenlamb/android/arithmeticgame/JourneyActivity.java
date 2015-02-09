@@ -18,6 +18,8 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 /**
  * This is the activity class for Journey mode of Arithmetic game
  * Each time an equation is correct, the selected cells are replaced,
@@ -37,6 +39,7 @@ public class JourneyActivity extends ActionBarActivity
     public static final String HIGH_LARGEST ="highLargest";
     public static final float INITIAL_MOVES=10;
     public static final int animationRepeat=4;
+    public static final DecimalFormat df=new DecimalFormat("0.00");
 
     JourneyGridView journeyGridView;
 
@@ -78,7 +81,7 @@ public class JourneyActivity extends ActionBarActivity
         chainTextView = (TextView) findViewById(R.id.chain_textview);
 //        largestTextView =(TextView) findViewById(R.id.largest_textview);
         moveTextView = (TextView) findViewById(R.id.moves_textview);
-        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
+        moveTextView.setText(df.format(moves));
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
         op2TextView= (TextView) findViewById(R.id.op2_textview);
@@ -133,7 +136,7 @@ public class JourneyActivity extends ActionBarActivity
 //        countTextView.setTypeface(null, Typeface.NORMAL);
         chainTextView.setTypeface(null, Typeface.NORMAL);
 //        largestTextView.setTypeface(null, Typeface.NORMAL);
-        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
+        moveTextView.setText(df.format(moves));
 
         op1TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
         op2TextView.setText(BaseGameDriver.UNKNOWN_VALUE);
@@ -182,6 +185,12 @@ public class JourneyActivity extends ActionBarActivity
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.journey_rule).setTitle("Journey Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -190,6 +199,12 @@ public class JourneyActivity extends ActionBarActivity
             //todo show help dialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.journey_help).setTitle("Journey Help");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -257,7 +272,7 @@ public class JourneyActivity extends ActionBarActivity
             if(score>journeyHighScore){
                 SharedPreferences.Editor edit=journeyPreferences.edit();
                 journeyHighScore=score;
-                edit.putString(HIGH_SCORE,String.valueOf(score));
+                edit.putString(HIGH_SCORE, String.valueOf(score));
                 edit.commit();
 
                 //todo new high score animation, scale score textview
@@ -322,7 +337,7 @@ public class JourneyActivity extends ActionBarActivity
             journeyGridView.setGameOver();
         }
 //        timeTextView.setText(String.valueOf((int) Math.floor(time)));
-        moveTextView.setText(String.valueOf(moves));
+        moveTextView.setText(df.format(moves));
     }
 
     @Override

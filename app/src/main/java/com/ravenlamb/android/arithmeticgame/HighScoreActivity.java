@@ -1,6 +1,7 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class HighScoreActivity extends ActionBarActivity {
     public static final String HIGH_SCORE ="highScore";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
+    public static final String HIGH_COUNT="highCount";
 
     View[] animateViews;
 
@@ -59,6 +61,9 @@ public class HighScoreActivity extends ActionBarActivity {
         int adventureHighLargest=adventurePreferences.getInt(HIGH_LARGEST,0);
         TextView adventureLargest=(TextView)findViewById(R.id.adventure_largest);
         adventureLargest.setText(String.valueOf(adventureHighLargest));
+        int adventureHighCount=adventurePreferences.getInt(HIGH_COUNT,0);
+        TextView adventureCount=(TextView)findViewById(R.id.adventure_count);
+        adventureCount.setText(String.valueOf(adventureHighCount));
 
 
         //count
@@ -66,24 +71,30 @@ public class HighScoreActivity extends ActionBarActivity {
         double journeyHighScore=Double.parseDouble(journeyPreferences.getString(HIGH_SCORE, "0"));
         TextView journeyScore=(TextView)findViewById(R.id.journey_score);
         journeyScore.setText(String.valueOf((int)Math.floor(journeyHighScore)));
-        int journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN,0);
+        int journeyHighChain=journeyPreferences.getInt(HIGH_CHAIN, 0);
         TextView journeyChain=(TextView)findViewById(R.id.journey_chain);
         journeyChain.setText(String.valueOf(journeyHighChain));
         int journeyHighLargest=journeyPreferences.getInt(HIGH_LARGEST,0);
         TextView journeyLargest=(TextView)findViewById(R.id.journey_largest);
         journeyLargest.setText(String.valueOf(journeyHighLargest));
+        int journeyHighCount=journeyPreferences.getInt(HIGH_COUNT,0);
+        TextView journeyCount=(TextView)findViewById(R.id.journey_count);
+        journeyCount.setText(String.valueOf(journeyHighCount));
 
 
         SharedPreferences zenPreferences=getSharedPreferences(ZEN_PREFERENCES,0);
         double zenHighScore=Double.parseDouble(zenPreferences.getString(HIGH_SCORE, "0"));
         TextView zenScore=(TextView)findViewById(R.id.zen_score);
         zenScore.setText(String.valueOf((int)Math.floor(zenHighScore)));
-        int zenHighChain=zenPreferences.getInt(HIGH_CHAIN,0);
+        int zenHighChain=zenPreferences.getInt(HIGH_CHAIN, 0);
         TextView zenChain=(TextView)findViewById(R.id.zen_chain);
         zenChain.setText(String.valueOf(zenHighChain));
         int zenHighLargest=zenPreferences.getInt(HIGH_LARGEST,0);
         TextView zenLargest=(TextView)findViewById(R.id.zen_largest);
         zenLargest.setText(String.valueOf(zenHighLargest));
+        int zenHighCount=zenPreferences.getInt(HIGH_COUNT,0);
+        TextView zenCount=(TextView)findViewById(R.id.zen_count);
+        zenCount.setText(String.valueOf(zenHighCount));
 
         ArrayList<View> viewArrayList=new ArrayList<View>();
         viewArrayList.add(findViewById(R.id.chainTitleTextView));
@@ -95,16 +106,19 @@ public class HighScoreActivity extends ActionBarActivity {
         viewArrayList.add(findViewById(R.id.adventureScoreLinear));
         viewArrayList.add(findViewById(R.id.adventureChainLinear));
         viewArrayList.add(findViewById(R.id.adventureLargestLinear));
+        viewArrayList.add(findViewById(R.id.adventureCountLinear));
 
         viewArrayList.add(findViewById(R.id.journeyTitleTextView));
         viewArrayList.add(findViewById(R.id.journeyScoreLinear));
         viewArrayList.add(findViewById(R.id.journeyChainLinear));
         viewArrayList.add(findViewById(R.id.journeyLargestLinear));
+        viewArrayList.add(findViewById(R.id.journeyCountLinear));
 
         viewArrayList.add(findViewById(R.id.zenTitleTextView));
         viewArrayList.add(findViewById(R.id.zenScoreLinear));
         viewArrayList.add(findViewById(R.id.zenChainLinear));
         viewArrayList.add(findViewById(R.id.zenLargestLinear));
+        viewArrayList.add(findViewById(R.id.zenCountLinear));
 
 
         animateViews=new View[viewArrayList.size()];
@@ -136,6 +150,12 @@ public class HighScoreActivity extends ActionBarActivity {
         if (id == R.id.action_rules) {
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setMessage(R.string.main_rule).setTitle("Game Rules");
+            builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             AlertDialog dialog=builder.create();
             dialog.show();
             return true;
@@ -147,8 +167,8 @@ public class HighScoreActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
         int offset=180;

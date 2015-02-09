@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Largest number used:  "
+                    android:text="Largest Number Used:  "
                     android:textColor="@color/num_color0"
                     android:id="@+id/chain_largest_label" />
 
@@ -211,6 +211,32 @@
                     android:textColor="@color/num_color1"
                     android:id="@+id/adventure_largest" />
             </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/highscore_top_padding"
+                android:paddingBottom="@dimen/highscore_top_padding"
+                android:paddingLeft="@dimen/highscore_side_padding"
+                android:id="@+id/adventureCountLinear"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Highest Equation Count:  "
+                    android:textColor="@color/num_color1"
+                    android:id="@+id/adventure_count_label" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:textColor="@color/num_color1"
+                    android:id="@+id/adventure_count" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -312,6 +338,32 @@
                     android:textColor="@color/num_color2"
                     android:id="@+id/journey_largest" />
             </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/highscore_top_padding"
+                android:paddingBottom="@dimen/highscore_top_padding"
+                android:paddingLeft="@dimen/highscore_side_padding"
+                android:id="@+id/journeyCountLinear"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Highest Equation Count:  "
+                    android:textColor="@color/num_color2"
+                    android:id="@+id/journey_count_label" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:textColor="@color/num_color2"
+                    android:id="@+id/journey_count" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -411,6 +463,32 @@
                     android:text="0"
                     android:textColor="@color/num_color3"
                     android:id="@+id/zen_largest" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/highscore_top_padding"
+                android:paddingBottom="@dimen/highscore_top_padding"
+                android:paddingLeft="@dimen/highscore_side_padding"
+                android:id="@+id/zenCountLinear"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Highest Equation Count:  "
+                    android:textColor="@color/num_color3"
+                    android:id="@+id/zen_count_label" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="0"
+                    android:textColor="@color/num_color3"
+                    android:id="@+id/zen_count" />
             </LinearLayout>
 
         </LinearLayout>

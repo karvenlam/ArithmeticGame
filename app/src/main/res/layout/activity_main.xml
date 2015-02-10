@@ -95,7 +95,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/background_text_size"
         android:text="0"
         android:textColor="@color/num_color0"
         android:id="@+id/textView0" />

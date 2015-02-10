@@ -15,4 +15,5 @@
     <dimen name="highscore_title_padding">10dp</dimen>
     <dimen name="highscore_top_padding">5dp</dimen>
     <dimen name="highscore_side_padding">15dp</dimen>
+    <dimen name="background_text_size">50dp</dimen>
 </resources>

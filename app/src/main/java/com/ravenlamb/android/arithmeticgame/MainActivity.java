@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
@@ -112,9 +113,11 @@ public class MainActivity extends ActionBarActivity {
         TextView textView0=(TextView)findViewById(R.id.textView0);
         int x=(int)(Math.random()*(double)screenW);
         int y=(int)(Math.random()*(double)screenH);
-        TranslateAnimation translateAnimation=new TranslateAnimation(0,500,0,500);
-        translateAnimation.setDuration(5000);
-        textView0.startAnimation(translateAnimation);
+
+        TranslateAnimation position=new TranslateAnimation(x,x,y,y);
+        position.setDuration(5000);
+        position.setRepeatCount(Animation.INFINITE);
+        textView0.startAnimation(position);
 
     }
 }

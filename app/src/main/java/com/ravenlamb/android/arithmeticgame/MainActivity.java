@@ -10,16 +10,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    TextView[] numTextViews;
+    AnimationSet[] sets;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        numTextViews=new TextView[10];
+        numTextViews[0]=(TextView)findViewById(R.id.textView0);
+//        numTextViews[1]=(TextView)findViewById(R.id.textView1);
+//        numTextViews[2]=(TextView)findViewById(R.id.textView2);
+//        numTextViews[3]=(TextView)findViewById(R.id.textView3);
+//        numTextViews[4]=(TextView)findViewById(R.id.textView4);
+//        numTextViews[5]=(TextView)findViewById(R.id.textView5);
+//        numTextViews[6]=(TextView)findViewById(R.id.textView6);
+//        numTextViews[7]=(TextView)findViewById(R.id.textView7);
+//        numTextViews[8]=(TextView)findViewById(R.id.textView8);
+//        numTextViews[9]=(TextView)findViewById(R.id.textView9);
+        sets=new AnimationSet[10];
     }
 
     @Override
@@ -110,14 +128,28 @@ public class MainActivity extends ActionBarActivity {
         int screenH=dm.heightPixels;
 
         //todo combine visibility, alphaanimation and translateanimation
-        TextView textView0=(TextView)findViewById(R.id.textView0);
+
         int x=(int)(Math.random()*(double)screenW);
         int y=(int)(Math.random()*(double)screenH);
+        float r=(float)Math.random()*360;
 
-        TranslateAnimation position=new TranslateAnimation(x,x,y,y);
+        TranslateAnimation position=new TranslateAnimation(Animation.ABSOLUTE,x,Animation.ABSOLUTE,x,Animation.ABSOLUTE,y,Animation.ABSOLUTE,y);
         position.setDuration(5000);
         position.setRepeatCount(Animation.INFINITE);
-        textView0.startAnimation(position);
+        RotateAnimation angle=new RotateAnimation(r,r, Animation.RELATIVE_TO_SELF,.5f, Animation.RELATIVE_TO_SELF,.5f);
+        angle.setDuration(5000);
+        angle.setRepeatCount(Animation.INFINITE);
 
+        sets[0]=new AnimationSet(true);
+        sets[0].addAnimation(angle);
+        sets[0].addAnimation(position);
+
+        numTextViews[0].startAnimation(sets[0]);
+
+    }
+
+    @Override
+    protected void onStop() {
+        sets[0].cancel();
     }
 }

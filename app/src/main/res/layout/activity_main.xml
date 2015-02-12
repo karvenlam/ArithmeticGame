@@ -4,6 +4,86 @@
     android:layout_height="match_parent">
 <!--todo need to add background -->
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="0"
+        android:textColor="@color/num_color0"
+        android:alpha=".5"
+        android:id="@+id/textView0" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="1"
+        android:textColor="@color/num_color1"
+        android:alpha=".5"
+        android:id="@+id/textView1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="2"
+        android:textColor="@color/num_color2"
+        android:alpha=".5"
+        android:id="@+id/textView2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="3"
+        android:textColor="@color/num_color3"
+        android:alpha=".5"
+        android:id="@+id/textView3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="4"
+        android:textColor="@color/num_color4"
+        android:alpha=".5"
+        android:id="@+id/textView4" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="5"
+        android:textColor="@color/num_color5"
+        android:alpha=".5"
+        android:id="@+id/textView5" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="6"
+        android:textColor="@color/num_color6"
+        android:alpha=".5"
+        android:id="@+id/textView6" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="7"
+        android:textColor="@color/num_color7"
+        android:alpha=".5"
+        android:id="@+id/textView7" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="8"
+        android:textColor="@color/num_color8"
+        android:alpha=".5"
+        android:id="@+id/textView8" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/background_text_size"
+        android:text="9"
+        android:textColor="@color/num_color9"
+        android:alpha=".1"
+        android:id="@+id/textView9" />
 
 
     <LinearLayout
@@ -92,74 +172,4 @@
             android:id="@+id/highscore_button" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/background_text_size"
-        android:text="0"
-        android:textColor="@color/num_color0"
-        android:id="@+id/textView0" />
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="1"-->
-        <!--android:textColor="@color/num_color1"-->
-        <!--android:id="@+id/textView1" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="2"-->
-        <!--android:textColor="@color/num_color2"-->
-        <!--android:id="@+id/textView2" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="3"-->
-        <!--android:textColor="@color/num_color3"-->
-        <!--android:id="@+id/textView3" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="4"-->
-        <!--android:textColor="@color/num_color4"-->
-        <!--android:id="@+id/textView4" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="5"-->
-        <!--android:textColor="@color/num_color5"-->
-        <!--android:id="@+id/textView5" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="6"-->
-        <!--android:textColor="@color/num_color6"-->
-        <!--android:id="@+id/textView6" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="7"-->
-        <!--android:textColor="@color/num_color7"-->
-        <!--android:id="@+id/textView7" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="8"-->
-        <!--android:textColor="@color/num_color8"-->
-        <!--android:id="@+id/textView8" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="@dimen/background_text_size"-->
-        <!--android:text="9"-->
-        <!--android:textColor="@color/num_color9"-->
-        <!--android:id="@+id/textView9" />-->
 </FrameLayout>

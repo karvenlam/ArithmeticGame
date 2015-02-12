@@ -28,15 +28,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         numTextViews=new TextView[10];
         numTextViews[0]=(TextView)findViewById(R.id.textView0);
-//        numTextViews[1]=(TextView)findViewById(R.id.textView1);
-//        numTextViews[2]=(TextView)findViewById(R.id.textView2);
-//        numTextViews[3]=(TextView)findViewById(R.id.textView3);
-//        numTextViews[4]=(TextView)findViewById(R.id.textView4);
-//        numTextViews[5]=(TextView)findViewById(R.id.textView5);
-//        numTextViews[6]=(TextView)findViewById(R.id.textView6);
-//        numTextViews[7]=(TextView)findViewById(R.id.textView7);
-//        numTextViews[8]=(TextView)findViewById(R.id.textView8);
-//        numTextViews[9]=(TextView)findViewById(R.id.textView9);
+        numTextViews[1]=(TextView)findViewById(R.id.textView1);
+        numTextViews[2]=(TextView)findViewById(R.id.textView2);
+        numTextViews[3]=(TextView)findViewById(R.id.textView3);
+        numTextViews[4]=(TextView)findViewById(R.id.textView4);
+        numTextViews[5]=(TextView)findViewById(R.id.textView5);
+        numTextViews[6]=(TextView)findViewById(R.id.textView6);
+        numTextViews[7]=(TextView)findViewById(R.id.textView7);
+        numTextViews[8]=(TextView)findViewById(R.id.textView8);
+        numTextViews[9]=(TextView)findViewById(R.id.textView9);
         sets=new AnimationSet[10];
     }
 
@@ -50,6 +50,46 @@ public class MainActivity extends ActionBarActivity {
     protected void onPause() {
         //todo stop number animation
         super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DisplayMetrics dm=getResources().getDisplayMetrics();
+        int screenW=dm.widthPixels;
+        int screenH=dm.heightPixels;
+
+        //todo combine visibility, alphaanimation and translateanimation
+
+        for(int i=0;i<10;i++) {
+            float size = (float) ((Math.random() * .4 + .2) * screenW);
+            int x = (int) ((Math.random()*.8-.1) * (double) screenW );
+            int y = (int) ((Math.random()*.8-.1) * (double) screenH );
+            float r = (float) Math.random() * 360;
+
+            TranslateAnimation position = new TranslateAnimation(Animation.ABSOLUTE, x, Animation.ABSOLUTE, x, Animation.ABSOLUTE, y, Animation.ABSOLUTE, y);
+            position.setDuration(5000);
+            position.setRepeatCount(Animation.INFINITE);
+            RotateAnimation angle = new RotateAnimation(r, r, Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f);
+            angle.setDuration(5000);
+            angle.setRepeatCount(Animation.INFINITE);
+
+            sets[i] = new AnimationSet(true);
+            sets[i].addAnimation(angle);
+            sets[i].addAnimation(position);
+
+            numTextViews[i].setTextSize(size);
+            numTextViews[i].startAnimation(sets[i]);
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        for(int i=0;i<10;i++) {
+            sets[i].cancel();
+        }
     }
 
     @Override
@@ -120,36 +160,4 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        DisplayMetrics dm=getResources().getDisplayMetrics();
-        int screenW=dm.widthPixels;
-        int screenH=dm.heightPixels;
-
-        //todo combine visibility, alphaanimation and translateanimation
-
-        int x=(int)(Math.random()*(double)screenW);
-        int y=(int)(Math.random()*(double)screenH);
-        float r=(float)Math.random()*360;
-
-        TranslateAnimation position=new TranslateAnimation(Animation.ABSOLUTE,x,Animation.ABSOLUTE,x,Animation.ABSOLUTE,y,Animation.ABSOLUTE,y);
-        position.setDuration(5000);
-        position.setRepeatCount(Animation.INFINITE);
-        RotateAnimation angle=new RotateAnimation(r,r, Animation.RELATIVE_TO_SELF,.5f, Animation.RELATIVE_TO_SELF,.5f);
-        angle.setDuration(5000);
-        angle.setRepeatCount(Animation.INFINITE);
-
-        sets[0]=new AnimationSet(true);
-        sets[0].addAnimation(angle);
-        sets[0].addAnimation(position);
-
-        numTextViews[0].startAnimation(sets[0]);
-
-    }
-
-    @Override
-    protected void onStop() {
-        sets[0].cancel();
-    }
 }

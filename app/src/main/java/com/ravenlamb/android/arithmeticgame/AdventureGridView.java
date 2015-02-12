@@ -112,7 +112,7 @@ public class AdventureGridView extends BaseGridView {
         }
         if(gameOver){
             numberPaint.setColor(Color.BLACK);
-            canvas.drawText("OUT OF TIME",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+            canvas.drawText("TIME'S UP",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
         }
     }
 

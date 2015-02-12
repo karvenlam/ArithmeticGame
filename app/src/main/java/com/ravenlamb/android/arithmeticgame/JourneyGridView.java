@@ -22,7 +22,7 @@ public class JourneyGridView extends BaseGridView {
     float animateTextSize;
     float numberTextSize;
     boolean gameOver=false;//todo
-    String gameOverMessage="OUT OF MOVES";
+    String gameOverMessage="JOURNEY ENDS";
 
     public JourneyGridView(Context context) {
         super(context);

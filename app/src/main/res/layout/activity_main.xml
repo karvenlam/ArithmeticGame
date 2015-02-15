@@ -82,7 +82,7 @@
         android:textSize="@dimen/background_text_size"
         android:text="9"
         android:textColor="@color/num_color9"
-        android:alpha=".1"
+        android:alpha=".5"
         android:id="@+id/textView9" />
 
 
@@ -104,6 +104,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onChainStart"
             android:text="@string/chain"
+            android:background="@color/score_background"
             android:textColor="@color/num_color0"
             android:id="@+id/chain_button" />
 
@@ -119,6 +120,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onAdventureStart"
             android:text="@string/adventure"
+            android:background="@color/score_background"
             android:textColor="@color/num_color1"
             android:id="@+id/adventure_button" />
 
@@ -135,6 +137,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onJourneyStart"
             android:text="@string/journey"
+            android:background="@color/score_background"
             android:textColor="@color/num_color2"
             android:id="@+id/journey_button" />
 
@@ -150,6 +153,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onZenStart"
             android:text="@string/zen"
+            android:background="@color/score_background"
             android:textColor="@color/num_color3"
             android:id="@+id/zen_button" />
 
@@ -168,6 +172,7 @@
             android:layout_marginBottom="@dimen/menu_button_margin_top"
             android:onClick="onHighScoreStart"
             android:text="@string/highscore"
+            android:background="@color/score_background"
             android:textColor="@color/num_color5"
             android:id="@+id/highscore_button" />
     </LinearLayout>

@@ -156,6 +156,7 @@ public class ZenActivity extends ActionBarActivity
 //        countTextView.setText(String.valueOf(count));
         chainTextView.setText(String.valueOf(chain));
 //        largestTextView.setText(String.valueOf(largest));
+        historyTextView.setText("");
 
         zenGridView.initDriver();
         zenGridView.invalidate();

@@ -44,10 +44,11 @@ public class MainActivity extends ActionBarActivity {
         DisplayMetrics dm=getResources().getDisplayMetrics();
         int screenW=dm.widthPixels;
         int screenH=dm.heightPixels;
+        int screenMin=(screenW>screenH)?screenH:screenW;
 
         for(int i=0;i<10;i++) {
-            float size = (float) ((Math.random() * .3 + .4) * screenW);
-            int x = (int) ((Math.random()*.2+0.1) * (double) screenW );
+            float size = (float) ((Math.random() * .3 + .4) * screenMin);
+            int x = (int) ((Math.random()*.4+0.1) * (double) screenW );
             int y = (int) ((Math.random()*.7-0.0) * (double) screenH );
             float r = (float) Math.random() * 360;
 

@@ -47,7 +47,7 @@ public class ZenGameDriver extends BaseGameDriver {
 
 //            String newSet=getSetString(op1.number, op2.number,result.number);
             //two numbers must be >=10, at most have one 0
-            if(nums[1]<operandMin ){
+            if(nums[2]<operandMin ){
                 currStatus=OP_INVALID;
                 reasonStr=REASON_TOO_SMALL;
                 return currStatus;

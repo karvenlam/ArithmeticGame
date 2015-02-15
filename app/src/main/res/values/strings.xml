@@ -36,9 +36,9 @@
         When you continuously form correct arithmetic equations, you gain chain multiplier.
         \n\n
         Valid numbers cannot have leading zeros and cannot intersect each other.
-        In Zen mode, at least two out of three numbers must be greater or equal to 10.
+        In Zen mode, all three numbers must be greater or equal to 10.
         And each set of numbers must be unique.</string>
-    <string name="zen_rule">In Zen mode, at least two out of three numbers must be greater or equal to 10.
+    <string name="zen_rule">In Zen mode, all three numbers must be greater or equal to 10.
         And each set of numbers must be unique.</string>
     <string name="title_activity_journey">Arithmetic Journey</string>
     <string name="journey_help">Drag across the number grid in a straight line vertically, horizontally or diagonally to select number.

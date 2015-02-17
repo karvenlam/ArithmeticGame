@@ -64,6 +64,10 @@ public class BaseGameDriver {
         cells=new int[rows][cols];
 
         random=new SecureRandom();
+        initGrid();
+    }
+
+    public void initGrid(){
         for(int i=0;i<rows;i++){
             for(int j=0;j<cols;j++){
                 cells[i][j]=random.nextInt(10);

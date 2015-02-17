@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -50,6 +51,7 @@ public class ChainActivity extends ActionBarActivity
     //    TextView countTextView;
     TextView chainTextView;
 //    TextView largestTextView;
+    Button shuffleButton;
 
     double score=0;
 //    int count=0;
@@ -57,6 +59,7 @@ public class ChainActivity extends ActionBarActivity
     int largest=0;
 //    float moves=INITIAL_MOVES;
 //    float movesFactor=.1f;
+    int shuffleUsed=0;
 
     SharedPreferences chainPreferences;
 
@@ -79,6 +82,7 @@ public class ChainActivity extends ActionBarActivity
 //        largestTextView =(TextView) findViewById(R.id.largest_textview);
 //        moveTextView = (TextView) findViewById(R.id.moves_textview);
 //        moveTextView.setText(String.valueOf((int) Math.floor(moves)));
+        shuffleButton = (Button) findViewById(R.id.shuffleButton);
 
         op1TextView = (TextView) findViewById(R.id.op1_textview);
         op2TextView= (TextView) findViewById(R.id.op2_textview);
@@ -117,6 +121,7 @@ public class ChainActivity extends ActionBarActivity
         score=0;
         chain=0;
         largest=0;
+        shuffleUsed=0;
 
         chainPreferences=getSharedPreferences(CHAIN_PREFERENCES,0);
         chainHighScore=Double.parseDouble(chainPreferences.getString(HIGH_SCORE, "0"));
@@ -135,6 +140,7 @@ public class ChainActivity extends ActionBarActivity
         operatorTextView.setText(BaseGameDriver.UNKNOWN_OPERATOR);
         scoreTextView.setText(String.valueOf((int)score));
         chainTextView.setText(String.valueOf(chain));
+        shuffleButton.setText("Shuffle\n0");
 
         chainGridView.initDriver();
         chainGridView.invalidate();
@@ -202,6 +208,20 @@ public class ChainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void onShuffleClick(View view){
+        //todo, need to replace whole grid and animate
+        if( getShuffleRemaining()>0 ) {
+            shuffleUsed++;
+            chainGridView.shuffleChainGrid();
+            shuffleButton.setText("Shuffle\n"+getShuffleRemaining());
+        }
+    }
+
+    public int getShuffleRemaining(){
+        int tempShuffle=(int)Math.floor(Math.log10(score))-shuffleUsed;
+        return (tempShuffle<0)?0:tempShuffle;
+    }
+
     @Override
     public void onUpdate(BaseGameDriver baseGameDriver) {
         JourneyGameDriver chainGameDriver=(JourneyGameDriver)baseGameDriver;
@@ -257,6 +277,7 @@ public class ChainActivity extends ActionBarActivity
 //            moves= (float) (moves+chainGameDriver.getLogScore()*chain*movesFactor);
 //            moves= (moves>INITIAL_MOVES)?INITIAL_MOVES:moves;
             scoreTextView.setText(String.valueOf((int)Math.floor(score)));
+            shuffleButton.setText("Shuffle\n"+getShuffleRemaining());
 //        scoreTextView.setText(String.valueOf(score));
             if(score>chainHighScore){
                 SharedPreferences.Editor edit=chainPreferences.edit();

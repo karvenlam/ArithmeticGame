@@ -23,6 +23,10 @@
         When you continuously form correct arithmetic expressions, you gain chain multiplier.
         \n\n
         Valid numbers cannot have leading zeros and cannot intersect each other.
+        \n\n
+        For addition and subtraction, score=(blue)+(green)+(red).
+        For multiplication and division, score=((blue)+(green)+(red))x(log10(blue)+1) x (log10(green)+1) x (log10(red)+1).
+        The score is then multiplied by the current chain number.
     </string>
     <string name="title_activity_zen">Arithmetic Zen</string>
     <string name="zen_help">Drag across the number grid in a straight line vertically, horizontally or diagonally to select number.

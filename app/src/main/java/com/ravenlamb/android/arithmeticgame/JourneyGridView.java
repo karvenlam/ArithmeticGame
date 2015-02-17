@@ -205,11 +205,25 @@ public class JourneyGridView extends BaseGridView {
         invalidate();
     }
 
+
+    //FOR CHAIN MODE
     public void setChainGameOver(){
         gameOver=true;
         gameOverMessage="CHAIN BROKEN";
         invalidate();
     }
 
+    //FOR CHAIN MODE
+    public void shuffleChainGrid(){
+        //todo shuffle chain grid
+        baseGameDriver.initGrid();
+        for(int i=0;i<gridSize;i++){
+            for(int j=0;j<gridSize;j++){
+                shouldAnimate[i][j]=false;
+            }
+        }
+        ObjectAnimator.ofFloat(JourneyGridView.this, "animateTextSize",numberTextSize/2,numberTextSize).setDuration(500).start();
+        invalidate();
+    }
 
 }

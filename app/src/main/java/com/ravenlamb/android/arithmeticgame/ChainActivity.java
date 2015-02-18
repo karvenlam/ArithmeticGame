@@ -19,6 +19,9 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 /**
  * This is the activity class for Journey mode of Arithmetic game
  * Each time an equation is correct, the selected cells are replaced,
@@ -114,6 +117,10 @@ public class ChainActivity extends ActionBarActivity
         });
         AlertDialog dialog=builder.create();
         dialog.show();
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 

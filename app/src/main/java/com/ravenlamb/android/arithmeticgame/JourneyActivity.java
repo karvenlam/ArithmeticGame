@@ -18,6 +18,9 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.text.DecimalFormat;
 
 /**
@@ -113,6 +116,11 @@ public class JourneyActivity extends ActionBarActivity
         });
         AlertDialog dialog=builder.create();
         dialog.show();
+
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 

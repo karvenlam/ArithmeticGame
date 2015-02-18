@@ -20,6 +20,9 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class ZenActivity extends ActionBarActivity
     implements BaseGridView.OnGridViewInteraction{
@@ -124,6 +127,11 @@ public class ZenActivity extends ActionBarActivity
         });
         AlertDialog dialog=builder.create();
         dialog.show();
+
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 

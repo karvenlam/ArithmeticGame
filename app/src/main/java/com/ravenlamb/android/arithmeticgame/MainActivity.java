@@ -15,6 +15,9 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -36,6 +39,10 @@ public class MainActivity extends ActionBarActivity {
         numTextViews[7]=(TextView)findViewById(R.id.textView7);
         numTextViews[8]=(TextView)findViewById(R.id.textView8);
         numTextViews[9]=(TextView)findViewById(R.id.textView9);
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

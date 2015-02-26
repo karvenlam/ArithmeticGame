@@ -3,6 +3,7 @@ package com.ravenlamb.android.arithmeticgame;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
@@ -48,23 +50,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        DisplayMetrics dm=getResources().getDisplayMetrics();
-        int screenW=dm.widthPixels;
-        int screenH=dm.heightPixels;
-        int screenMin=(screenW>screenH)?screenH:screenW;
 
-        for(int i=0;i<10;i++) {
-            float size = (float) ((Math.random() * .3 + .4) * screenMin);
-            int x = (int) ((Math.random()*.4+0.1) * (double) screenW );
-            int y = (int) ((Math.random()*.7-0.0) * (double) screenH );
-            float r = (float) Math.random() * 360;
-
-            numTextViews[i].setTextSize(size);
-            numTextViews[i].setTranslationX(x);
-            numTextViews[i].setTranslationY(y);
-            numTextViews[i].setRotation(r);
-
-        }
     }
 
     @Override
@@ -75,12 +61,44 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        DisplayMetrics dm=getResources().getDisplayMetrics();
+        int screenW=dm.widthPixels;
+        int screenH=dm.heightPixels;
+        int screenMin=(screenW>screenH)?screenH:screenW;
+
+
+
+        for(int i=0;i<10;i++) {
+            float size = (float) ((Math.random() * .1 + .3) * screenMin);
+            int x = (int) ((Math.random()*.6+0.1) * (double) screenW );
+            int y = (int) ((Math.random()*.1+0.6) * (double) screenH );
+            float r = (float) Math.random() * 360;
+
+            numTextViews[i].setTextSize(size);
+            numTextViews[i].setTranslationX(x);
+            numTextViews[i].setTranslationY(y);
+            numTextViews[i].setRotation(r);
+        }
+
+
+        for(int i=0;i<10;i++){
+            TranslateAnimation translateAnimation=new TranslateAnimation(0,0,-screenH,0);
+            translateAnimation.setDuration(800);
+            translateAnimation.setInterpolator(new OvershootInterpolator(.5f));
+            translateAnimation.setStartOffset((int) (Math.random() * 2500));
+            numTextViews[i].startAnimation(translateAnimation);
+
+        }
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        for(int i=0;i<10;i++){
+            numTextViews[i].clearAnimation();
+        }
     }
 
     @Override

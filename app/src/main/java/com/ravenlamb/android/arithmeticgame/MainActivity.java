@@ -23,26 +23,27 @@ import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends ActionBarActivity {
 
-    TextView[] numTextViews;
+//    TextView[] numTextViews;
 
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        numTextViews=new TextView[10];
-        numTextViews[0]=(TextView)findViewById(R.id.textView0);
-        numTextViews[1]=(TextView)findViewById(R.id.textView1);
-        numTextViews[2]=(TextView)findViewById(R.id.textView2);
-        numTextViews[3]=(TextView)findViewById(R.id.textView3);
-        numTextViews[4]=(TextView)findViewById(R.id.textView4);
-        numTextViews[5]=(TextView)findViewById(R.id.textView5);
-        numTextViews[6]=(TextView)findViewById(R.id.textView6);
-        numTextViews[7]=(TextView)findViewById(R.id.textView7);
-        numTextViews[8]=(TextView)findViewById(R.id.textView8);
-        numTextViews[9]=(TextView)findViewById(R.id.textView9);
+//        numTextViews=new TextView[10];
+//        numTextViews[0]=(TextView)findViewById(R.id.textView0);
+//        numTextViews[1]=(TextView)findViewById(R.id.textView1);
+//        numTextViews[2]=(TextView)findViewById(R.id.textView2);
+//        numTextViews[3]=(TextView)findViewById(R.id.textView3);
+//        numTextViews[4]=(TextView)findViewById(R.id.textView4);
+//        numTextViews[5]=(TextView)findViewById(R.id.textView5);
+//        numTextViews[6]=(TextView)findViewById(R.id.textView6);
+//        numTextViews[7]=(TextView)findViewById(R.id.textView7);
+//        numTextViews[8]=(TextView)findViewById(R.id.textView8);
+//        numTextViews[9]=(TextView)findViewById(R.id.textView9);
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -50,45 +51,46 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        mAdView.resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mAdView.pause();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        DisplayMetrics dm=getResources().getDisplayMetrics();
-        int screenW=dm.widthPixels;
-        int screenH=dm.heightPixels;
-        int screenMin=(screenW>screenH)?screenH:screenW;
-
-
-
-        for(int i=0;i<10;i++) {
-            float size = (float) ((Math.random() * .1 + .3) * screenMin);
-            int x = (int) ((Math.random()*.6+0.1) * (double) screenW );
-            int y = (int) ((Math.random()*.1+0.6) * (double) screenH );
-            float r = (float) Math.random() * 360;
-
-            numTextViews[i].setTextSize(size);
-            numTextViews[i].setTranslationX(x);
-            numTextViews[i].setTranslationY(y);
-            numTextViews[i].setRotation(r);
-        }
-
-
-        for(int i=0;i<10;i++){
-            TranslateAnimation translateAnimation=new TranslateAnimation(0,0,-screenH,0);
-            translateAnimation.setDuration(800);
-            translateAnimation.setInterpolator(new OvershootInterpolator(.5f));
-            translateAnimation.setStartOffset((int) (Math.random() * 2500));
-            numTextViews[i].startAnimation(translateAnimation);
-
-        }
+//        DisplayMetrics dm=getResources().getDisplayMetrics();
+//        int screenW=dm.widthPixels;
+//        int screenH=dm.heightPixels;
+//        int screenMin=(screenW>screenH)?screenH:screenW;
+//
+//
+//
+//        for(int i=0;i<10;i++) {
+//            float size = (float) ((Math.random() * .1 + .3) * screenMin);
+//            int x = (int) ((Math.random()*.6+0.1) * (double) screenW );
+//            int y = (int) ((Math.random()*.1+0.6) * (double) screenH );
+//            float r = (float) Math.random() * 360;
+//
+//            numTextViews[i].setTextSize(size);
+//            numTextViews[i].setTranslationX(x);
+//            numTextViews[i].setTranslationY(y);
+//            numTextViews[i].setRotation(r);
+//        }
+//
+//
+//        for(int i=0;i<10;i++){
+//            TranslateAnimation translateAnimation=new TranslateAnimation(0,0,-screenH,0);
+//            translateAnimation.setDuration(800);
+//            translateAnimation.setInterpolator(new OvershootInterpolator(.5f));
+//            translateAnimation.setStartOffset((int) (Math.random() * 2500));
+//            numTextViews[i].startAnimation(translateAnimation);
+//
+//        }
 
     }
 
@@ -96,14 +98,15 @@ public class MainActivity extends ActionBarActivity {
     protected void onStop() {
         super.onStop();
 
-        for(int i=0;i<10;i++){
-            numTextViews[i].clearAnimation();
-        }
+//        for(int i=0;i<10;i++){
+//            numTextViews[i].clearAnimation();
+//        }
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 
     public void onZenStart(View view)

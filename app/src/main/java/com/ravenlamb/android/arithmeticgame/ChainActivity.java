@@ -42,6 +42,8 @@ public class ChainActivity extends ActionBarActivity
 //    public static final float INITIAL_MOVES=10;
 //    public static final int animationRepeat=4;
 
+    AdView mAdView;
+
     JourneyGridView chainGridView;
 
     TextView op1TextView;
@@ -118,7 +120,7 @@ public class ChainActivity extends ActionBarActivity
         AlertDialog dialog=builder.create();
         dialog.show();
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -156,6 +158,25 @@ public class ChainActivity extends ActionBarActivity
 
     public void onRestart(View view){
         newGame();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 
     @Override

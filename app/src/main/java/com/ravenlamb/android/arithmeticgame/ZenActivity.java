@@ -33,7 +33,9 @@ public class ZenActivity extends ActionBarActivity
     public static final String HIGH_COUNT="highCount";
     public static final String HIGH_CHAIN ="highChain";
     public static final String HIGH_LARGEST ="highLargest";
-    public static final int animationRepeat=4;
+//    public static final int animationRepeat=4;
+
+    AdView mAdView;
 
     ZenGridView zenGridView;
 
@@ -129,7 +131,7 @@ public class ZenActivity extends ActionBarActivity
         dialog.show();
 
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -173,6 +175,25 @@ public class ZenActivity extends ActionBarActivity
 
     public void onRestart(View view){
         newGame();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 
     @Override

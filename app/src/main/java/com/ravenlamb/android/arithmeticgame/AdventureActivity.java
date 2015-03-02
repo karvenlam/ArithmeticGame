@@ -41,6 +41,8 @@ public class AdventureActivity extends ActionBarActivity
     public static final int animationRepeat=4;
     public static final DecimalFormat df=new DecimalFormat("0.0");
 
+    AdView mAdView;
+
     AdventureGridView adventureGridView;
 
     TextView op1TextView;
@@ -137,7 +139,7 @@ public class AdventureActivity extends ActionBarActivity
         dialog.show();
 
 
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -184,6 +186,24 @@ public class AdventureActivity extends ActionBarActivity
 
     public void onRestart(View view){
         newGame();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdView.resume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdView.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdView.destroy();
     }
 
     @Override

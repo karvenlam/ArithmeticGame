@@ -1,7 +1,9 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -19,12 +21,15 @@ import android.view.animation.OvershootInterpolator;
 public class AdventureGridView extends BaseGridView {
     public static final String TAG=AdventureGridView.class.getName();
 
+    public static final String GAMEOVER_MESSAGE="TIME'S UP";
+
     Paint numberAnimatePaint;
     boolean[][] shouldAnimate;
     float animateYFactor;
 //    float animateTextSize;
     float numberTextSize;
-    boolean gameOver=false;//todo
+    boolean gameOver=false;
+    boolean gameOverDialogShown=false;
 
     public AdventureGridView(Context context) {
         super(context);
@@ -57,6 +62,7 @@ public class AdventureGridView extends BaseGridView {
         baseGameDriver=new AdventureGameDriver(gridSize,gridSize);
 
         gameOver=false;
+        gameOverDialogShown=false;
         AdventureGridView.this.setEnabled(true);
     }
 
@@ -112,7 +118,7 @@ public class AdventureGridView extends BaseGridView {
         }
         if(gameOver){
             numberPaint.setColor(Color.BLACK);
-            canvas.drawText("TIME'S UP",canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
+            canvas.drawText(GAMEOVER_MESSAGE,canvas.getWidth()/2,canvas.getHeight()/2,numberPaint);
         }
     }
 
@@ -120,6 +126,27 @@ public class AdventureGridView extends BaseGridView {
     public boolean onTouchEvent(MotionEvent event) {
 
         if(gameOver){
+            if(!gameOverDialogShown) {
+                AlertDialog.Builder builder = new AlertDialog.Builder((Context) onGridViewInteraction);
+                builder.setTitle(GAMEOVER_MESSAGE);
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        gameOverDialogShown=false;
+                    }
+                });
+                builder.setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onGridViewInteraction.onNewGame(baseGameDriver);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                gameOverDialogShown=true;
+            }
+
             return true;
         }
         // get the event type and the ID of the pointer that caused the event

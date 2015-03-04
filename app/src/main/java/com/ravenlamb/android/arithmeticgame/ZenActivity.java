@@ -389,7 +389,7 @@ public class ZenActivity extends ActionBarActivity
 
 
     @Override
-    public void onDebug(BaseGameDriver baseGameDriver) {
+    public void onNewGame(BaseGameDriver baseGameDriver) {
         //historyTextView.setText(baseGameDriver.toString());
     }
 }

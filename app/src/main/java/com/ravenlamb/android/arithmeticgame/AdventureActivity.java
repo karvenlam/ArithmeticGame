@@ -337,6 +337,7 @@ public class AdventureActivity extends ActionBarActivity
             double thisScore=adventureGameDriver.getScore()*chain;
             score+=thisScore;
             time = (float) (time +adventureGameDriver.getLogScore()*chain* timeFactor);
+//            Log.d(TAG,"time"+time+", "+adventureGameDriver.getLogScore()+", "+chain);
             time = (time >INITIAL_TIME)?INITIAL_TIME: time;
             scoreTextView.setText(String.valueOf((int)Math.floor(score)));
 //        scoreTextView.setText(String.valueOf(score));
@@ -409,7 +410,7 @@ public class AdventureActivity extends ActionBarActivity
     }
 
     @Override
-    public void onDebug(BaseGameDriver baseGameDriver) {
-
+    public void onNewGame(BaseGameDriver baseGameDriver) {
+        newGame();
     }
 }

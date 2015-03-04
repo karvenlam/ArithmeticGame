@@ -98,6 +98,7 @@ public abstract class BaseGridView extends View {
         currentPaint.setColor(Color.YELLOW);//todo need to match  resultColor
         currentPaint.setStyle(Paint.Style.STROKE);
         currentPaint.setStrokeWidth(STROKE_WIDTH);
+
         initDriver();
 
     }
@@ -218,7 +219,7 @@ public abstract class BaseGridView extends View {
 
 
     public interface OnGridViewInteraction{
-        public void onDebug(BaseGameDriver baseGameDriver);//don't really need this
+        public void onNewGame(BaseGameDriver baseGameDriver);
         public void onUpdate(BaseGameDriver baseGameDriver);
     }
 }

@@ -370,7 +370,7 @@ public class JourneyActivity extends ActionBarActivity
     }
 
     @Override
-    public void onDebug(BaseGameDriver baseGameDriver) {
+    public void onNewGame(BaseGameDriver baseGameDriver) {
 
     }
 }

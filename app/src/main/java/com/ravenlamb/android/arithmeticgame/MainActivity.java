@@ -20,10 +20,13 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.security.SecureRandom;
+
 
 public class MainActivity extends ActionBarActivity {
 
     TextView[] numTextViews;
+    SecureRandom random=new SecureRandom();
 
     AdView mAdView;
 
@@ -73,10 +76,10 @@ public class MainActivity extends ActionBarActivity {
 
 
         for(int i=0;i<10;i++) {
-            float size = (float) ((Math.random() * .1 + .3) * screenMin);
-            int x = (int) ((Math.random()*.6+0.1) * (double) screenW );
-            int y = (int) ((Math.random()*.2+0.5) * (double) screenH );
-            float r = (float) Math.random() * 360;
+            float size = (float) ((random.nextFloat() * .1 + .3) * screenMin);
+            int x = (int) ((random.nextDouble() *.6+0.1) * (double) screenW );
+            int y = (int) ((random.nextDouble()*.2+0.5) * (double) screenH );
+            float r = random.nextFloat() * 360;
 
             numTextViews[i].setTextSize(size);
             numTextViews[i].setTranslationX(x);
@@ -87,9 +90,9 @@ public class MainActivity extends ActionBarActivity {
 
         for(int i=0;i<10;i++){
             TranslateAnimation translateAnimation=new TranslateAnimation(0,0,-screenH,0);
-            translateAnimation.setDuration(800);
+            translateAnimation.setDuration((int)(600+random.nextFloat()*400));
             translateAnimation.setInterpolator(new OvershootInterpolator(.5f));
-            translateAnimation.setStartOffset((int) (Math.random() * 2500));
+            translateAnimation.setStartOffset((int) (random.nextFloat() * 2500));
             numTextViews[i].startAnimation(translateAnimation);
 
         }

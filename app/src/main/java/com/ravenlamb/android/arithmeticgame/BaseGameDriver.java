@@ -179,7 +179,7 @@ public class BaseGameDriver {
             currStatus= OP_SUBTRACTION;
         }else if(op1.number*op2.number == result.number){
             currStatus= OP_MULTIPLICATION;
-        }else if(op2.number != 0 && op1.number/op2.number == result.number){
+        }else if(op2.number != 0 && op1.number == op2.number * result.number){
             currStatus= OP_DIVISION;
         }else if(op1.number-op2.number == -result.number){
             currStatus= OP_NEGATIVE_SUBTRACTION;
@@ -602,7 +602,10 @@ public class BaseGameDriver {
         if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION || currStatus==OP_NEGATIVE_SUBTRACTION){
             temp+=op1.number+op2.number+result.number;
         }else if(currStatus==OP_MULTIPLICATION || currStatus==OP_DIVISION){
-            temp+=(op1.number+op2.number+result.number)*((Math.log10(op1.number)+1)*(Math.log10(op2.number)+1)*(Math.log10(result.number)+1));
+            int op1num=(op1.number==0)?1:op1.number;
+            int op2num=(op2.number==0)?1:op2.number;
+            int resultnum=(result.number==0)?1:result.number;
+            temp+=(op1.number+op2.number+result.number)*((Math.log10(op1num)+1)*(Math.log10(op2num)+1)*(Math.log10(resultnum)+1));
         }
         return temp;
     }
@@ -619,10 +622,13 @@ public class BaseGameDriver {
         if(currStatus==OP_UNTESTED){
             computeStatus();
         }
+        int op1num=(op1.number==0)?1:op1.number;
+        int op2num=(op2.number==0)?1:op2.number;
+        int resultnum=(result.number==0)?1:result.number;
         if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION){
-            temp+=Math.log10(op1.number)+Math.log10(op2.number)+Math.log10(result.number);
+            temp+=Math.log10(op1num)+Math.log10(op2num)+Math.log10(resultnum);
         }else if(currStatus==OP_MULTIPLICATION || currStatus==OP_DIVISION){
-            temp+=(Math.log10(op1.number)+1)*(Math.log10(op2.number)+1)*(Math.log10(result.number)+1);
+            temp+=(Math.log10(op1num)+1)*(Math.log10(op2num)+1)*(Math.log10(resultnum)+1);
         }
         return temp;
     }

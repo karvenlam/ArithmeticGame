@@ -129,7 +129,7 @@ public class AdventureGridView extends BaseGridView {
             if(!gameOverDialogShown) {
                 AlertDialog.Builder builder = new AlertDialog.Builder((Context) onGridViewInteraction);
                 builder.setTitle(GAMEOVER_MESSAGE);
-                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                builder.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -140,6 +140,12 @@ public class AdventureGridView extends BaseGridView {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         onGridViewInteraction.onNewGame(baseGameDriver);
+                    }
+                });
+                builder.setNegativeButton("QUIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onGridViewInteraction.onGameQuit();
                     }
                 });
                 AlertDialog dialog = builder.create();

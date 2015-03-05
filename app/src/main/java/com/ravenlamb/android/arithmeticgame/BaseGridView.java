@@ -221,5 +221,6 @@ public abstract class BaseGridView extends View {
     public interface OnGridViewInteraction{
         public void onNewGame(BaseGameDriver baseGameDriver);
         public void onUpdate(BaseGameDriver baseGameDriver);
+        public void onGameQuit();
     }
 }

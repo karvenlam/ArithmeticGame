@@ -1,7 +1,9 @@
 package com.ravenlamb.android.arithmeticgame;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -21,7 +23,8 @@ public class JourneyGridView extends BaseGridView {
     boolean[][] shouldAnimate;
     float animateTextSize;
     float numberTextSize;
-    boolean gameOver=false;//todo
+    boolean gameOver=false;
+    boolean gameOverDialogShown=false;
     String gameOverMessage="JOURNEY ENDS";
 
     public JourneyGridView(Context context) {
@@ -54,6 +57,7 @@ public class JourneyGridView extends BaseGridView {
         baseGameDriver=new JourneyGameDriver(gridSize,gridSize);
 
         gameOver=false;
+        gameOverDialogShown=false;
         JourneyGridView.this.setEnabled(true);
     }
 
@@ -114,6 +118,32 @@ public class JourneyGridView extends BaseGridView {
     public boolean onTouchEvent(MotionEvent event) {
 
         if(gameOver){
+            if(!gameOverDialogShown) {
+                AlertDialog.Builder builder = new AlertDialog.Builder((Context) onGridViewInteraction);
+                builder.setTitle(gameOverMessage);
+                builder.setNeutralButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        gameOverDialogShown=false;
+                    }
+                });
+                builder.setPositiveButton("RETRY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onGridViewInteraction.onNewGame(baseGameDriver);
+                    }
+                });
+                builder.setNegativeButton("QUIT", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onGridViewInteraction.onGameQuit();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                gameOverDialogShown=true;
+            }
             return true;
         }
         // get the event type and the ID of the pointer that caused the event

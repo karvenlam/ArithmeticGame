@@ -385,6 +385,11 @@ public class ChainActivity extends ActionBarActivity
 
     @Override
     public void onNewGame(BaseGameDriver baseGameDriver) {
+        newGame();
+    }
 
+    @Override
+    public void onGameQuit() {
+        this.finish();
     }
 }

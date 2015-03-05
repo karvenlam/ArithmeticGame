@@ -413,4 +413,9 @@ public class AdventureActivity extends ActionBarActivity
     public void onNewGame(BaseGameDriver baseGameDriver) {
         newGame();
     }
+
+    @Override
+    public void onGameQuit() {
+        this.finish();
+    }
 }

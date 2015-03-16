@@ -625,7 +625,7 @@ public class BaseGameDriver {
         int op1num=(op1.number==0)?1:op1.number;
         int op2num=(op2.number==0)?1:op2.number;
         int resultnum=(result.number==0)?1:result.number;
-        if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION){
+        if(currStatus==OP_ADDITION || currStatus==OP_SUBTRACTION || currStatus==OP_NEGATIVE_SUBTRACTION){
             temp+=Math.log10(op1num)+Math.log10(op2num)+Math.log10(resultnum);
         }else if(currStatus==OP_MULTIPLICATION || currStatus==OP_DIVISION){
             temp+=(Math.log10(op1num)+1)*(Math.log10(op2num)+1)*(Math.log10(resultnum)+1);

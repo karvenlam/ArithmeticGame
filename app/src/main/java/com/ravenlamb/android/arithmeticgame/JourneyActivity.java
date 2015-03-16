@@ -4,10 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +47,13 @@ public class JourneyActivity extends ActionBarActivity
     public static final float INITIAL_MOVES=10;
     public static final int animationRepeat=4;
     public static final DecimalFormat df=new DecimalFormat("0.00");
+
+
+    // constants and variables for managing sounds
+    private static final int SUCCESS_SOUND_ID = 0;
+    private static final int FAILURE_SOUND_ID = 1;
+    private SoundPool soundPool; // plays sound effects
+    private SparseIntArray soundMap; // maps IDs to SoundPool
 
     AdView mAdView;
 
@@ -105,6 +116,25 @@ public class JourneyActivity extends ActionBarActivity
         layoutParams.width=gridViewWidth;
         layoutParams.height=gridViewWidth;
         journeyGridView.setLayoutParams(layoutParams);
+
+//todo
+        // initialize SoundPool to play the app's three sound effects
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+
+//        AudioAttributes.Builder ab=new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC);
+//        ab.setUsage(AudioAttributes.USAGE_GAME);
+//
+//        SoundPool.Builder sb=new SoundPool.Builder();
+//        sb.setMaxStreams(1);
+//        sb.setAudioAttributes(ab.build());
+//        soundPool=sb.build();
+
+        // create Map of sounds and pre-load sounds
+        soundMap = new SparseIntArray(3); // create new HashMap
+        soundMap.put(SUCCESS_SOUND_ID,
+                soundPool.load(this, R.raw.success, 1));
+        soundMap.put(FAILURE_SOUND_ID,
+                soundPool.load(this, R.raw.failure, 1));
 
         newGame();
 
@@ -358,9 +388,12 @@ public class JourneyActivity extends ActionBarActivity
                 }
             }
 
+            soundPool.play(soundMap.get(SUCCESS_SOUND_ID), 1, 1, 1, 0, 1f);
         }else if(operator==BaseGameDriver.OP_INVALID){
             operatorTextView.setText(BaseGameDriver.OPERATORS[BaseGameDriver.OP_INVALID ]);
             chain=0;
+
+            soundPool.play(soundMap.get(FAILURE_SOUND_ID), 1, 1, 1, 0, 1f);
         }
         if(moves<1){
             journeyGridView.setGameOver();
